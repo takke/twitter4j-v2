@@ -50,6 +50,12 @@ class TweetsResponse : TwitterResponse {
                 t.publicMetrics = PublicMetrics(it)
             }
 
+            // TODO author_id
+
+            // TODO attachments.poll_ids
+
+            t.possiblySensitive = data.optBoolean("possibly_sensitive", false)
+
             tweets.add(t)
         }
 

@@ -11,4 +11,6 @@ data class Tweet(val id: Long, val text: String) {
     var createdAt: Date? = null
 
     var publicMetrics: PublicMetrics? = null
+
+    var possiblySensitive: Boolean = false
 }

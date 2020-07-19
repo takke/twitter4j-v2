@@ -21,6 +21,8 @@ class TweetsResponseTest {
         assertThat(res.tweets[0].publicMetrics?.replyCount).isEqualTo(9)
         assertThat(res.tweets[0].publicMetrics?.likeCount).isEqualTo(82)
         assertThat(res.tweets[0].publicMetrics?.quoteCount).isEqualTo(0)
+
+        assertThat(res.tweets[0].possiblySensitive).isEqualTo(false)
     }
 
     @Test
