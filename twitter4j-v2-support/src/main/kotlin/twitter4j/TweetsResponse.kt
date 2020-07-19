@@ -49,6 +49,8 @@ class TweetsResponse : TwitterResponse {
             }
         }
 
+        // TODO includes.users, ...
+
         //--------------------------------------------------
         // create tweets from data
         //--------------------------------------------------
@@ -86,10 +88,6 @@ class TweetsResponse : TwitterResponse {
 
             tweets.add(t)
         }
-
-        // includes.polls
-
-        // TODO includes.users, ...
     }
 
     override fun getRateLimitStatus(): RateLimitStatus? {
