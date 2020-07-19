@@ -9,19 +9,17 @@ How do I use it?
 
 ##### Dependencies
 ```groovy
-allprojects {
-    repositories {
-        maven {
-            url 'https://jitpack.io'
-            content {
-                includeGroup "com.github.takke.twitter4j-v2"
-            }
+repositories {
+    maven {
+        url 'https://jitpack.io'
+        content {
+            includeGroup "com.github.takke.twitter4j-v2"
         }
     }
 }
 
 dependencies {
-  implementation 'com.github.takke.twitter4j-v2:twitter4j-v2-support:-SNAPSHOT'
+    implementation 'com.github.takke.twitter4j-v2:twitter4j-v2-support:-SNAPSHOT'
 }
 ```
 
@@ -51,7 +49,7 @@ Requirements
 
 Developed By
 ---
-Hiroaki TAKEUCHI (<a href="https://twitter.com/takke">@takke</a>) - <takke30 at gmail.com>
+Hiroaki TAKEUCHI (<a href="https://twitter.com/takke">@takke</a>) - takke30 at gmail.com
 
 
 License
