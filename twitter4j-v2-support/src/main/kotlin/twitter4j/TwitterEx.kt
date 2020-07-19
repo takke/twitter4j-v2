@@ -1,5 +1,7 @@
 package twitter4j
 
+import twitter4j.factory.TweetsFactory
+
 /**
  * Returns a variety of information about the Tweet specified by the requested ID or list of IDs.
  *
@@ -21,9 +23,9 @@ fun Twitter.getTweets(tweetId: Array<Long>,
                               "in_reply_to_user_id," +
                               "referenced_tweets.id," +
                               "referenced_tweets.id.author_id"
-): HttpResponse? {
+): TweetsResponse {
 
-    if (this !is TwitterImpl) return null
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
 
     ensureAuthorizationEnabled()
 
@@ -52,5 +54,8 @@ fun Twitter.getTweets(tweetId: Array<Long>,
         params.add(HttpParameter("user.fields", userFields))
     }
 
-    return http.get(V2Configuration.baseURL + "tweets", params.toTypedArray(), auth, this)
+    return TweetsFactory().createTweetsResponse(
+            http.get(V2Configuration.baseURL + "tweets", params.toTypedArray(), auth, this),
+            conf
+    )
 }
