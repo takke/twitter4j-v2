@@ -10,14 +10,14 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        maven {
-            url 'https://jitpack.io'
-            content {
-                includeGroup "com.github.takke.twitter4j"
-            }
-        }
-    }
-}
+//allprojects {
+//    repositories {
+//        maven {
+//            url 'https://jitpack.io'
+//            content {
+//                includeGroup "com.github.takke.twitter4j"
+//            }
+//        }
+//    }
+//}
 
