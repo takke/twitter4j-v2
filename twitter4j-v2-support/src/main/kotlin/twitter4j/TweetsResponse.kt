@@ -1,6 +1,6 @@
 package twitter4j
 
-class TweetsResponse(res: HttpResponse) : TwitterResponse {
+class TweetsResponse : TwitterResponse {
 
     @Transient
     private var rateLimitStatus: RateLimitStatus? = null
@@ -13,12 +13,45 @@ class TweetsResponse(res: HttpResponse) : TwitterResponse {
     // convert to json object
     val asJSONObject: JSONObject get() = jsonObject
 
+    val tweets: List<Tweet> = mutableListOf()
 
-    init {
+
+    constructor(res: HttpResponse) {
         rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
         accessLevel = ParseUtil.toAccessLevel(res)
-
         jsonObject = res.asJSONObject()
+
+        parse()
+    }
+
+    constructor(json: JSONObject) {
+        jsonObject = json
+
+        parse()
+    }
+
+    private fun parse() {
+        val tweets = tweets as MutableList
+        tweets.clear()
+
+        // data
+        val dataArray = jsonObject.getJSONArray("data")
+        for (i in 0 until dataArray.length()) {
+            val data = dataArray.getJSONObject(i)
+            val t = Tweet(
+                    data.getLong("id"),
+                    data.getString("text")
+            )
+
+            t.source = data.optString("source", null)
+            t.lang = data.optString("lang", null)
+
+            tweets.add(t)
+        }
+
+        // includes.polls
+
+        // TODO includes.users, ...
     }
 
     override fun getRateLimitStatus(): RateLimitStatus? {
