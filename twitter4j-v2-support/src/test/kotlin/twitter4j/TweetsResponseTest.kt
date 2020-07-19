@@ -15,6 +15,12 @@ class TweetsResponseTest {
         assertThat(res.tweets[0].text).isEqualTo("We've got polls now! Which typeface do you prefer?")
         assertThat(res.tweets[0].source).isEqualTo("Twitter Web Client")
         assertThat(res.tweets[0].lang).isEqualTo("en")
+        assertThat(res.tweets[0].createdAt).isEqualTo("2015-10-21T23:23:19.000Z")
+
+        assertThat(res.tweets[0].publicMetrics?.retweetCount).isEqualTo(66)
+        assertThat(res.tweets[0].publicMetrics?.replyCount).isEqualTo(9)
+        assertThat(res.tweets[0].publicMetrics?.likeCount).isEqualTo(82)
+        assertThat(res.tweets[0].publicMetrics?.quoteCount).isEqualTo(0)
     }
 
     @Test

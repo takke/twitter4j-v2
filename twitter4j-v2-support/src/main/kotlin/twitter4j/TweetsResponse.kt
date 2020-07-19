@@ -45,6 +45,10 @@ class TweetsResponse : TwitterResponse {
 
             t.source = data.optString("source", null)
             t.lang = data.optString("lang", null)
+            t.createdAt = ParseUtil.getDate("created_at", data, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            data.optJSONObject("public_metrics")?.let {
+                t.publicMetrics = PublicMetrics(it)
+            }
 
             tweets.add(t)
         }
