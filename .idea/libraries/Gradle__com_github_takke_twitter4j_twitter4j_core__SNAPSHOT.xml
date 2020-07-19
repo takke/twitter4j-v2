@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.takke.twitter4j:twitter4j-core:-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.takke.twitter4j/twitter4j-core/-SNAPSHOT/2396d977bd40a155c0e1ec3d69468a90811cbebb/twitter4j-core--SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.takke.twitter4j/twitter4j-core/-SNAPSHOT/c8b3966d197b2bb457eab603eaf5391bfdaaf0d1/twitter4j-core--SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
