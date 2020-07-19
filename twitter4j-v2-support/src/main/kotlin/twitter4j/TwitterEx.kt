@@ -1,7 +1,5 @@
 package twitter4j
 
-import twitter4j.factory.TweetsFactory
-
 /**
  * Returns a variety of information about the Tweet specified by the requested ID or list of IDs.
  *

@@ -1,8 +1,5 @@
-package twitter4j.factory
+package twitter4j
 
-import twitter4j.HttpResponse
-import twitter4j.JSONException
-import twitter4j.TweetsResponse
 import twitter4j.TwitterException
 import twitter4j.conf.Configuration
 
