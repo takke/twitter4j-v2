@@ -13,8 +13,6 @@ class TweetsResponse(res: HttpResponse) : TwitterResponse {
     // convert to json object
     val asJSONObject: JSONObject get() = jsonObject
 
-    // convert to original string for debugging purpose
-    val asJSONString: String get() = jsonObject.toString()
 
     init {
         rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
