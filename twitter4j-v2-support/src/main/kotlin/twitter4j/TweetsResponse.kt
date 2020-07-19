@@ -34,7 +34,24 @@ class TweetsResponse : TwitterResponse {
         val tweets = tweets as MutableList
         tweets.clear()
 
-        // data
+        val includes = jsonObject.optJSONObject("includes")
+
+        //--------------------------------------------------
+        // create map of polls
+        //--------------------------------------------------
+        val pollsMap = HashMap<Long, String>()
+
+        val polls = includes?.optJSONArray("polls")
+        if (polls != null) {
+            for (i in 0 until polls.length()) {
+                val pollString = polls.getString(i)
+                pollsMap[polls.getJSONObject(i).getLong("id")] = pollString
+            }
+        }
+
+        //--------------------------------------------------
+        // create tweets from data
+        //--------------------------------------------------
         val dataArray = jsonObject.getJSONArray("data")
         for (i in 0 until dataArray.length()) {
             val data = dataArray.getJSONObject(i)
@@ -52,7 +69,18 @@ class TweetsResponse : TwitterResponse {
 
             // TODO author_id
 
-            // TODO attachments.poll_ids
+            // poll
+            val attachments = data.optJSONObject("attachments")
+            val pollId = attachments?.optJSONArray("poll_ids")?.let {
+                if (it.length() == 0) {
+                    null
+                } else {
+                    ParseUtil.getLong(it.getString(0))
+                }
+            }
+            if (pollId != null) {
+                t.pollJsonString = pollsMap[pollId]
+            }
 
             t.possiblySensitive = data.optBoolean("possibly_sensitive", false)
 

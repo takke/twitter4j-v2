@@ -23,6 +23,20 @@ class TweetsResponseTest {
         assertThat(res.tweets[0].publicMetrics?.quoteCount).isEqualTo(0)
 
         assertThat(res.tweets[0].possiblySensitive).isEqualTo(false)
+
+        // poll
+        val poll = res.tweets[0].poll!!
+        assertThat(poll.options.size).isEqualTo(2)
+        assertThat(poll.options[0].position).isEqualTo(1)
+        assertThat(poll.options[0].label).isEqualTo("Roboto")
+        assertThat(poll.options[0].votes).isEqualTo(391)
+        assertThat(poll.options[1].position).isEqualTo(2)
+        assertThat(poll.options[1].label).isEqualTo("San Francisco")
+        assertThat(poll.options[1].votes).isEqualTo(691)
+        assertThat(poll.id).isEqualTo(656974073113636864)
+        assertThat(poll.durationMinutes).isEqualTo(1440)
+        assertThat(poll.votingStatus).isEqualTo(Poll.VotingStatus.CLOSED)
+        assertThat(poll.endDatetime).isEqualTo("2015-10-22T23:23:19.000Z")
     }
 
     @Test
