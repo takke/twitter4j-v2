@@ -3,7 +3,7 @@
 twitter4j-v2 is a simple wrapper for Twitter API v2 that is designed to be used with Twitter4J.
 
 How do I use it?
----
+----------------
 
 ### Setup
 
@@ -46,13 +46,13 @@ println(tweetsResponse.tweets[0].poll)
 
 
 Requirements
----
+------------
 - Kotlin 1.3.+
 - Twitter4J 4.0.7+
 
 
 Developed By
----
+------------
 Hiroaki TAKEUCHI (<a href="https://twitter.com/takke">@takke</a>) - takke30 at gmail.com
 
 
