@@ -5,6 +5,7 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
 }
+apply plugin: 'com.jfrog.bintray'
 
 repositories {
     jcenter()
@@ -24,7 +25,9 @@ dependencies {
 
 }
 
+//--------------------------------------------------
 // for publish
+//--------------------------------------------------
 // $ ./gradlew publishToMavenLocal  # deploy to ~/.m2/repository/jp/takke/twitter4j-v2/twitter4j-v2-support/
 apply plugin: 'maven-publish'
 
@@ -44,6 +47,27 @@ artifacts {
     archives sourcesJar, javadocJar
 }
 
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "takke"
+            name "Hiroaki TAKEUCHI"
+            email "takke30@gmail.com"
+        }
+    }
+
+    scm {
+        url scmUrl
+    }
+}
+
 publishing {
     publications {
         MyPublication(MavenPublication) {
@@ -52,7 +76,43 @@ publishing {
             artifact javadocJar
             groupId groupName
             version versionName
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', descriptionText)
+                root.appendNode('name', 'twitter4j-v2')
+                root.appendNode('url', scmUrl)
+                root.children().last() + pomConfig
+            }
         }
     }
 }
 
+//--------------------------------------------------
+// upload to bintray
+//--------------------------------------------------
+// ./gradlew clean bintrayUpload
+bintray {
+    user = hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+
+    // false => push upload button on bintray web page to distribute new version manually.
+    publish = false
+
+    configurations = ['archives']
+
+    pkg {
+        repo = 'maven'
+        name = 'twitter4j-v2'
+        userOrg = user
+        licenses = ['Apache-2.0']
+        labels = ['kotlin']
+        vcsUrl = vcsUrl
+        version {
+            name = versionName
+            desc = versionDescription
+            vcsTag = versionName
+        }
+    }
+}
+//bintrayUpload.dependsOn publishToMavenLocal
