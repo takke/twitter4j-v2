@@ -1,3 +1,6 @@
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'java-library'
+
 repositories {
     jcenter()
 }
