@@ -99,7 +99,7 @@ bintray {
     // false => push upload button on bintray web page to distribute new version manually.
     publish = false
 
-    configurations = ['archives']
+//    configurations = ['MyPublication']
 
     pkg {
         repo = 'maven'
@@ -115,4 +115,11 @@ bintray {
         }
     }
 }
-//bintrayUpload.dependsOn publishToMavenLocal
+
+bintrayUpload.doFirst {
+    publications = publishing.publications.collect {
+        it.name
+    }
+}
+
+bintrayUpload.dependsOn publishToMavenLocal
