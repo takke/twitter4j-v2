@@ -13,7 +13,6 @@ repositories {
 dependencies {
 
     implementation "org.twitter4j:twitter4j-core:4.0.7"
-//    implementation "com.github.takke.twitter4j:twitter4j-core:-SNAPSHOT"
 
     // Align versions of all Kotlin components
     implementation platform('org.jetbrains.kotlin:kotlin-bom')
