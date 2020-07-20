@@ -1,5 +1,8 @@
 buildscript {
 
+    ext.groupName = 'jp.takke.twitter4j-v2'
+    ext.versionName = '0.1.0-SNAPSHOT'
+
     ext.kotlin_version = '1.3.72'
     repositories {
         jcenter()
