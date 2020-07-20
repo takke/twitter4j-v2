@@ -28,6 +28,7 @@ dependencies {
 ```kotlin
 
 val twitter: Twitter = yourTwitterInstanceProvider.get()
+val tweetId = 656974073491156992L
 
 val tweetsResponse = twitter.getTweets(arrayOf(tweetId),
                             mediaFields = null,
@@ -37,7 +38,10 @@ val tweetsResponse = twitter.getTweets(arrayOf(tweetId),
                             userFields = null,
                             expansions = "attachments.poll_ids")
 
-println(tweetsResponse.tweets[0].poll?.votingStatus)    // => CLOSED
+println(tweetsResponse.tweets[0].poll)
+// => Poll(id=656974073113636864, options=[PollOption(position=1, label=Roboto, votes=391), 
+//    PollOption(position=2, label=San Francisco, votes=691)], 
+//    votingStatus=CLOSED, endDatetime=Fri Oct 23 08:23:19 GMT+09:00 2015, durationMinutes=1440)
 ```
 
 
