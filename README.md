@@ -11,15 +11,15 @@ How do I use it?
 ```groovy
 repositories {
     maven {
-        url 'https://jitpack.io'
+        url 'http://dl.bintray.com/takke/maven'
         content {
-            includeGroup "com.github.takke.twitter4j-v2"
+            includeGroup "jp.takke.twitter4j-v2"
         }
     }
 }
 
 dependencies {
-    implementation 'com.github.takke.twitter4j-v2:twitter4j-v2-support:-SNAPSHOT'
+    implementation 'jp.takke.twitter4j-v2:twitter4j-v2-support:0.1.0'
 }
 ```
 
