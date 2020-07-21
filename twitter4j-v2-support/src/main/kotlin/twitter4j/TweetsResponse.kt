@@ -75,7 +75,7 @@ class TweetsResponse : TwitterResponse {
                     val urls = t.urls as MutableList
                     for (iUrl in 0 until urlsArray.length()) {
                         val url = urlsArray.getJSONObject(iUrl)
-                        urls.add(UrlEntity2.parse(url))
+                        urls.add(UrlEntity2(url))
                     }
                 }
             }

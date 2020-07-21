@@ -33,5 +33,5 @@ data class Tweet(
     var pollJsonString: String? = null
 
     val poll: Poll?
-        get() = if (pollJsonString == null) null else Poll.parse(JSONObject(pollJsonString!!))
+        get() = if (pollJsonString == null) null else Poll(JSONObject(pollJsonString!!))
 }
