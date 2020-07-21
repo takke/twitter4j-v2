@@ -21,7 +21,7 @@ fun main(args: Array<String>) {
     }
 
     val twitter = TwitterFactory.getSingleton()
-    twitter.getTweets(arrayOf(656974073491156992L)).let {
+    twitter.getTweets(656974073491156992L).let {
         println(it)
 
         println(it.asJSONObject.toString(3))

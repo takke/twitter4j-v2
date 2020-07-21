@@ -7,7 +7,7 @@ package twitter4j
  * @see "https://developer.twitter.com/en/docs/labs/tweets-and-users/api-reference/get-tweets"
  */
 @Throws(TwitterException::class)
-fun Twitter.getTweets(tweetId: Array<Long>,
+fun Twitter.getTweets(vararg tweetId: Long,
                       mediaFields: String? = "duration_ms,height,media_key,preview_image_url,type,url,width",
                       placeFields: String? = "contained_within,country,country_code,full_name,geo,id,name,place_type",
                       pollFields: String? = "duration_minutes,end_datetime,id,options,voting_status",

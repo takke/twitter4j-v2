@@ -33,7 +33,7 @@ dependencies {
 val twitter: Twitter = yourTwitterInstanceProvider.get()
 val tweetId = 656974073491156992L
 
-val tweetsResponse = twitter.getTweets(arrayOf(tweetId),
+val tweetsResponse = twitter.getTweets(tweetId,
                             mediaFields = null,
                             placeFields = null,
                             pollFields = "duration_minutes,end_datetime,id,options,voting_status",
