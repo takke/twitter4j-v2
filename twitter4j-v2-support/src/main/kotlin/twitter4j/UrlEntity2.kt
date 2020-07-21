@@ -6,11 +6,11 @@ data class UrlEntity2(
         val end: Int,
         val expandedUrl: String,
         val displayUrl: String,
-        val images: List<ImageUrl2>,
-        val status: Int,
-        val title: String,
-        val description: String,
-        val unwoundUrl: String
+        val images: List<ImageUrl2>?,
+        val status: Int?,
+        val title: String?,
+        val description: String?,
+        val unwoundUrl: String?
 ) {
     constructor(json: JSONObject) : this(
             json.getString("url"),
@@ -18,17 +18,17 @@ data class UrlEntity2(
             json.getInt("end"),
             json.getString("expanded_url"),
             json.getString("display_url"),
-            mutableListOf<ImageUrl2>().also { images ->
-                json.getJSONArray("images").let { imagesArray ->
+            json.getJSONArray("images")?.let { imagesArray ->
+                mutableListOf<ImageUrl2>().also { images ->
                     for (i in 0 until imagesArray.length()) {
                         images.add(ImageUrl2(imagesArray.getJSONObject(i)))
                     }
                 }
             },
-            json.getInt("status"),
-            json.getString("title"),
-            json.getString("description"),
-            json.getString("unwound_url")
+            json.optInt("status", -1).takeIf { it != -1 },
+            json.optString("title", null),
+            json.optString("description", null),
+            json.optString("unwound_url", null)
     )
 
 }
