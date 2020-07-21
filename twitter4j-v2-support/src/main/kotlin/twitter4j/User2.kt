@@ -15,7 +15,8 @@ data class User2(
         val url: String,
         val profileImageUrl: String,
         val name: String,
-        val verified: Boolean
+        val verified: Boolean,
+        val pinnedTweetId: Long?
 ) {
     data class PublicMetrics(
             val followersCount: Int,
@@ -68,7 +69,8 @@ data class User2(
                     url = json.getString("url"),
                     profileImageUrl = json.getString("profile_image_url"),
                     name = json.getString("name"),
-                    verified = json.getBoolean("verified")
+                    verified = json.getBoolean("verified"),
+                    pinnedTweetId = json.optLong("pinned_tweet_id", -1L).takeIf { it != -1L }
             )
         }
     }
