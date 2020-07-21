@@ -1,0 +1,7 @@
+# fill below and rename to twitter4j.properties
+oauth.consumerKey=<FILL THIS>
+oauth.consumerSecret=<FILL THIS>
+oauth.accessToken=<FILL THIS>
+oauth.accessTokenSecret=<FILL THIS>
+debug=false
+http.prettyDebug=false
