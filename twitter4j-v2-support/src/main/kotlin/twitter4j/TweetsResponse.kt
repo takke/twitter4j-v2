@@ -18,7 +18,7 @@ class TweetsResponse : TwitterResponse {
     val tweets: List<Tweet> = mutableListOf()
 
     // includes.polls
-    val pollsMap = HashMap<Long, String>()
+    val pollsMap = HashMap<Long, Poll>()
 
     // includes.users
     val usersMap = HashMap<Long, User2>()

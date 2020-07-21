@@ -9,6 +9,8 @@ data class Poll(
         val endDatetime: Date,
         val durationMinutes: Int
 ) {
+    // for convenient of serialization
+    var jsonText: String? = null
 
     enum class VotingStatus {
         OPEN, CLOSED

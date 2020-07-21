@@ -2,12 +2,18 @@ package twitter4j
 
 object V2Util {
 
-    fun collectPolls(includes: JSONObject?, pollsMap: HashMap<Long, String>) {
+    fun collectPolls(includes: JSONObject?, pollsMap: HashMap<Long, Poll>) {
 
         includes?.optJSONArray("polls")?.let { polls ->
             for (i in 0 until polls.length()) {
                 val pollString = polls.getString(i)
-                pollsMap[polls.getJSONObject(i).getLong("id")] = pollString
+
+                val poll = Poll(JSONObject(pollString)).also {
+                    // original json
+                    it.jsonText = pollString
+                }
+
+                pollsMap[poll.id] = poll
             }
         }
     }

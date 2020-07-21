@@ -31,11 +31,10 @@ data class Tweet(
 
     }
 
-    fun poll(pollsMap: HashMap<Long, String>): Poll? {
-        pollId ?: return null
-
-        val pollJsonString = pollsMap[pollId!!] ?: return null
-        return Poll(JSONObject(pollJsonString))
+    fun poll(pollsMap: HashMap<Long, Poll>): Poll? {
+        return pollId?.let {
+            pollsMap[pollId!!] ?: return null
+        }
     }
 
 }
