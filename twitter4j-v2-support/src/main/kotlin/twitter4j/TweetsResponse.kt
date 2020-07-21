@@ -69,6 +69,17 @@ class TweetsResponse : TwitterResponse {
                 t.publicMetrics = Tweet.PublicMetrics(it)
             }
 
+            // entities.urls
+            data.optJSONObject("entities")?.let { entities ->
+                entities.optJSONArray("urls")?.let { urlsArray ->
+                    val urls = t.urls as MutableList
+                    for (iUrl in 0 until urlsArray.length()) {
+                        val url = urlsArray.getJSONObject(iUrl)
+                        urls.add(UrlEntity2.parse(url))
+                    }
+                }
+            }
+
             // TODO author_id
 
             // poll
