@@ -39,8 +39,8 @@ data class Poll(
     }
 
     constructor(poll: JSONObject) : this(
-            ParseUtil.getLong("id", poll),
-            arrayListOf<PollOption>().also { optionsArray ->
+            id = ParseUtil.getLong("id", poll),
+            options = arrayListOf<PollOption>().also { optionsArray ->
 
                 val options = poll.getJSONArray("options")
                 for (i in 0 until options.length()) {
@@ -52,11 +52,11 @@ data class Poll(
                     )
                 }
             }.toTypedArray(),
-            when (poll.getString("voting_status")) {
+            votingStatus = when (poll.getString("voting_status")) {
                 "closed" -> VotingStatus.CLOSED
                 else -> VotingStatus.OPEN
             },
-            ParseUtil.getDate("end_datetime", poll, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
-            ParseUtil.getInt("duration_minutes", poll)
+            endDatetime = ParseUtil.getDate("end_datetime", poll, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+            durationMinutes = ParseUtil.getInt("duration_minutes", poll)
     )
 }
