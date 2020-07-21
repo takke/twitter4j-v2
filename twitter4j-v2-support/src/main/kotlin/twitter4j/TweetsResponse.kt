@@ -56,7 +56,7 @@ class TweetsResponse : TwitterResponse {
 
         includes?.optJSONArray("users")?.let { users ->
             for (i in 0 until users.length()) {
-                val user = User2(users.getJSONObject(i))
+                val user = User2.parse(users.getJSONObject(i))
                 usersMap[user.id] = user
             }
         }
