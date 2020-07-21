@@ -2,9 +2,7 @@ package twitter4j
 
 object V2Util {
 
-    fun collectPolls(includes: JSONObject?): HashMap<Long, String> {
-
-        val pollsMap = HashMap<Long, String>()
+    fun collectPolls(includes: JSONObject?, pollsMap: HashMap<Long, String>) {
 
         includes?.optJSONArray("polls")?.let { polls ->
             for (i in 0 until polls.length()) {
@@ -12,14 +10,9 @@ object V2Util {
                 pollsMap[polls.getJSONObject(i).getLong("id")] = pollString
             }
         }
-
-
-        return pollsMap
     }
 
-    fun collectUsers(includes: JSONObject?): HashMap<Long, User2> {
-
-        val usersMap = HashMap<Long, User2>()
+    fun collectUsers(includes: JSONObject?, usersMap: HashMap<Long, User2>) {
 
         includes?.optJSONArray("users")?.let { users ->
             for (i in 0 until users.length()) {
@@ -27,8 +20,6 @@ object V2Util {
                 usersMap[user.id] = user
             }
         }
-
-        return usersMap
     }
 
 }

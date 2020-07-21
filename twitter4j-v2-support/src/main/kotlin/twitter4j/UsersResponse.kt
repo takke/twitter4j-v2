@@ -1,5 +1,7 @@
 package twitter4j
 
+import java.util.HashMap
+
 class UsersResponse : TwitterResponse {
 
     @Transient
@@ -15,6 +17,11 @@ class UsersResponse : TwitterResponse {
 
     val users: List<User2> = mutableListOf()
 
+    // includes.polls
+    val pollsMap = HashMap<Long, String>()
+
+    // includes.users
+    val usersMap = HashMap<Long, User2>()
 
     constructor(res: HttpResponse) {
         rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
@@ -39,12 +46,12 @@ class UsersResponse : TwitterResponse {
         //--------------------------------------------------
         // create map of polls from includes.polls
         //--------------------------------------------------
-        val pollsMap = V2Util.collectPolls(includes)
+        V2Util.collectPolls(includes, pollsMap)
 
         //--------------------------------------------------
         // create map of users from includes.users
         //--------------------------------------------------
-        val usersMap = V2Util.collectUsers(includes)
+        V2Util.collectUsers(includes, usersMap)
 
 
         // TODO includes.tweets, includes.places, includes.media ...
