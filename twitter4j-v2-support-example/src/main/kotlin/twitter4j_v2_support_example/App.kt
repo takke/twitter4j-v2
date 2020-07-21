@@ -2,6 +2,8 @@ package twitter4j_v2_support_example
 
 import twitter4j.JSONObject
 import twitter4j.TweetsResponse
+import twitter4j.TwitterFactory
+import twitter4j.getTweets
 
 
 fun main(args: Array<String>) {
@@ -18,4 +20,10 @@ fun main(args: Array<String>) {
         println(it)
     }
 
+    val twitter = TwitterFactory.getSingleton()
+    twitter.getTweets(arrayOf(656974073491156992L)).let {
+        println(it)
+
+        println(it.asJSONObject.toString(3))
+    }
 }
