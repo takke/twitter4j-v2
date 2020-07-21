@@ -4,6 +4,7 @@ import twitter4j.JSONObject
 import twitter4j.TweetsResponse
 import twitter4j.TwitterFactory
 import twitter4j.getTweets
+import twitter4j.getUsers
 
 
 fun main(args: Array<String>) {
@@ -20,6 +21,9 @@ fun main(args: Array<String>) {
         println(it)
     }
 
+    //--------------------------------------------------
+    // getTweets example
+    //--------------------------------------------------
     val twitter = TwitterFactory.getSingleton()
     twitter.getTweets(656974073491156992L).let {
         println(it)
@@ -29,6 +33,18 @@ fun main(args: Array<String>) {
 
     val tweetIds: Array<Long> = arrayOf(656974073491156992L, 1284872930841640960L)
     twitter.getTweets(*tweetIds.toLongArray()).let {
+        println(it)
+
+        println(it.asJSONObject.toString(3))
+    }
+
+    //--------------------------------------------------
+    // getUsers example
+    //--------------------------------------------------
+//    val takkeId = 8379212L
+//    val twitterDevId = 2244994945L
+    val twitterDesignId = 87532773L
+    twitter.getUsers(twitterDesignId).let {
         println(it)
 
         println(it.asJSONObject.toString(3))
