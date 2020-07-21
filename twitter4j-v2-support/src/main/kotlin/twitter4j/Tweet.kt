@@ -10,7 +10,8 @@ data class Tweet(
         var createdAt: Date? = null,
         var publicMetrics: PublicMetrics? = null,
         var possiblySensitive: Boolean = false,
-        var urls: List<UrlEntity2>? = mutableListOf()
+        var urls: List<UrlEntity2>? = mutableListOf(),
+        var author: User2? = null
 ) {
 
     data class PublicMetrics(
