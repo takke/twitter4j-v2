@@ -37,7 +37,7 @@ class TweetsResponse : TwitterResponse {
         val includes = jsonObject.optJSONObject("includes")
 
         //--------------------------------------------------
-        // create map of polls
+        // create map of polls from includes.polls
         //--------------------------------------------------
         val pollsMap = HashMap<Long, String>()
 
@@ -49,7 +49,20 @@ class TweetsResponse : TwitterResponse {
             }
         }
 
-        // TODO includes.users, ...
+        //--------------------------------------------------
+        // create map of users from includes.users
+        //--------------------------------------------------
+        val usersMap = HashMap<Long, User2>()
+
+        includes?.optJSONArray("users")?.let { users ->
+            for (i in 0 until users.length()) {
+                val user = User2(users.getJSONObject(i))
+                usersMap[user.id] = user
+            }
+        }
+
+
+        // TODO includes.tweets, includes.places, includes.media ...
 
         //--------------------------------------------------
         // create tweets from data
@@ -80,7 +93,10 @@ class TweetsResponse : TwitterResponse {
                 }
             }
 
-            // TODO author_id
+            // author_id
+            data.optLong("author_id", -1L).takeIf { it != -1L }?.let { authorId ->
+                t.author = usersMap[authorId]
+            }
 
             // poll
             val attachments = data.optJSONObject("attachments")
