@@ -39,27 +39,12 @@ class TweetsResponse : TwitterResponse {
         //--------------------------------------------------
         // create map of polls from includes.polls
         //--------------------------------------------------
-        val pollsMap = HashMap<Long, String>()
-
-        val polls = includes?.optJSONArray("polls")
-        if (polls != null) {
-            for (i in 0 until polls.length()) {
-                val pollString = polls.getString(i)
-                pollsMap[polls.getJSONObject(i).getLong("id")] = pollString
-            }
-        }
+        val pollsMap = V2Util.collectPolls(includes)
 
         //--------------------------------------------------
         // create map of users from includes.users
         //--------------------------------------------------
-        val usersMap = HashMap<Long, User2>()
-
-        includes?.optJSONArray("users")?.let { users ->
-            for (i in 0 until users.length()) {
-                val user = User2.parse(users.getJSONObject(i))
-                usersMap[user.id] = user
-            }
-        }
+        val usersMap = V2Util.collectUsers(includes)
 
 
         // TODO includes.tweets, includes.places, includes.media ...
