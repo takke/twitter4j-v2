@@ -1,2 +1,3 @@
 rootProject.name = 'twitter4j-v2'
 include ':twitter4j-v2-support'
+include ':twitter4j-v2-support-example'

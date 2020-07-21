@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/twitter4j-v2-support" />
+            <option value="$PROJECT_DIR$/twitter4j-v2-support-example" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
