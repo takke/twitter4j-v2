@@ -26,4 +26,11 @@ fun main(args: Array<String>) {
 
         println(it.asJSONObject.toString(3))
     }
+
+    val tweetIds: Array<Long> = arrayOf(656974073491156992L, 1284872930841640960L)
+    twitter.getTweets(*tweetIds.toLongArray()).let {
+        println(it)
+
+        println(it.asJSONObject.toString(3))
+    }
 }
