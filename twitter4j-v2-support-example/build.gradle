@@ -6,12 +6,13 @@ repositories {
 }
 
 dependencies {
+
+    implementation "org.twitter4j:twitter4j-core:4.0.7"
+    implementation project(':twitter4j-v2-support')
+
     // Align versions of all Kotlin components
     implementation platform('org.jetbrains.kotlin:kotlin-bom')
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
 }
 
 // ./gradlew run
