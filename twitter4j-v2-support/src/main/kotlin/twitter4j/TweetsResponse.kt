@@ -98,5 +98,9 @@ class TweetsResponse : TwitterResponse {
         return accessLevel
     }
 
+    override fun toString(): String {
+        return "TweetsResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, tweets=$tweets)"
+    }
+
 
 }
