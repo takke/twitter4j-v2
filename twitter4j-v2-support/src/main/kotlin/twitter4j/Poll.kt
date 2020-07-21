@@ -9,6 +9,7 @@ data class Poll(
         val endDatetime: Date,
         val durationMinutes: Int
 ) {
+
     enum class VotingStatus {
         OPEN, CLOSED
     }
@@ -37,31 +38,25 @@ data class Poll(
         return result
     }
 
-    companion object {
-        fun parse(poll: JSONObject?): Poll? {
-            poll ?: return null
+    constructor(poll: JSONObject) : this(
+            ParseUtil.getLong("id", poll),
+            arrayListOf<PollOption>().also { optionsArray ->
 
-            val id = ParseUtil.getLong("id", poll)
-            val optionsArray = ArrayList<PollOption>()
-            val options = poll.getJSONArray("options")
-            for (i in 0 until options.length()) {
-                val o = options.getJSONObject(i)
-                optionsArray.add(PollOption(
-                        o.getInt("position"),
-                        o.getString("label"),
-                        o.getInt("votes"))
-                )
-            }
-
-            val votingStatus = when (poll.getString("voting_status")) {
+                val options = poll.getJSONArray("options")
+                for (i in 0 until options.length()) {
+                    val o = options.getJSONObject(i)
+                    optionsArray.add(PollOption(
+                            o.getInt("position"),
+                            o.getString("label"),
+                            o.getInt("votes"))
+                    )
+                }
+            }.toTypedArray(),
+            when (poll.getString("voting_status")) {
                 "closed" -> VotingStatus.CLOSED
                 else -> VotingStatus.OPEN
-            }
-            val endDatetime = ParseUtil.getDate("end_datetime", poll, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val durationMinutes = ParseUtil.getInt("duration_minutes", poll)
-
-            return Poll(id, optionsArray.toTypedArray(), votingStatus, endDatetime, durationMinutes)
-        }
-
-    }
+            },
+            ParseUtil.getDate("end_datetime", poll, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+            ParseUtil.getInt("duration_minutes", poll)
+    )
 }
