@@ -11,7 +11,8 @@ data class Tweet(
         var publicMetrics: PublicMetrics? = null,
         var possiblySensitive: Boolean = false,
         var urls: List<UrlEntity2>? = mutableListOf(),
-        var author: User2? = null
+        var author: User2? = null,
+        var pollId: Long? = null
 ) {
 
     data class PublicMetrics(
@@ -30,9 +31,11 @@ data class Tweet(
 
     }
 
-    // for convenient of serialization
-    var pollJsonString: String? = null
+    fun poll(pollsMap: HashMap<Long, String>): Poll? {
+        pollId ?: return null
 
-    val poll: Poll?
-        get() = if (pollJsonString == null) null else Poll(JSONObject(pollJsonString!!))
+        val pollJsonString = pollsMap[pollId!!] ?: return null
+        return Poll(JSONObject(pollJsonString))
+    }
+
 }

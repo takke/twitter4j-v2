@@ -101,7 +101,7 @@ class TweetsResponse : TwitterResponse {
                 }
             }
             if (pollId != null) {
-                t.pollJsonString = pollsMap[pollId]
+                t.pollId = pollId
             }
 
             t.possiblySensitive = data.optBoolean("possibly_sensitive", false)

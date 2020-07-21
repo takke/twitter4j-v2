@@ -25,7 +25,7 @@ class TweetsResponseTest {
         assertThat(res.tweets[0].possiblySensitive).isEqualTo(false)
 
         // poll
-        val poll = res.tweets[0].poll!!
+        val poll = res.tweets[0].poll(res.pollsMap)!!
         assertThat(poll.options.size).isEqualTo(2)
         assertThat(poll.options[0].position).isEqualTo(1)
         assertThat(poll.options[0].label).isEqualTo("Roboto")
