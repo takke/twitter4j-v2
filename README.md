@@ -47,11 +47,22 @@ println(tweetsResponse.tweets[0].poll)
 //    votingStatus=CLOSED, endDatetime=Fri Oct 23 08:23:19 GMT+09:00 2015, durationMinutes=1440)
 ```
 
-
 Requirements
 ------------
 - Kotlin 1.3.+
 - Twitter4J 4.0.7+
+
+
+Supported APIs
+--------------
+
+|  End-point  |  twitter4j-v2 method  |
+| ---- | ---- |
+|  Tweets and Users v2  |  -  |
+|  [/labs/2/tweets](https://developer.twitter.com/en/docs/labs/tweets-and-users/api-reference/get-tweets)  |  [Twitter.getTweets()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getTweets.kt)  |
+|  [/labs/2/users](https://developer.twitter.com/en/docs/labs/tweets-and-users/api-reference/get-users)  |  -  |
+
+
 
 
 Developed By
