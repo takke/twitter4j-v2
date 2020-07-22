@@ -49,6 +49,8 @@ println(tweetsResponse.tweets[0].poll)
 //    votingStatus=CLOSED, endDatetime=Fri Oct 23 08:23:19 GMT+09:00 2015, durationMinutes=1440)
 ```
 
+See more [examples](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support-example/src/main/kotlin/twitter4j_v2_support_example/App.kt).
+
 Requirements
 ------------
 - Kotlin 1.3.+
