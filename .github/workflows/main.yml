@@ -24,5 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Restore twitter4j.properties for test
+        run: echo ${{ secrets.TWITTER4J_PROPERTIES_BASE64 }} | base64 -d > twitter4j-v2-support/src/test/resources/twitter4j.properties
+
       - name: Unit Test
-        run: ./gradlew test
+        run: ./gradlew test --info
