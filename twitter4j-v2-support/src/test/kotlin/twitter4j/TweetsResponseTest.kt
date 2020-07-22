@@ -53,9 +53,30 @@ class TweetsResponseTest {
     fun minimumTweet() {
 
         // twurl -X GET "/labs/2/tweets?ids=656974073491156992"
-        val res = TweetsResponse(JSONObject("{\"data\":[{\"id\":\"656974073491156992\",\"text\":\"We've got polls now! Which typeface do you prefer?\"}]}"))
+ //       val res = TweetsResponse(JSONObject("{\"data\":[{\"id\":\"656974073491156992\",\"text\":\"We've got polls now! Which typeface do you prefer?\"}]}"))
+
+        val twitter = TwitterFactory.getSingleton()
+        val res = twitter.getTweets(656974073491156992L,
+                mediaFields = null,
+                placeFields = null,
+                pollFields = null,
+                tweetFields = null,
+                userFields = null,
+                expansions = ""
+        )
+//        println(res.asJSONObject.toString(3))
+
         assertThat(res.tweets.size).isEqualTo(1)
-        assertThat(res.tweets[0].id).isEqualTo(656974073491156992L)
-        assertThat(res.tweets[0].text).isEqualTo("We've got polls now! Which typeface do you prefer?")
+        res.tweets[0].let {
+            assertThat(it.id).isEqualTo(656974073491156992L)
+            assertThat(it.text).isEqualTo("We've got polls now! Which typeface do you prefer?")
+            assertThat(it.source).isNull()
+            assertThat(it.lang).isNull()
+            assertThat(it.publicMetrics).isNull()
+            assertThat(it.possiblySensitive).isFalse()
+            assertThat(it.urls).isEmpty()
+            assertThat(it.author).isNull()
+            assertThat(it.pollId).isNull()
+        }
     }
 }
