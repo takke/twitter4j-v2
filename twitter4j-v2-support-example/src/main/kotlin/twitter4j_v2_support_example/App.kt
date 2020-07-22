@@ -49,4 +49,35 @@ fun main(args: Array<String>) {
 
         println(it.asJSONObject.toString(3))
     }
+
+    // minimum query
+    twitter.getUsers(twitterDesignId,
+            mediaFields = null,
+            placeFields = null,
+            pollFields = null,
+            tweetFields = null,
+            userFields = null,
+            expansions = ""
+    ).let {
+        println(it)
+
+        println(it.asJSONObject.toString(3))
+    }
+
+    // pinned_tweet_id only
+    twitter.getUsers(twitterDesignId,
+            mediaFields = null,
+            placeFields = null,
+            pollFields = null,
+            tweetFields = null,
+            userFields = null,
+            expansions = "pinned_tweet_id"
+    ).let {
+        println(it)
+
+        println(it.tweetsMap)
+
+        println(it.asJSONObject.toString(3))
+    }
+
 }
