@@ -5,6 +5,8 @@ twitter4j-v2
 
 twitter4j-v2 is a simple wrapper for Twitter API v2 that is designed to be used with Twitter4J.
 
+More information is [here](https://github.com/takke/twitter4j-v2/wiki/Design-Policy).
+
 How do I use it?
 ----------------
 
