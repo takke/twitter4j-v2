@@ -29,3 +29,4 @@ hs_err_pid*
 build
 /local.properties
 /twitter4j-v2-support-example/src/main/resources/twitter4j.properties
+/twitter4j-v2-support/src/test/resources/twitter4j.properties
