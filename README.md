@@ -69,7 +69,7 @@ Supported APIs
 
 Developed By
 ------------
-Hiroaki TAKEUCHI (<a href="https://twitter.com/takke">@takke</a>) - takke30 at gmail.com
+TAKEUCHI Hiroaki (<a href="https://twitter.com/takke">@takke</a>) - takke30 at gmail.com
 
 
 License
