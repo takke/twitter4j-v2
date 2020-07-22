@@ -44,13 +44,9 @@ class UsersResponse : TwitterResponse {
         val includes = jsonObject.optJSONObject("includes")
 
         //--------------------------------------------------
-        // create map of polls from includes.polls
+        // create maps from includes
         //--------------------------------------------------
         V2Util.collectPolls(includes, pollsMap)
-
-        //--------------------------------------------------
-        // create map of users from includes.users
-        //--------------------------------------------------
         V2Util.collectUsers(includes, usersMap)
 
 
