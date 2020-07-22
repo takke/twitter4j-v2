@@ -28,4 +28,14 @@ object V2Util {
         }
     }
 
+    fun collectTweets(includes: JSONObject?, tweetsMap: HashMap<Long, Tweet>) {
+
+        includes?.optJSONArray("tweets")?.let { tweets ->
+            for (i in 0 until tweets.length()) {
+                val tweet = Tweet.parse(tweets.getJSONObject(i))
+                tweetsMap[tweet.id] = tweet
+            }
+        }
+    }
+
 }

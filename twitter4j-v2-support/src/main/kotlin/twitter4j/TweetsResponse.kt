@@ -23,6 +23,9 @@ class TweetsResponse : TwitterResponse {
     // includes.users
     val usersMap = HashMap<Long, User2>()
 
+    // includes.tweets
+    val tweetsMap = HashMap<Long, Tweet>()
+
 
     constructor(res: HttpResponse) {
         rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
@@ -49,9 +52,9 @@ class TweetsResponse : TwitterResponse {
         //--------------------------------------------------
         V2Util.collectPolls(includes, pollsMap)
         V2Util.collectUsers(includes, usersMap)
+        V2Util.collectTweets(includes, tweetsMap)
 
-
-        // TODO includes.tweets, includes.places, includes.media ...
+        // TODO includes.places, includes.media ...
 
         //--------------------------------------------------
         // create tweets from data
