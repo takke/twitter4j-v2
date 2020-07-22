@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'jp.takke.twitter4j-v2:twitter4j-v2-support:0.1.0'
+    implementation "jp.takke.twitter4j-v2:twitter4j-v2-support:$twitter4jV2SupportVersion"
 }
 ```
 
