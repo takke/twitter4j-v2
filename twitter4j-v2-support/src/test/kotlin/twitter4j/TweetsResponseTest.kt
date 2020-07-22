@@ -75,7 +75,7 @@ class TweetsResponseTest {
             assertThat(it.publicMetrics).isNull()
             assertThat(it.possiblySensitive).isFalse()
             assertThat(it.urls).isEmpty()
-            assertThat(it.author).isNull()
+            assertThat(it.authorId).isNull()
             assertThat(it.pollId).isNull()
         }
     }

@@ -59,48 +59,8 @@ class TweetsResponse : TwitterResponse {
         val dataArray = jsonObject.getJSONArray("data")
         for (i in 0 until dataArray.length()) {
             val data = dataArray.getJSONObject(i)
-            val t = Tweet(
-                    data.getLong("id"),
-                    data.getString("text")
-            )
 
-            t.source = data.optString("source", null)
-            t.lang = data.optString("lang", null)
-            t.createdAt = ParseUtil.getDate("created_at", data, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            data.optJSONObject("public_metrics")?.let {
-                t.publicMetrics = Tweet.PublicMetrics(it)
-            }
-
-            // entities.urls
-            data.optJSONObject("entities")?.let { entities ->
-                entities.optJSONArray("urls")?.let { urlsArray ->
-                    val urls = t.urls as MutableList
-                    for (iUrl in 0 until urlsArray.length()) {
-                        val url = urlsArray.getJSONObject(iUrl)
-                        urls.add(UrlEntity2(url))
-                    }
-                }
-            }
-
-            // author_id
-            data.optLong("author_id", -1L).takeIf { it != -1L }?.let { authorId ->
-                t.author = usersMap[authorId]
-            }
-
-            // poll
-            val attachments = data.optJSONObject("attachments")
-            val pollId = attachments?.optJSONArray("poll_ids")?.let {
-                if (it.length() == 0) {
-                    null
-                } else {
-                    ParseUtil.getLong(it.getString(0))
-                }
-            }
-            if (pollId != null) {
-                t.pollId = pollId
-            }
-
-            t.possiblySensitive = data.optBoolean("possibly_sensitive", false)
+            val t = Tweet.parse(data)
 
             tweets.add(t)
         }
