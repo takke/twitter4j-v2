@@ -4,16 +4,16 @@ import java.util.*
 
 data class User2(
         val id: Long,
-        val location: String,
-        val createdAt: Date,
+        val location: String?,
+        val createdAt: Date?,
         val username: String,
         val protected: Boolean,
-        val publicMetrics: PublicMetrics,
+        val publicMetrics: PublicMetrics?,
         val urlEntities: List<UrlEntity2>? = mutableListOf(),
         val descriptionEntity: DescriptionEntity?,
-        val description: String,
-        val url: String,
-        val profileImageUrl: String,
+        val description: String?,
+        val url: String?,
+        val profileImageUrl: String?,
         val name: String,
         val verified: Boolean,
         val pinnedTweetId: Long?
@@ -58,18 +58,20 @@ data class User2(
             }
 
             return User2(json.getLong("id"),
-                    location = json.getString("location"),
-                    createdAt = ParseUtil.getDate("created_at", json, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+                    location = json.optString("location", null),
+                    createdAt = json.optString("created_at", null)?.let {
+                        ParseUtil.getDate(it, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                    },
                     username = json.getString("username"),
-                    protected = json.getBoolean("protected"),
-                    publicMetrics = PublicMetrics(json.getJSONObject("public_metrics")),
+                    protected = json.optBoolean("protected", false),
+                    publicMetrics = json.optJSONObject("public_metrics")?.let { PublicMetrics(it) },
                     urlEntities = urlEntities,
                     descriptionEntity = descriptionEntity,
-                    description = json.getString("description"),
-                    url = json.getString("url"),
-                    profileImageUrl = json.getString("profile_image_url"),
+                    description = json.optString("description", null),
+                    url = json.optString("url", null),
+                    profileImageUrl = json.optString("profile_image_url", null),
                     name = json.getString("name"),
-                    verified = json.getBoolean("verified"),
+                    verified = json.optBoolean("verified", false),
                     pinnedTweetId = json.optLong("pinned_tweet_id", -1L).takeIf { it != -1L }
             )
         }
