@@ -10,11 +10,6 @@ class UsersResponse : TwitterResponse {
     @Transient
     private var accessLevel = 0
 
-    private var jsonObject: JSONObject
-
-    // convert to json object
-    val asJSONObject: JSONObject get() = jsonObject
-
     val users: List<User2> = mutableListOf()
 
     // includes.polls
@@ -26,21 +21,20 @@ class UsersResponse : TwitterResponse {
     // includes.tweets
     val tweetsMap = HashMap<Long, Tweet>()
 
-    constructor(res: HttpResponse) {
+
+    constructor(res: HttpResponse, isJSONStoreEnabled: Boolean) {
         rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
         accessLevel = ParseUtil.toAccessLevel(res)
-        jsonObject = res.asJSONObject()
 
-        parse()
+        parse(res.asJSONObject(), isJSONStoreEnabled)
     }
 
-    constructor(json: JSONObject) {
-        jsonObject = json
+    constructor(json: JSONObject, isJSONStoreEnabled: Boolean = false) {
 
-        parse()
+        parse(json, isJSONStoreEnabled)
     }
 
-    private fun parse() {
+    private fun parse(jsonObject: JSONObject, isJSONStoreEnabled: Boolean) {
         val users = users as MutableList
         users.clear()
 
@@ -56,13 +50,17 @@ class UsersResponse : TwitterResponse {
         // TODO includes.places, includes.media ...
 
         //--------------------------------------------------
-        // create tweets from data
+        // create users from data
         //--------------------------------------------------
         val dataArray = jsonObject.getJSONArray("data")
         for (i in 0 until dataArray.length()) {
             val data = dataArray.getJSONObject(i)
 
             users.add(User2.parse(data))
+        }
+
+        if (isJSONStoreEnabled) {
+            TwitterObjectFactory.registerJSONObject(users, jsonObject)
         }
     }
 

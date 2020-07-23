@@ -56,13 +56,11 @@ class TweetsResponse : TwitterResponse {
         for (i in 0 until dataArray.length()) {
             val data = dataArray.getJSONObject(i)
 
-            val t = Tweet.parse(data)
-
-            tweets.add(t)
+            tweets.add(Tweet.parse(data))
         }
 
         if (isJSONStoreEnabled) {
-            TwitterObjectFactory.registerJSONObject(this.tweets, jsonObject)
+            TwitterObjectFactory.registerJSONObject(tweets, jsonObject)
         }
     }
 

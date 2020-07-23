@@ -59,7 +59,8 @@ fun main(args: Array<String>) {
     twitter.getUsers(twitterDesignId).let {
         println(it)
 
-        println(it.asJSONObject.toString(3))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.users))
+        println(json.toString(3))
     }
 
     // minimum query
@@ -73,7 +74,8 @@ fun main(args: Array<String>) {
     ).let {
         println(it)
 
-        println(it.asJSONObject.toString(3))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.users))
+        println(json.toString(3))
     }
 
     // pinned_tweet_id only
@@ -89,7 +91,8 @@ fun main(args: Array<String>) {
 
         println(it.tweetsMap)
 
-        println(it.asJSONObject.toString(3))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.users))
+        println(json.toString(3))
     }
 
 }
