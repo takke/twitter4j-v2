@@ -3,6 +3,8 @@ package twitter4j_v2_support_example
 import twitter4j.JSONObject
 import twitter4j.TweetsResponse
 import twitter4j.TwitterFactory
+import twitter4j.TwitterObjectFactory
+import twitter4j.conf.ConfigurationBuilder
 import twitter4j.getTweets
 import twitter4j.getUsers
 
@@ -22,20 +24,30 @@ fun main(args: Array<String>) {
     }
 
     //--------------------------------------------------
+    // prepare twitter instance
+    //--------------------------------------------------
+    val conf = ConfigurationBuilder()
+            .setJSONStoreEnabled(true)
+            .build()
+    val twitter = TwitterFactory(conf).instance
+//    val twitter = TwitterFactory.getSingleton()
+
+    //--------------------------------------------------
     // getTweets example
     //--------------------------------------------------
-    val twitter = TwitterFactory.getSingleton()
     twitter.getTweets(656974073491156992L).let {
         println(it)
 
-        println(it.asJSONObject.toString(3))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.tweets))
+        println(json.toString(3))
     }
 
     val tweetIds: Array<Long> = arrayOf(656974073491156992L, 1284872930841640960L)
     twitter.getTweets(*tweetIds.toLongArray()).let {
         println(it)
 
-        println(it.asJSONObject.toString(3))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.tweets))
+        println(json.toString(3))
     }
 
     //--------------------------------------------------

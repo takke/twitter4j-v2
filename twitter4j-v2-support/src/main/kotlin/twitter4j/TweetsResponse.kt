@@ -10,11 +10,6 @@ class TweetsResponse : TwitterResponse {
     @Transient
     private var accessLevel = 0
 
-    private var jsonObject: JSONObject
-
-    // convert to json object
-    val asJSONObject: JSONObject get() = jsonObject
-
     val tweets: List<Tweet> = mutableListOf()
 
     // includes.polls
@@ -27,21 +22,19 @@ class TweetsResponse : TwitterResponse {
     val tweetsMap = HashMap<Long, Tweet>()
 
 
-    constructor(res: HttpResponse) {
+    constructor(res: HttpResponse, isJSONStoreEnabled: Boolean) {
         rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
         accessLevel = ParseUtil.toAccessLevel(res)
-        jsonObject = res.asJSONObject()
 
-        parse()
+        parse(res.asJSONObject(), isJSONStoreEnabled)
     }
 
-    constructor(json: JSONObject) {
-        jsonObject = json
+    constructor(json: JSONObject, isJSONStoreEnabled: Boolean = false) {
 
-        parse()
+        parse(json, isJSONStoreEnabled)
     }
 
-    private fun parse() {
+    private fun parse(jsonObject: JSONObject, isJSONStoreEnabled: Boolean) {
         val tweets = tweets as MutableList
         tweets.clear()
 
@@ -66,6 +59,10 @@ class TweetsResponse : TwitterResponse {
             val t = Tweet.parse(data)
 
             tweets.add(t)
+        }
+
+        if (isJSONStoreEnabled) {
+            TwitterObjectFactory.registerJSONObject(this.tweets, jsonObject)
         }
     }
 

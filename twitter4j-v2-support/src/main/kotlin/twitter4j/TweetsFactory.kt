@@ -8,12 +8,12 @@ class TweetsFactory {
     @Throws(TwitterException::class)
     fun createTweetsResponse(res: HttpResponse, conf: Configuration): TweetsResponse {
 
-        return try {
-            val tweets = TweetsResponse(res)
+        try {
+            if (conf.isJSONStoreEnabled) {
+                TwitterObjectFactory.clearThreadLocalMap()
+            }
 
-            // TODO implement JSON Store feature
-
-            tweets
+            return TweetsResponse(res, conf.isJSONStoreEnabled)
         } catch (ex: JSONException) {
             throw TwitterException(ex)
         }
