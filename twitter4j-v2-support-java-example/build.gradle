@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation "org.twitter4j:twitter4j-core:4.0.7"
+    implementation project(':twitter4j-v2-support')
+}
