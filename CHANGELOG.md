@@ -4,6 +4,8 @@ Change Log
 v0.1.2 (2020.07.xx)
 -------------------
 - Replace the method for storing json with Twitter4J style
+- Add java example
+- Rename `twitter4j-v2-support-example` to `twitter4j-v2-support-kotlin-example`
 
 v0.1.1 (2020.07.22)
 -------------------
