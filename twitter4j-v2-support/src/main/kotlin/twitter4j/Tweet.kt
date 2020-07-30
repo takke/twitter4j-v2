@@ -13,7 +13,8 @@ data class Tweet(
         var urls: List<UrlEntity2>? = mutableListOf(),
         var authorId: Long? = null,
         var pollId: Long? = null,
-        var repliedToTweetId: Long? = null
+        var repliedToTweetId: Long? = null,
+        var quotedTweetId: Long? = null
 ) {
 
     data class PublicMetrics(
@@ -93,7 +94,10 @@ data class Tweet(
                         "replied_to" -> {
                             t.repliedToTweetId = referencedTweet.getLong("id")
                         }
-                        "quoted", "retweeted" -> {
+                        "quoted" -> {
+                            t.quotedTweetId = referencedTweet.getLong("id")
+                        }
+                        "retweeted" -> {
                             // TODO: implement
                         }
                     }

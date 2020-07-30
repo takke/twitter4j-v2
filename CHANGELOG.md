@@ -7,7 +7,7 @@ v0.1.2 (2020.07.xx)
 - Add java example
 - Rename `twitter4j-v2-support-example` to `twitter4j-v2-support-kotlin-example`
 - Add vars to `Tweet`
-  - repliedToTweetId
+  - repliedToTweetId, quotedTweetId
 
 v0.1.1 (2020.07.22)
 -------------------
