@@ -2,13 +2,14 @@ package twitter4j
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import twitter4j.conf.ConfigurationBuilder
 
 class TweetsResponseTest {
 
     @Test
     fun simplePoll() {
 
-        val twitter = TwitterFactory.getSingleton()
+        val twitter = createTwitterInstance()
         val res = twitter.getTweets(656974073491156992L,
                 mediaFields = "duration_ms,height,media_key,preview_image_url,type,url,width",
                 placeFields = "contained_within,country,country_code,full_name,geo,id,name,place_type",
@@ -55,7 +56,7 @@ class TweetsResponseTest {
         // twurl -X GET "/labs/2/tweets?ids=656974073491156992"
  //       val res = TweetsResponse(JSONObject("{\"data\":[{\"id\":\"656974073491156992\",\"text\":\"We've got polls now! Which typeface do you prefer?\"}]}"))
 
-        val twitter = TwitterFactory.getSingleton()
+        val twitter = createTwitterInstance()
         val res = twitter.getTweets(656974073491156992L,
                 mediaFields = null,
                 placeFields = null,
@@ -64,7 +65,6 @@ class TweetsResponseTest {
                 userFields = null,
                 expansions = ""
         )
-//        println(res.asJSONObject.toString(3))
 
         assertThat(res.tweets.size).isEqualTo(1)
         res.tweets[0].let {
@@ -73,10 +73,35 @@ class TweetsResponseTest {
             assertThat(it.source).isNull()
             assertThat(it.lang).isNull()
             assertThat(it.publicMetrics).isNull()
-            assertThat(it.possiblySensitive).isFalse()
+            assertThat(it.possiblySensitive).isFalse
             assertThat(it.urls).isEmpty()
             assertThat(it.authorId).isNull()
             assertThat(it.pollId).isNull()
+            assertThat(it.repliedToTweetId).isNull()
         }
+    }
+
+    @Test
+    fun repliedTo() {
+
+        val twitter = createTwitterInstance()
+        val res = twitter.getTweets(1288737678926573568L)
+
+//        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+//        println(json.toString(3))
+
+        assertThat(res.tweets.size).isEqualTo(1)
+        res.tweets[0].let {
+            assertThat(it.repliedToTweetId).isEqualTo(1288735517127790592)
+        }
+
+    }
+
+    private fun createTwitterInstance(): Twitter {
+        val conf = ConfigurationBuilder()
+                .setJSONStoreEnabled(true)
+                .build()
+        return TwitterFactory(conf).instance
+//        return TwitterFactory.getSingleton()
     }
 }

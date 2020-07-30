@@ -12,7 +12,8 @@ data class Tweet(
         var possiblySensitive: Boolean = false,
         var urls: List<UrlEntity2>? = mutableListOf(),
         var authorId: Long? = null,
-        var pollId: Long? = null
+        var pollId: Long? = null,
+        var repliedToTweetId: Long? = null
 ) {
 
     data class PublicMetrics(
@@ -83,6 +84,21 @@ data class Tweet(
             }
 
             t.possiblySensitive = data.optBoolean("possibly_sensitive", false)
+
+            // referenced_tweets
+            data.optJSONArray("referenced_tweets")?.let { referencedTweetsArray ->
+                for (i in 0 until referencedTweetsArray.length()) {
+                    val referencedTweet = referencedTweetsArray.getJSONObject(i)
+                    when (referencedTweet.getString("type")) {
+                        "replied_to" -> {
+                            t.repliedToTweetId = referencedTweet.getLong("id")
+                        }
+                        "quoted", "retweeted" -> {
+                            // TODO: implement
+                        }
+                    }
+                }
+            }
 
             return t
         }
