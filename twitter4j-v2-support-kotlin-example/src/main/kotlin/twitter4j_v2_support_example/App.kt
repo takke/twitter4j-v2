@@ -9,7 +9,11 @@ import twitter4j.getTweets
 import twitter4j.getUsers
 
 
-fun main(args: Array<String>) {
+fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
+
+    //--------------------------------------------------
+    // from JSON
+    //--------------------------------------------------
 
     // twurl -X GET "/labs/2/tweets?ids=1284872930841640960&expansions=attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id&media.fields=duration_ms,height,media_key,preview_image_url,type,url,width&place.fields=contained_within,country,country_code,full_name,geo,id,name,place_type&poll.fields=duration_minutes,end_datetime,id,options,voting_status&tweet.fields=attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,public_metrics,text,withheld&user.fields=created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld"
     TweetsResponse(JSONObject("{\"data\":[{\"source\":\"Tween\",\"entities\":{\"urls\":[{\"start\":34,\"end\":57,\"url\":\"https://t.co/08Eoo3xlMo\",\"expanded_url\":\"https://github.com/takke/twitter4j-v2\",\"display_url\":\"github.com/takke/twitter4…\",\"images\":[{\"url\":\"https://pbs.twimg.com/news_img/1284872934327070722/gRYmCVd2?format=jpg&name=orig\",\"width\":400,\"height\":400},{\"url\":\"https://pbs.twimg.com/news_img/1284872934327070722/gRYmCVd2?format=jpg&name=150x150\",\"width\":150,\"height\":150}],\"status\":200,\"title\":\"takke/twitter4j-v2\",\"description\":\"Contribute to takke/twitter4j-v2 development by creating an account on GitHub.\",\"unwound_url\":\"https://github.com/takke/twitter4j-v2\"}]},\"id\":\"1284872930841640960\",\"created_at\":\"2020-07-19T15:29:13.000Z\",\"lang\":\"ja\",\"text\":\"それっぽいもの、作った // takke/twitter4j-v2 https://t.co/08Eoo3xlMo\",\"possibly_sensitive\":false,\"author_id\":\"8379212\",\"public_metrics\":{\"retweet_count\":2,\"reply_count\":3,\"like_count\":5,\"quote_count\":1}}],\"includes\":{\"users\":[{\"location\":\"北海道\",\"created_at\":\"2007-08-23T10:06:53.000Z\",\"username\":\"takke\",\"protected\":false,\"id\":\"8379212\",\"public_metrics\":{\"followers_count\":1661,\"following_count\":1042,\"tweet_count\":56518,\"listed_count\":129},\"entities\":{\"url\":{\"urls\":[{\"start\":0,\"end\":23,\"url\":\"https://t.co/YAuXOSh2C4\",\"expanded_url\":\"http://www.panecraft.net/\",\"display_url\":\"panecraft.net\"}]},\"description\":{\"mentions\":[{\"start\":13,\"end\":22,\"username\":\"TwitPane\"}]}},\"description\":\"Twitterクライアント@TwitPane、mixiブラウザTkMixiViewer、英単語学習ソフト P-Study System 、MZ3/4 などを開発。「ちょっぴり使いやすい」アプリを日々開発しています。ペーンクラフト代表\",\"url\":\"https://t.co/YAuXOSh2C4\",\"profile_image_url\":\"https://pbs.twimg.com/profile_images/423153841505193984/yGKSJu78_normal.jpeg\",\"name\":\"竹内裕昭\\uD83D\\uDC27\",\"verified\":false}]}}")
@@ -38,15 +42,16 @@ fun main(args: Array<String>) {
     twitter.getTweets(656974073491156992L).let {
         println(it)
 
-        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.tweets))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
         println(json.toString(3))
     }
 
+    // multiple ids
     val tweetIds: Array<Long> = arrayOf(656974073491156992L, 1284872930841640960L)
     twitter.getTweets(*tweetIds.toLongArray()).let {
         println(it)
 
-        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.tweets))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
         println(json.toString(3))
     }
 
@@ -59,7 +64,7 @@ fun main(args: Array<String>) {
     twitter.getUsers(twitterDesignId).let {
         println(it)
 
-        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.users))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
         println(json.toString(3))
     }
 
@@ -74,7 +79,7 @@ fun main(args: Array<String>) {
     ).let {
         println(it)
 
-        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.users))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
         println(json.toString(3))
     }
 
@@ -91,7 +96,7 @@ fun main(args: Array<String>) {
 
         println(it.tweetsMap)
 
-        val json = JSONObject(TwitterObjectFactory.getRawJSON(it.users))
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
         println(json.toString(3))
     }
 

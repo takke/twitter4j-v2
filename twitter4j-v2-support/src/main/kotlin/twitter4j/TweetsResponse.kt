@@ -60,7 +60,7 @@ class TweetsResponse : TwitterResponse {
         }
 
         if (isJSONStoreEnabled) {
-            TwitterObjectFactory.registerJSONObject(tweets, jsonObject)
+            TwitterObjectFactory.registerJSONObject(this, jsonObject)
         }
     }
 
