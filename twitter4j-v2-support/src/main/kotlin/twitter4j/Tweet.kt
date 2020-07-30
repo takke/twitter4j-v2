@@ -14,7 +14,8 @@ data class Tweet(
         var authorId: Long? = null,
         var pollId: Long? = null,
         var repliedToTweetId: Long? = null,
-        var quotedTweetId: Long? = null
+        var quotedTweetId: Long? = null,
+        var retweetId: Long? = null
 ) {
 
     data class PublicMetrics(
@@ -98,7 +99,7 @@ data class Tweet(
                             t.quotedTweetId = referencedTweet.getLong("id")
                         }
                         "retweeted" -> {
-                            // TODO: implement
+                            t.retweetId = referencedTweet.getLong("id")
                         }
                     }
                 }

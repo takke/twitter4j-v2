@@ -123,6 +123,24 @@ class TweetsResponseTest {
         }
     }
 
+    @Test
+    fun retweet() {
+
+        val twitter = createTwitterInstance()
+        val res = twitter.getTweets(1288748212795236352L)
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        res.tweets[0].let {
+            assertThat(it.retweetId).isEqualTo(1288707607486541824)
+
+            res.tweetsMap[it.retweetId]!!.let { quotedTweet ->
+                assertThat(quotedTweet.id).isEqualTo(1288707607486541824)
+            }
+        }
+    }
+
     private fun createTwitterInstance(): Twitter {
         val conf = ConfigurationBuilder()
                 .setJSONStoreEnabled(true)
