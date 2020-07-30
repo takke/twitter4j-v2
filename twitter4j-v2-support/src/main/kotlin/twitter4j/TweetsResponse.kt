@@ -73,7 +73,7 @@ class TweetsResponse : TwitterResponse {
     }
 
     override fun toString(): String {
-        return "TweetsResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, tweets=$tweets)"
+        return "TweetsResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, tweets=$tweets, pollsMap=$pollsMap, usersMap=$usersMap, tweetsMap=$tweetsMap)"
     }
 
 
