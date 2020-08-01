@@ -39,6 +39,8 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     // getTweets example
     //--------------------------------------------------
+    println("single id")
+    println("=========")
     twitter.getTweets(656974073491156992L).let {
         println(it)
 
@@ -46,7 +48,8 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
         println(json.toString(3))
     }
 
-    // multiple ids
+    println("multiple ids")
+    println("============")
     val tweetIds: Array<Long> = arrayOf(656974073491156992L, 1284872930841640960L)
     twitter.getTweets(*tweetIds.toLongArray()).let {
         println(it)
@@ -68,7 +71,8 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
         println(json.toString(3))
     }
 
-    // minimum query
+    println("minimum query")
+    println("=============")
     twitter.getUsers(twitterDesignId,
             mediaFields = null,
             placeFields = null,
@@ -83,18 +87,35 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
         println(json.toString(3))
     }
 
-    // pinned_tweet_id only
+    println("pinned_tweet")
+    println("============")
     twitter.getUsers(twitterDesignId,
             mediaFields = null,
             placeFields = null,
             pollFields = null,
             tweetFields = null,
-            userFields = null,
+            userFields = "pinned_tweet_id",
             expansions = "pinned_tweet_id"
     ).let {
         println(it)
 
         println(it.tweetsMap)
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
+        println(json.toString(3))
+    }
+
+    println("pinned_tweet_id only")
+    println("====================")
+    twitter.getUsers(twitterDesignId,
+            mediaFields = null,
+            placeFields = null,
+            pollFields = null,
+            tweetFields = null,
+            userFields = "pinned_tweet_id",
+            expansions = ""
+    ).let {
+        println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
         println(json.toString(3))
