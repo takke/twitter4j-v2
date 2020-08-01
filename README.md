@@ -53,8 +53,8 @@ See more [examples](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-
 
 Requirements
 ------------
-- Kotlin 1.3.+
-- Twitter4J 4.0.7+
+- Kotlin 1.4.0-rc
+- Twitter4J 4.0.7
 
 
 Supported APIs
