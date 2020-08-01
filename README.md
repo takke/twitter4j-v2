@@ -43,7 +43,10 @@ val tweetsResponse = twitter.getTweets(tweetId,
                             userFields = null,
                             expansions = "attachments.poll_ids")
 
-println(tweetsResponse.tweets[0].poll)
+println(tweetsResponse.tweets[0].poll(tweetsResponse.pollsMap))
+// or
+println(tweetsResponse.pollsMap[tweetsResponse.tweets[0].pollId])
+
 // => Poll(id=656974073113636864, options=[PollOption(position=1, label=Roboto, votes=391), 
 //    PollOption(position=2, label=San Francisco, votes=691)], 
 //    votingStatus=CLOSED, endDatetime=Fri Oct 23 08:23:19 GMT+09:00 2015, durationMinutes=1440)
@@ -66,7 +69,7 @@ Supported APIs
 |  [/labs/2/tweets](https://developer.twitter.com/en/docs/labs/tweets-and-users/api-reference/get-tweets)  |  [Twitter.getTweets()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getTweets.kt)  |
 |  [/labs/2/users](https://developer.twitter.com/en/docs/labs/tweets-and-users/api-reference/get-users)  |  [Twitter.getUsers()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsers.kt)  |
 
-see also: [Response Field Mapping](https://github.com/takke/twitter4j-v2/wiki/Response-Field-Mapping)
+See also [Response Field Mapping](https://github.com/takke/twitter4j-v2/wiki/Response-Field-Mapping)
 
 
 
