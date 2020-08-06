@@ -46,7 +46,7 @@ fun Twitter.getUsers(vararg ids: Long,
     }
 
     return UsersFactory().createUsersResponse(
-            http.get(V2Configuration.baseURL + "users", params.toTypedArray(), auth, this),
+            http.get(conf.v2Configuration.baseURL + "users", params.toTypedArray(), auth, this),
             conf
     )
 }

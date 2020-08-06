@@ -46,7 +46,7 @@ fun Twitter.getTweets(vararg tweetId: Long,
     }
 
     return TweetsFactory().createTweetsResponse(
-            http.get(V2Configuration.baseURL + "tweets", params.toTypedArray(), auth, this),
+            http.get(conf.v2Configuration.baseURL + "tweets", params.toTypedArray(), auth, this),
             conf
     )
 }
