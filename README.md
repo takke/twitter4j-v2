@@ -1,4 +1,5 @@
 [ ![Download](https://api.bintray.com/packages/takke/maven/twitter4j-v2/images/download.svg) ](https://bintray.com/takke/maven/twitter4j-v2/_latestVersion)
+![CI](https://github.com/takke/twitter4j-v2/workflows/CI/badge.svg)
 
 twitter4j-v2
 ============
