@@ -2,7 +2,7 @@ buildscript {
     // for publishing
     ext {
         groupName = 'jp.takke.twitter4j-v2'
-        versionName = '0.1.1'
+        versionName = '0.1.2'
         versionDescription = 'twitter4j-v2-support Version ' + versionName
         descriptionText = 'A simple wrapper for Twitter API v2 that is designed to be used with Twitter4J.'
         scmUrl = "https://github.com/takke/twitter4j-v2"

@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v0.1.2 (2020.08.xx)
+v0.1.2 (2020.08.06)
 -------------------
 - Add `Configuration.v2Configuration.baseURL` to set another base URL
 - Replace the method for storing json with Twitter4J style
