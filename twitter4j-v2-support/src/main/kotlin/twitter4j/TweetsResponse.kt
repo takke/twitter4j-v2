@@ -52,11 +52,13 @@ class TweetsResponse : TwitterResponse {
         //--------------------------------------------------
         // create tweets from data
         //--------------------------------------------------
-        val dataArray = jsonObject.getJSONArray("data")
-        for (i in 0 until dataArray.length()) {
-            val data = dataArray.getJSONObject(i)
+        val dataArray = jsonObject.optJSONArray("data")
+        if (dataArray != null) {
+            for (i in 0 until dataArray.length()) {
+                val data = dataArray.getJSONObject(i)
 
-            tweets.add(Tweet.parse(data))
+                tweets.add(Tweet.parse(data))
+            }
         }
 
         if (isJSONStoreEnabled) {
