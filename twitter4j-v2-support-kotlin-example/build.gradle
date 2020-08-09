@@ -17,5 +17,5 @@ dependencies {
 
 // ./gradlew run
 application {
-    mainClassName = 'twitter4j_v2_support_example.AppKt'
+    mainClassName = 'twitter4j_v2_support_example.GetTweetsExampleKt'
 }
