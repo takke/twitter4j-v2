@@ -4,9 +4,12 @@
 twitter4j-v2
 ============
 
-twitter4j-v2 is a simple wrapper for Twitter API v2 that is designed to be used with Twitter4J.
+_As Twitter API v2 has not yet been released, this library uses [Labs API](https://developer.twitter.com/en/docs/labs/overview/introduction)._
+
+twitter4j-v2 is a simple wrapper for Twitter API v2 that is designed to be used with [Twitter4J](https://github.com/Twitter4J/Twitter4J).
 
 More information is [here](https://github.com/takke/twitter4j-v2/wiki/Design-Policy).
+
 
 How do I use it?
 ----------------
@@ -32,7 +35,6 @@ dependencies {
 ### Example
 
 ```kotlin
-
 val twitter: Twitter = yourTwitterInstanceProvider.get()
 val tweetId = 656974073491156992L
 
@@ -53,7 +55,7 @@ println(tweetsResponse.pollsMap[tweetsResponse.tweets[0].pollId])
 //    votingStatus=CLOSED, endDatetime=Fri Oct 23 08:23:19 GMT+09:00 2015, durationMinutes=1440)
 ```
 
-See more [examples](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support-kotlin-example/src/main/kotlin/twitter4j_v2_support_example/App.kt).
+See more examples in [kotlin](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support-kotlin-example/src/main/kotlin/twitter4j_v2_support_example/) and [java](https://github.com/takke/twitter4j-v2/tree/master/twitter4j-v2-support-java-example/src/main/java/twitter4j_v2_support_java_example).
 
 Requirements
 ------------
