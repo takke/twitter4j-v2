@@ -26,7 +26,7 @@ public final class App {
         // getUsers example
         //--------------------------------------------------
         final long twitterDesignId = 87532773L;
-        final UsersResponse users = GetUsersKt.getUsers(twitter, new long[]{twitterDesignId}, null, null, null, null, null, "");
+        final UsersResponse users = GetUsersKt.getUsers(twitter, new long[]{twitterDesignId}, null, null, "");
         System.out.println("users = " + users);
     }
 }
