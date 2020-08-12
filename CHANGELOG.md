@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+v0.2.0 (2020.08.13)
+-------------------
+- Change the default URLs to Twitter API v2 endpoints
+- Update docs for Twitter API v2
+
 v0.1.2 (2020.08.06)
 -------------------
 - Add `Configuration.v2Configuration.baseURL` to set another base URL
