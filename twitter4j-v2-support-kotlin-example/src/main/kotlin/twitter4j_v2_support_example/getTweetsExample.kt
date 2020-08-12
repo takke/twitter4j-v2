@@ -33,8 +33,8 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
             .setJSONStoreEnabled(true)
             .build()
 
-    // set another baseURL of Twitter v2 API
-//    conf.v2Configuration.baseURL = "https://api.twitter.com/2/"
+    // set another baseURL for Twitter Labs API
+//    conf.v2Configuration.baseURL = "https://api.twitter.com/labs/2/"
 
     val twitter = TwitterFactory(conf).instance
 //    val twitter = TwitterFactory.getSingleton()
