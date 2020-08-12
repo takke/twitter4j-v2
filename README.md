@@ -4,9 +4,7 @@
 twitter4j-v2
 ============
 
-_As Twitter API v2 has not yet been released, this library uses [Labs API](https://developer.twitter.com/en/docs/labs/overview/introduction)._
-
-twitter4j-v2 is a simple wrapper for Twitter API v2 that is designed to be used with [Twitter4J](https://github.com/Twitter4J/Twitter4J).
+twitter4j-v2 is a simple wrapper for [Twitter API v2](https://developer.twitter.com/en/docs/twitter-api/early-access) that is designed to be used with [Twitter4J](https://github.com/Twitter4J/Twitter4J).
 
 More information is [here](https://github.com/takke/twitter4j-v2/wiki/Design-Policy).
 
@@ -69,8 +67,8 @@ Supported APIs
 |  End-point  |  twitter4j-v2 method  |
 | ---- | ---- |
 |  Tweets and Users v2  |  -  |
-|  [/labs/2/tweets](https://developer.twitter.com/en/docs/labs/tweets-and-users/api-reference/get-tweets)  |  [Twitter.getTweets()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getTweets.kt)  |
-|  [/labs/2/users](https://developer.twitter.com/en/docs/labs/tweets-and-users/api-reference/get-users)  |  [Twitter.getUsers()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsers.kt)  |
+|  [/2/tweets](https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets)  |  [Twitter.getTweets()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getTweets.kt)  |
+|  [/2/users](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users)  |  [Twitter.getUsers()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsers.kt)  |
 
 See also [Response Field Mapping](https://github.com/takke/twitter4j-v2/wiki/Response-Field-Mapping)
 
