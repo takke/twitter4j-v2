@@ -4,7 +4,7 @@ package twitter4j
  * Returns a variety of information about the Tweet specified by the requested ID or list of IDs.
  *
  * @throws TwitterException when Twitter service or network is unavailable
- * @see "https://developer.twitter.com/en/docs/labs/tweets-and-users/api-reference/get-tweets"
+ * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets"
  */
 @Throws(TwitterException::class)
 fun Twitter.getTweets(vararg tweetId: Long,
