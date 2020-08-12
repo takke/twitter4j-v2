@@ -61,4 +61,21 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
         println(json.toString(3))
     }
 
+    println("organic_metrics, non_public_metrics")
+    println("===================================")
+    val account = twitter.verifyCredentials()
+    if (account == null) {
+        println("invalid account")
+    } else {
+        val statusId = account.status?.id
+        println("account id[${account.id}], status id[$statusId]")
+        if (statusId != null) {
+            twitter.getTweets(statusId, tweetFields = "non_public_metrics,organic_metrics,public_metrics", expansions = "").let {
+                println(it)
+
+                val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
+                println(json.toString(3))
+            }
+        }
+    }
 }
