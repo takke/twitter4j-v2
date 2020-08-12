@@ -38,9 +38,6 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     println("minimum query")
     println("=============")
     twitter.getUsers(twitterDesignId,
-            mediaFields = null,
-            placeFields = null,
-            pollFields = null,
             tweetFields = null,
             userFields = null,
             expansions = ""
@@ -54,9 +51,6 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     println("pinned_tweet")
     println("============")
     twitter.getUsers(twitterDesignId,
-            mediaFields = null,
-            placeFields = null,
-            pollFields = null,
             tweetFields = null,
             userFields = "pinned_tweet_id",
             expansions = "pinned_tweet_id"
@@ -72,9 +66,6 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     println("pinned_tweet_id only")
     println("====================")
     twitter.getUsers(twitterDesignId,
-            mediaFields = null,
-            placeFields = null,
-            pollFields = null,
             tweetFields = null,
             userFields = "pinned_tweet_id",
             expansions = ""

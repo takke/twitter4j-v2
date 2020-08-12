@@ -8,10 +8,7 @@ package twitter4j
  */
 @Throws(TwitterException::class)
 fun Twitter.getUsers(vararg ids: Long,
-                      mediaFields: String? = "duration_ms,height,media_key,preview_image_url,type,url,width",
-                      placeFields: String? = "contained_within,country,country_code,full_name,geo,id,name,place_type",
-                      pollFields: String? = "duration_minutes,end_datetime,id,options,voting_status",
-                      tweetFields: String? = "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,public_metrics,text,withheld",
+                      tweetFields: String? = "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,public_metrics,possibly_sensitive,referenced_tweets,source,text,withheld",
                       userFields: String? = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
                       expansions: String = "pinned_tweet_id"
 ): UsersResponse {
@@ -24,18 +21,6 @@ fun Twitter.getUsers(vararg ids: Long,
             HttpParameter("ids", ids.joinToString(",")),
             HttpParameter("expansions", expansions)
     )
-
-    if (mediaFields != null) {
-        params.add(HttpParameter("media.fields", mediaFields))
-    }
-
-    if (placeFields != null) {
-        params.add(HttpParameter("place.fields", placeFields))
-    }
-
-    if (pollFields != null) {
-        params.add(HttpParameter("poll.fields", pollFields))
-    }
 
     if (tweetFields != null) {
         params.add(HttpParameter("tweet.fields", tweetFields))
