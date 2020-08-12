@@ -3,7 +3,7 @@ package twitter4j
 import twitter4j.conf.Configuration
 import java.util.concurrent.ConcurrentHashMap
 
-data class V2Configuration(var baseURL: String = "https://api.twitter.com/labs/2/")
+data class V2Configuration(var baseURL: String = "https://api.twitter.com/2/")
 
 internal object V2ConfigurationContainer {
     val v2ConfigurationMap = ConcurrentHashMap<Configuration, V2Configuration>()
