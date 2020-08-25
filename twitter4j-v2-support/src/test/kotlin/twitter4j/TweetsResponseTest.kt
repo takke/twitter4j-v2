@@ -1,8 +1,10 @@
 package twitter4j
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.fail
 import org.junit.Test
 import twitter4j.conf.ConfigurationBuilder
+import kotlin.test.assertNotNull
 
 class TweetsResponseTest {
 
@@ -137,6 +139,35 @@ class TweetsResponseTest {
 
             res.tweetsMap[it.retweetId]!!.let { quotedTweet ->
                 assertThat(quotedTweet.id).isEqualTo(1288707607486541824)
+            }
+        }
+    }
+
+    @Test
+    fun nonPublicOrganicMetrics() {
+
+        val twitter = createTwitterInstance()
+        val account = twitter.verifyCredentials()
+        if (account == null) {
+            fail("invalid account")
+        } else {
+            val statusId = account.status?.id
+            println("account id[${account.id}], status id[$statusId]")
+            if (statusId != null) {
+                val res = twitter.getTweets(statusId, tweetFields = "non_public_metrics,organic_metrics,public_metrics", expansions = "")
+
+                val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+                println(json.toString(3))
+
+                res.tweets[0].let {
+                    assertNotNull(it.nonPublicMetrics)
+                    assertNotNull(it.organicMetrics)
+                    assertNotNull(it.publicMetrics)
+
+                    println(it.nonPublicMetrics)
+                    println(it.organicMetrics)
+                }
+
             }
         }
     }

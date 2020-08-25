@@ -9,6 +9,8 @@ data class Tweet(
         var lang: String? = null,
         var createdAt: Date? = null,
         var publicMetrics: PublicMetrics? = null,
+        var nonPublicMetrics: NonPublicMetrics? = null,
+        var organicMetrics: OrganicMetrics? = null,
         var possiblySensitive: Boolean = false,
         var urls: List<UrlEntity2>? = mutableListOf(),
         var authorId: Long? = null,
@@ -24,14 +26,42 @@ data class Tweet(
             val likeCount: Int,
             val quoteCount: Int
     ) {
-
         constructor(json: JSONObject) : this(
                 retweetCount = ParseUtil.getInt("retweet_count", json),
                 replyCount = ParseUtil.getInt("reply_count", json),
                 likeCount = ParseUtil.getInt("like_count", json),
                 quoteCount = ParseUtil.getInt("quote_count", json)
         )
+    }
 
+    data class NonPublicMetrics(
+            val impressionCount: Int,
+            val urlLinkClicks: Int,
+            val userProfileClicks: Int
+    ) {
+        constructor(json: JSONObject) : this(
+                impressionCount = ParseUtil.getInt("impression_count", json),
+                urlLinkClicks = ParseUtil.getInt("url_link_clicks", json),
+                userProfileClicks = ParseUtil.getInt("user_profile_clicks", json)
+        )
+    }
+
+    data class OrganicMetrics(
+            val impressionCount: Int,
+            val urlLinkClicks: Int,
+            val userProfileClicks: Int,
+            val retweetCount: Int,
+            val replyCount: Int,
+            val likeCount: Int
+    ) {
+        constructor(json: JSONObject) : this(
+                impressionCount = ParseUtil.getInt("impression_count", json),
+                urlLinkClicks = ParseUtil.getInt("url_link_clicks", json),
+                userProfileClicks = ParseUtil.getInt("user_profile_clicks", json),
+                retweetCount = ParseUtil.getInt("retweet_count", json),
+                replyCount = ParseUtil.getInt("reply_count", json),
+                likeCount = ParseUtil.getInt("like_count", json)
+        )
     }
 
     fun poll(pollsMap: HashMap<Long, Poll>): Poll? {
@@ -54,6 +84,12 @@ data class Tweet(
             t.createdAt = ParseUtil.getDate("created_at", data, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             data.optJSONObject("public_metrics")?.let {
                 t.publicMetrics = PublicMetrics(it)
+            }
+            data.optJSONObject("non_public_metrics")?.let {
+                t.nonPublicMetrics = NonPublicMetrics(it)
+            }
+            data.optJSONObject("organic_metrics")?.let {
+                t.organicMetrics = OrganicMetrics(it)
             }
 
             // entities.urls
