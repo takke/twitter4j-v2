@@ -21,6 +21,9 @@ class TweetsResponse : TwitterResponse {
     // includes.tweets
     val tweetsMap = HashMap<Long, Tweet>()
 
+    // errors
+    val errors: List<ErrorInfo> = mutableListOf()
+
 
     constructor(res: HttpResponse, isJSONStoreEnabled: Boolean) {
         rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
@@ -58,6 +61,17 @@ class TweetsResponse : TwitterResponse {
                 val data = dataArray.getJSONObject(i)
 
                 tweets.add(Tweet.parse(data))
+            }
+        }
+
+        //--------------------------------------------------
+        // errors
+        //--------------------------------------------------
+        val errorsArray = jsonObject.optJSONArray("errors")
+        if (errorsArray != null) {
+            val errors = errors as MutableList
+            for (i in 0 until errorsArray.length()) {
+                errors.add(ErrorInfo(errorsArray.getJSONObject(i)))
             }
         }
 
