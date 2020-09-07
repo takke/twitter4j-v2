@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v0.2.1 (2020.09.xx)
+-------------------
+- Support /2/users/by (Twitter.getUsersBy)
+
 v0.2.0 (2020.08.13)
 -------------------
 - Change the default URLs to Twitter API v2 endpoints

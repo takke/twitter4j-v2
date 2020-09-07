@@ -1,7 +1,7 @@
 package twitter4j
 
 /**
- * Returns a variety of information about one or more Users specified by the requested IDs or usernames.
+ * Returns a variety of information about one or more users specified by the requested IDs.
  *
  * @throws TwitterException when Twitter service or network is unavailable
  * @see "https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users"
