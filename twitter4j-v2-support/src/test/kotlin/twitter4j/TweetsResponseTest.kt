@@ -1,7 +1,6 @@
 package twitter4j
 
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.fail
+import org.assertj.core.api.Assertions.*
 import org.junit.Test
 import twitter4j.conf.ConfigurationBuilder
 import kotlin.test.assertNotNull
@@ -31,10 +30,10 @@ class TweetsResponseTest {
             assertThat(it.lang).isEqualTo("en")
             assertThat(it.createdAt).isEqualTo("2015-10-21T23:23:19.000Z")
 
-            assertThat(it.publicMetrics?.retweetCount).isEqualTo(66)
-            assertThat(it.publicMetrics?.replyCount).isEqualTo(9)
-            assertThat(it.publicMetrics?.likeCount).isEqualTo(82)
-            assertThat(it.publicMetrics?.quoteCount).isEqualTo(0)
+            assertThat(it.publicMetrics?.retweetCount).isCloseTo(66, within(5))
+            assertThat(it.publicMetrics?.replyCount).isCloseTo(9, within(5))
+            assertThat(it.publicMetrics?.likeCount).isCloseTo(81, within(5))
+            assertThat(it.publicMetrics?.quoteCount).isCloseTo(0, within(5))
 
             assertThat(it.possiblySensitive).isEqualTo(false)
             assertThat(it.repliedToTweetId).isNull()
