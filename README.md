@@ -75,6 +75,7 @@ Supported APIs
 |  Hide replies <br>[PUT /2/tweets/:id/hidden](https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden) |  N/A  |
 |  **Users**  |  -  |
 |  Lookup <br>[GET /2/users](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users)  |  [Twitter.getUsers()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsers.kt)  |
+|  Lookup <br>[GET /2/users/by](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by)  |  [Twitter.getUsersBy()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsersBy.kt)  |
 
 See also [Response Field Mapping](https://github.com/takke/twitter4j-v2/wiki/Response-Field-Mapping)
 
