@@ -1,10 +1,10 @@
 Change Log
 ==========
 
-v0.2.1 (2020.09.xx)
+v0.2.1 (2021.05.xx)
 -------------------
 - Support /2/users/by (Twitter.getUsersBy)
-- Bump Kotlin 1.4.0
+- Bump Kotlin 1.5.0
 
 v0.2.0 (2020.08.13)
 -------------------
