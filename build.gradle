@@ -14,13 +14,11 @@ buildscript {
 
     ext.kotlin_version = '1.5.0'
     repositories {
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         // Kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
     }
 }
 
