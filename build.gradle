@@ -27,7 +27,6 @@ buildscript {
 subprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'java-library'
-    apply plugin: 'com.jfrog.bintray'
 
     //--------------------------------------------------
     // for publish
@@ -90,41 +89,10 @@ subprojects {
                 }
             }
         }
-    }
-
-    //--------------------------------------------------
-    // upload to bintray
-    //--------------------------------------------------
-    // ./gradlew clean bintrayUpload
-    bintray {
-        user = hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-        key = hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
-
-        // false => push upload button on bintray web page to distribute new version manually.
-        publish = false
-
-//        configurations = ['MyPublication']
-
-        pkg {
-            repo = 'maven'
-            name = 'twitter4j-v2'
-            userOrg = user
-            licenses = ['Apache-2.0']
-            labels = ['kotlin']
-            vcsUrl = vcsUrl
-            version {
-                name = versionName
-                desc = versionDescription
-                vcsTag = versionName
+        repositories {
+            maven {
+                url "file://${rootDir}/release_to_github_io/takke.github.io/maven/"
             }
         }
     }
-
-    bintrayUpload.doFirst {
-        publications = publishing.publications.collect {
-            it.name
-        }
-    }
-
-    bintrayUpload.dependsOn publishToMavenLocal
 }

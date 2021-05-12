@@ -1,5 +1,4 @@
 [![v2](https://img.shields.io/endpoint?url=https%3A%2F%2Ftwbadges.glitch.me%2Fbadges%2Fv2)](https://developer.twitter.com/en/docs/twitter-api)
-[ ![Download](https://api.bintray.com/packages/takke/maven/twitter4j-v2/images/download.svg) ](https://bintray.com/takke/maven/twitter4j-v2/_latestVersion)
 ![CI](https://github.com/takke/twitter4j-v2/workflows/CI/badge.svg)
 
 twitter4j-v2
@@ -19,7 +18,7 @@ How do I use it?
 ```groovy
 repositories {
     maven {
-        url 'http://dl.bintray.com/takke/maven'
+        url 'https://takke.github.io/maven'
         content {
             includeGroup "jp.takke.twitter4j-v2"
         }
