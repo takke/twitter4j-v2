@@ -4,6 +4,7 @@ Change Log
 v0.2.1 (2021.05.xx)
 -------------------
 - Support /2/users/by (Twitter.getUsersBy)
+- Migrate repository from `bintray` to `github.io`
 - Bump Kotlin 1.5.0
 
 v0.2.0 (2020.08.13)
