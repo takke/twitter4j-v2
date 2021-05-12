@@ -5,6 +5,25 @@ import org.junit.Test
 import twitter4j.conf.ConfigurationBuilder
 import kotlin.test.assertNotNull
 
+@Throws(TwitterException::class)
+fun Twitter.getMyLatestTweet(userId: Long): ResponseList<Status>? {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    val params = arrayListOf(
+        HttpParameter("user_id", userId),
+        HttpParameter("include_rts", false),
+    )
+
+    return factory.createStatusList(
+        http.get(
+            conf.restBaseURL + "statuses/user_timeline.json", params.toTypedArray(), auth, this
+        )
+    )
+}
+
 class TweetsResponseTest {
 
     @Test
@@ -150,23 +169,23 @@ class TweetsResponseTest {
         if (account == null) {
             fail("invalid account")
         } else {
-            val statusId = account.status?.id
+            // exclude rts
+            val timeline = twitter.getMyLatestTweet(account.id)
+
+            val statusId = timeline!![0].id
             println("account id[${account.id}], status id[$statusId]")
-            if (statusId != null) {
-                val res = twitter.getTweets(statusId, tweetFields = "non_public_metrics,organic_metrics,public_metrics", expansions = "")
+            val res = twitter.getTweets(statusId, tweetFields = "non_public_metrics,organic_metrics,public_metrics", expansions = "")
 
-                val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
-                println(json.toString(3))
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
 
-                res.tweets[0].let {
-                    assertNotNull(it.nonPublicMetrics)
-                    assertNotNull(it.organicMetrics)
-                    assertNotNull(it.publicMetrics)
+            res.tweets[0].let {
+                assertNotNull(it.nonPublicMetrics)
+                assertNotNull(it.organicMetrics)
+                assertNotNull(it.publicMetrics)
 
-                    println(it.nonPublicMetrics)
-                    println(it.organicMetrics)
-                }
-
+                println(it.nonPublicMetrics)
+                println(it.organicMetrics)
             }
         }
     }

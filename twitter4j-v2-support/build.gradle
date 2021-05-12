@@ -2,7 +2,7 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'java-library'
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -18,3 +18,9 @@ dependencies {
     testImplementation "org.assertj:assertj-core:3.16.1"
 
 }
+
+//test {
+//    testLogging {
+//        events 'standard_out', 'standard_error'
+//    }
+//}
