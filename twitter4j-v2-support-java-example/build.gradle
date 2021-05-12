@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -10,4 +11,9 @@ repositories {
 dependencies {
     implementation "org.twitter4j:twitter4j-core:4.0.7"
     implementation project(':twitter4j-v2-support')
+}
+
+// ./gradlew run
+application {
+    mainClassName = 'twitter4j_v2_support_java_example.App'
 }
