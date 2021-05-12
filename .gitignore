@@ -31,3 +31,6 @@ build
 /twitter4j-v2-support/src/test/resources/twitter4j.properties
 /twitter4j-v2-support-java-example/src/main/resources/twitter4j.properties
 /twitter4j-v2-support-kotlin-example/src/main/resources/twitter4j.properties
+
+# Ignore working directory for releases
+/release_to_github_io/takke.github.io/
