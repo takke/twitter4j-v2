@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v0.2.1 (2021.05.xx)
+v0.2.1 (2021.05.12)
 -------------------
 - Support /2/users/by (Twitter.getUsersBy)
 - Migrate repository from `bintray` to `github.io`
