@@ -66,15 +66,27 @@ Supported APIs
 
 |  |  End-point  |  twitter4j-v2 method  |
 | ---- | ---- | ---- |
-|  **Tweets**  | - | - |
-|  Lookup | [GET /2/tweets](https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets)  |  [Twitter.getTweets()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getTweets.kt)  |
-|  Recent search | [GET /2/tweets/search/recent](https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent)  |  N/A  |
-|  [Filtered stream](https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/introduction)  |  |  N/A  |
-|  [Sampled stream](https://developer.twitter.com/en/docs/twitter-api/tweets/sampled-stream/introduction)  |  |  N/A  |
-|  Hide replies | [PUT /2/tweets/:id/hidden](https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden) |  N/A  |
-|  **Users**  |  -  | - |
-|  Lookup | [GET /2/users](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users)  |  [Twitter.getUsers()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsers.kt)  |
-|  | [GET /2/users/by](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by) | [Twitter.getUsersBy()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsersBy.kt)  |
+| **Tweets**      |  |  |
+| Tweet Lookup    | [GET /2/tweets](https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets)  |  [Twitter.getTweets()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getTweets.kt)  |
+| Search Tweets   | [GET /2/tweets/search/recent](https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent)  |  N/A  |
+| Tweet counts    |  |  N/A  |
+| Timelines       |  |  N/A  |
+| Filtered stream |  |  N/A  |
+| Sampled stream  |  |  N/A  |
+| Retweets        |  |  N/A  |
+| Likes           |  |  N/A  |
+| Hide replies    | [PUT /2/tweets/:id/hidden](https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden) |  N/A  |
+| **Users**       |  |  |
+| User lookup     | [GET /2/users](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users)  |  [Twitter.getUsers()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsers.kt)  |
+|                 | [GET /2/users/by](https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by) | [Twitter.getUsersBy()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/getUsersBy.kt)  |
+| Follows         |  |  N/A  |
+| Blocks          |  |  N/A  |
+| Mutes           |  |  N/A  |
+| **Spaces**      |  |  |
+| Lookup Spaces   |  |  N/A  |
+| Search Spaces   |  |  N/A  |
+
+v2 APIs table from [Twitter API v2: Early Access](https://developer.twitter.com/en/docs/twitter-api/early-access)
 
 See also [Response Field Mapping](https://github.com/takke/twitter4j-v2/wiki/Response-Field-Mapping)
 
