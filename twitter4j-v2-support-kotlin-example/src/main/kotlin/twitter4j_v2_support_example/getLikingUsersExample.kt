@@ -24,8 +24,8 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     twitter.getLikingUsers(
         statusId,
         expansions = "pinned_tweet_id",
-        tweetFields = "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,public_metrics,possibly_sensitive,referenced_tweets,reply_settings,source,text,withheld",
-        userFields = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld"
+        tweetFields = V2DefaultFields.tweetFields,
+        userFields = V2DefaultFields.userFields
     ).let {
         println(it)
 

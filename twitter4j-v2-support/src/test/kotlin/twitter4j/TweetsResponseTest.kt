@@ -33,10 +33,10 @@ class TweetsResponseTest {
         val res = twitter.getTweets(
             656974073491156992L,
             mediaFields = "duration_ms,height,media_key,preview_image_url,type,url,width",
-            placeFields = "contained_within,country,country_code,full_name,geo,id,name,place_type",
-            pollFields = "duration_minutes,end_datetime,id,options,voting_status",
+            placeFields = V2DefaultFields.placeFields,
+            pollFields = V2DefaultFields.pollFields,
             tweetFields = "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,public_metrics,text,withheld",
-            userFields = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+            userFields = V2DefaultFields.userFields,
             expansions = "attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id"
         )
 
