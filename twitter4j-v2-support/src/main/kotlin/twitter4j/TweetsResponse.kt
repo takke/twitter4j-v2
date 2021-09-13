@@ -21,6 +21,9 @@ class TweetsResponse : TwitterResponse {
     // includes.tweets
     val tweetsMap = HashMap<Long, Tweet>()
 
+    // meta
+    var meta: UsersResponse.Meta? = null
+
     // errors
     val errors: List<ErrorInfo> = mutableListOf()
 
@@ -62,6 +65,18 @@ class TweetsResponse : TwitterResponse {
 
                 tweets.add(Tweet.parse(data))
             }
+        }
+
+        //--------------------------------------------------
+        // meta
+        //--------------------------------------------------
+        if (jsonObject.has("meta")) {
+            val metaObject = jsonObject.optJSONObject("meta")
+            meta = UsersResponse.Meta(
+                metaObject.getInt("result_count"),
+                metaObject.optString("previous_token"),
+                metaObject.optString("next_token")
+            )
         }
 
         //--------------------------------------------------
