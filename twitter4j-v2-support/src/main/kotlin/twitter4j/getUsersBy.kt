@@ -9,7 +9,7 @@ package twitter4j
 @Throws(TwitterException::class)
 fun Twitter.getUsersBy(
     vararg usernames: String,
-    tweetFields: String? = "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,public_metrics,possibly_sensitive,referenced_tweets,source,text,withheld",
+    tweetFields: String? = V2DefaultFields.tweetFields,
     userFields: String? = V2DefaultFields.userFields,
     expansions: String = "pinned_tweet_id"
 ): UsersResponse {
