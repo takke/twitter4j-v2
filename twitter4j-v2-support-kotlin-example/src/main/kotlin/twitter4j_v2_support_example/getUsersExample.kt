@@ -13,8 +13,8 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     // prepare twitter instance
     //--------------------------------------------------
     val conf = ConfigurationBuilder()
-            .setJSONStoreEnabled(true)
-            .build()
+        .setJSONStoreEnabled(true)
+        .build()
 
     // set another baseURL for Twitter Labs API
 //    conf.v2Configuration.baseURL = "https://api.twitter.com/labs/2/"
@@ -37,10 +37,11 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("minimum query")
     println("=============")
-    twitter.getUsers(twitterDesignId,
-            tweetFields = null,
-            userFields = null,
-            expansions = ""
+    twitter.getUsers(
+        twitterDesignId,
+        tweetFields = null,
+        userFields = null,
+        expansions = ""
     ).let {
         println(it)
 
@@ -50,10 +51,11 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pinned_tweet")
     println("============")
-    twitter.getUsers(twitterDesignId,
-            tweetFields = null,
-            userFields = "pinned_tweet_id",
-            expansions = "pinned_tweet_id"
+    twitter.getUsers(
+        twitterDesignId,
+        tweetFields = null,
+        userFields = "pinned_tweet_id",
+        expansions = "pinned_tweet_id"
     ).let {
         println(it)
 
@@ -65,10 +67,11 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pinned_tweet_id only")
     println("====================")
-    twitter.getUsers(twitterDesignId,
-            tweetFields = null,
-            userFields = "pinned_tweet_id",
-            expansions = ""
+    twitter.getUsers(
+        twitterDesignId,
+        tweetFields = null,
+        userFields = "pinned_tweet_id",
+        expansions = ""
     ).let {
         println(it)
 

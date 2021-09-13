@@ -13,8 +13,8 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     // prepare twitter instance
     //--------------------------------------------------
     val conf = ConfigurationBuilder()
-            .setJSONStoreEnabled(true)
-            .build()
+        .setJSONStoreEnabled(true)
+        .build()
 
     val twitter = TwitterFactory(conf).instance
 
@@ -37,10 +37,11 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pinned_tweet")
     println("============")
-    twitter.getUsersBy("twitterdesign",
-            tweetFields = null,
-            userFields = "pinned_tweet_id",
-            expansions = "pinned_tweet_id"
+    twitter.getUsersBy(
+        "twitterdesign",
+        tweetFields = null,
+        userFields = "pinned_tweet_id",
+        expansions = "pinned_tweet_id"
     ).let {
         println(it)
 
@@ -52,10 +53,11 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pinned_tweet_id only")
     println("====================")
-    twitter.getUsersBy("twitterdesign",
-            tweetFields = null,
-            userFields = "pinned_tweet_id",
-            expansions = ""
+    twitter.getUsersBy(
+        "twitterdesign",
+        tweetFields = null,
+        userFields = "pinned_tweet_id",
+        expansions = ""
     ).let {
         println(it)
 
