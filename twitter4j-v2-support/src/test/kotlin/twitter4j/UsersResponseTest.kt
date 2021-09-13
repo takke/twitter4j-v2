@@ -8,15 +8,19 @@ class UsersResponseTest {
     @Test
     fun minimumTweet() {
 
-        val res = UsersResponse(JSONObject("{\n" +
-                "   \"data\": [\n" +
-                "      {\n" +
-                "         \"id\": \"87532773\",\n" +
-                "         \"username\": \"TwitterDesign\",\n" +
-                "         \"name\": \"Twitter Design\"\n" +
-                "      }\n" +
-                "   ]\n" +
-                "}"))
+        val res = UsersResponse(
+            JSONObject(
+                "{\n" +
+                        "   \"data\": [\n" +
+                        "      {\n" +
+                        "         \"id\": \"87532773\",\n" +
+                        "         \"username\": \"TwitterDesign\",\n" +
+                        "         \"name\": \"Twitter Design\"\n" +
+                        "      }\n" +
+                        "   ]\n" +
+                        "}"
+            )
+        )
         assertThat(res.users.size).isEqualTo(1)
         assertThat(res.users[0].id).isEqualTo(87532773)
         assertThat(res.users[0].username).isEqualTo("TwitterDesign")

@@ -30,13 +30,14 @@ class TweetsResponseTest {
     fun simplePoll() {
 
         val twitter = createTwitterInstance()
-        val res = twitter.getTweets(656974073491156992L,
-                mediaFields = "duration_ms,height,media_key,preview_image_url,type,url,width",
-                placeFields = "contained_within,country,country_code,full_name,geo,id,name,place_type",
-                pollFields = "duration_minutes,end_datetime,id,options,voting_status",
-                tweetFields = "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,public_metrics,text,withheld",
-                userFields = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
-                expansions = "attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id"
+        val res = twitter.getTweets(
+            656974073491156992L,
+            mediaFields = "duration_ms,height,media_key,preview_image_url,type,url,width",
+            placeFields = "contained_within,country,country_code,full_name,geo,id,name,place_type",
+            pollFields = "duration_minutes,end_datetime,id,options,voting_status",
+            tweetFields = "attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,public_metrics,text,withheld",
+            userFields = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+            expansions = "attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id"
         )
 
         // twurl -X GET "/labs/2/tweets?ids=656974073491156992&expansions=attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id&media.fields=duration_ms,height,media_key,preview_image_url,type,url,width&place.fields=contained_within,country,country_code,full_name,geo,id,name,place_type&poll.fields=duration_minutes,end_datetime,id,options,voting_status&tweet.fields=attachments,author_id,context_annotations,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,public_metrics,text,withheld&user.fields=created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld"
@@ -78,16 +79,17 @@ class TweetsResponseTest {
     fun minimumTweet() {
 
         // twurl -X GET "/labs/2/tweets?ids=656974073491156992"
- //       val res = TweetsResponse(JSONObject("{\"data\":[{\"id\":\"656974073491156992\",\"text\":\"We've got polls now! Which typeface do you prefer?\"}]}"))
+        //       val res = TweetsResponse(JSONObject("{\"data\":[{\"id\":\"656974073491156992\",\"text\":\"We've got polls now! Which typeface do you prefer?\"}]}"))
 
         val twitter = createTwitterInstance()
-        val res = twitter.getTweets(656974073491156992L,
-                mediaFields = null,
-                placeFields = null,
-                pollFields = null,
-                tweetFields = null,
-                userFields = null,
-                expansions = ""
+        val res = twitter.getTweets(
+            656974073491156992L,
+            mediaFields = null,
+            placeFields = null,
+            pollFields = null,
+            tweetFields = null,
+            userFields = null,
+            expansions = ""
         )
 
         assertThat(res.tweets.size).isEqualTo(1)
@@ -174,7 +176,11 @@ class TweetsResponseTest {
 
             val statusId = timeline!![0].id
             println("account id[${account.id}], status id[$statusId]")
-            val res = twitter.getTweets(statusId, tweetFields = "non_public_metrics,organic_metrics,public_metrics", expansions = "")
+            val res = twitter.getTweets(
+                statusId,
+                tweetFields = "non_public_metrics,organic_metrics,public_metrics",
+                expansions = ""
+            )
 
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -192,8 +198,8 @@ class TweetsResponseTest {
 
     private fun createTwitterInstance(): Twitter {
         val conf = ConfigurationBuilder()
-                .setJSONStoreEnabled(true)
-                .build()
+            .setJSONStoreEnabled(true)
+            .build()
         return TwitterFactory(conf).instance
 //        return TwitterFactory.getSingleton()
     }
