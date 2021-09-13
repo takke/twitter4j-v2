@@ -12,8 +12,8 @@ fun Twitter.getFollowingUsers(
     expansions: String? = "pinned_tweet_id",
     maxResults: Int? = null,
     paginationToken: String? = null,
-    tweetFields: String? = "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,public_metrics,organic_metrics,promoted_metrics,possibly_sensitive,referenced_tweets,reply_settings,source,text,withheld",
-    userFields: String? = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+    tweetFields: String? = null,
+    userFields: String? = null,
 ): UsersResponse {
 
     if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")

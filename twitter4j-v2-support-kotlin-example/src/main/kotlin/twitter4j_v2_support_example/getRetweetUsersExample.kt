@@ -21,7 +21,12 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     // getRetweetUsers example
     //--------------------------------------------------
     val statusId = 1435645603065778176L
-    twitter.getRetweetUsers(statusId).let {
+    twitter.getRetweetUsers(
+        statusId,
+        expansions = "pinned_tweet_id",
+        tweetFields = "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,public_metrics,possibly_sensitive,referenced_tweets,reply_settings,source,text,withheld",
+        userFields = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld"
+    ).let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
@@ -30,12 +35,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("minimum query")
     println("=============")
-    twitter.getRetweetUsers(
-        statusId,
-        tweetFields = null,
-        userFields = null,
-        expansions = null
-    ).let {
+    twitter.getRetweetUsers(statusId).let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))

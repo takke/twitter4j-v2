@@ -20,7 +20,11 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     // getFollowingUsers example
     //--------------------------------------------------
     val twitterDesignId = 87532773L
-    twitter.getFollowingUsers(twitterDesignId).let {
+    twitter.getFollowingUsers(
+        twitterDesignId,
+        tweetFields = "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,public_metrics,possibly_sensitive,referenced_tweets,reply_settings,source,text,withheld",
+        userFields = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld"
+    ).let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
@@ -30,10 +34,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     println("minimum query")
     println("=============")
     twitter.getFollowingUsers(
-        twitterDesignId,
-        tweetFields = null,
-        userFields = null,
-        expansions = null
+        twitterDesignId
     ).let {
         println(it)
 
@@ -45,10 +46,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     println("=============")
     val page1 = twitter.getFollowingUsers(
         twitterDesignId,
-        maxResults = 10,
-        tweetFields = null,
-        userFields = null,
-        expansions = null
+        maxResults = 10
     )
     val json1 = JSONObject(TwitterObjectFactory.getRawJSON(page1))
 
@@ -59,10 +57,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     val page2 = twitter.getFollowingUsers(
         twitterDesignId,
         maxResults = 10,
-        paginationToken = page1.meta?.nextToken,
-        tweetFields = null,
-        userFields = null,
-        expansions = null
+        paginationToken = page1.meta?.nextToken
     )
     val json2 = JSONObject(TwitterObjectFactory.getRawJSON(page2))
 
