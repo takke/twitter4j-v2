@@ -7,13 +7,14 @@ package twitter4j
  * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets"
  */
 @Throws(TwitterException::class)
-fun Twitter.getTweets(vararg tweetId: Long,
-                      mediaFields: String? = "duration_ms,height,media_key,preview_image_url,public_metrics,type,url,width",
-                      placeFields: String? = "contained_within,country,country_code,full_name,geo,id,name,place_type",
-                      pollFields: String? = "duration_minutes,end_datetime,id,options,voting_status",
-                      tweetFields: String? = "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,public_metrics,text,withheld",
-                      userFields: String? = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
-                      expansions: String = "attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id"
+fun Twitter.getTweets(
+    vararg tweetId: Long,
+    mediaFields: String? = "duration_ms,height,media_key,preview_image_url,public_metrics,type,url,width",
+    placeFields: String? = "contained_within,country,country_code,full_name,geo,id,name,place_type",
+    pollFields: String? = "duration_minutes,end_datetime,id,options,voting_status",
+    tweetFields: String? = "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,possibly_sensitive,referenced_tweets,source,public_metrics,text,withheld",
+    userFields: String? = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
+    expansions: String = "attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id"
 ): TweetsResponse {
 
     if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
@@ -21,8 +22,8 @@ fun Twitter.getTweets(vararg tweetId: Long,
     ensureAuthorizationEnabled()
 
     val params = arrayListOf(
-            HttpParameter("ids", tweetId.joinToString(",")),
-            HttpParameter("expansions", expansions)
+        HttpParameter("ids", tweetId.joinToString(",")),
+        HttpParameter("expansions", expansions)
     )
 
     if (mediaFields != null) {
@@ -46,7 +47,7 @@ fun Twitter.getTweets(vararg tweetId: Long,
     }
 
     return TweetsFactory().createTweetsResponse(
-            http.get(conf.v2Configuration.baseURL + "tweets", params.toTypedArray(), auth, this),
-            conf
+        http.get(conf.v2Configuration.baseURL + "tweets", params.toTypedArray(), auth, this),
+        conf
     )
 }

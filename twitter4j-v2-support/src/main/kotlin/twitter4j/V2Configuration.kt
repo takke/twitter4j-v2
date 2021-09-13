@@ -9,12 +9,13 @@ internal object V2ConfigurationContainer {
     val v2ConfigurationMap = ConcurrentHashMap<Configuration, V2Configuration>()
 }
 
-val Configuration.v2Configuration : V2Configuration get() {
-    return if (V2ConfigurationContainer.v2ConfigurationMap.containsKey(this)) {
-        V2ConfigurationContainer.v2ConfigurationMap[this]!!
-    } else {
-        val v2Configuration = V2Configuration()
-        V2ConfigurationContainer.v2ConfigurationMap.putIfAbsent(this, v2Configuration)
-        v2Configuration
+val Configuration.v2Configuration: V2Configuration
+    get() {
+        return if (V2ConfigurationContainer.v2ConfigurationMap.containsKey(this)) {
+            V2ConfigurationContainer.v2ConfigurationMap[this]!!
+        } else {
+            val v2Configuration = V2Configuration()
+            V2ConfigurationContainer.v2ConfigurationMap.putIfAbsent(this, v2Configuration)
+            v2Configuration
+        }
     }
-}
