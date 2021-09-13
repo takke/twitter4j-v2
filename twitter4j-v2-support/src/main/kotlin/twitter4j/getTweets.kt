@@ -14,7 +14,7 @@ fun Twitter.getTweets(
     pollFields: String? = V2DefaultFields.pollFields,
     tweetFields: String? = V2DefaultFields.tweetFields,
     userFields: String? = V2DefaultFields.userFields,
-    expansions: String = "attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id"
+    expansions: String = V2DefaultFields.expansions
 ): TweetsResponse {
 
     if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
