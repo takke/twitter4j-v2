@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v0.2.2 (2021.09.xx)
+v0.3.0 (2021.09.xx)
 -------------------
 - Support /2/users/:id/following (Twitter.getFollowingUsers)
 - Support /2/users/:id/followers (Twitter.getFollowerUsers)
