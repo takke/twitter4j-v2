@@ -7,6 +7,7 @@ v0.2.2 (2021.09.xx)
 - Support /2/users/:id/followers (Twitter.getFollowerUsers)
 - Support /2/users/:id/blocking (Twitter.getBlockingUsers)
 - Support /2/tweets/:id/retweeted_by (Twitter.getRetweetUsers)
+- Support /2/tweets/:id/liking_users (Twitter.getLikingUsers)
 
 v0.2.1 (2021.05.12)
 -------------------
