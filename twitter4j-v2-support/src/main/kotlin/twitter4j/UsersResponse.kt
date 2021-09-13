@@ -4,6 +4,8 @@ import java.util.HashMap
 
 class UsersResponse : TwitterResponse {
 
+    data class Meta(val resultCount: Int, val previousToken: String?, val nextToken: String?)
+
     @Transient
     private var rateLimitStatus: RateLimitStatus? = null
 
@@ -21,6 +23,8 @@ class UsersResponse : TwitterResponse {
     // includes.tweets
     val tweetsMap = HashMap<Long, Tweet>()
 
+    // meta
+    var meta: Meta? = null
 
     constructor(res: HttpResponse, isJSONStoreEnabled: Boolean) {
         rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
@@ -61,6 +65,18 @@ class UsersResponse : TwitterResponse {
             }
         }
 
+        //--------------------------------------------------
+        // meta
+        //--------------------------------------------------
+        if (jsonObject.has("meta")) {
+            val metaObject = jsonObject.optJSONObject("meta")
+            meta = Meta(
+                metaObject.getInt("result_count"),
+                metaObject.optString("previous_token"),
+                metaObject.optString("next_token")
+            )
+        }
+
         if (isJSONStoreEnabled) {
             TwitterObjectFactory.registerJSONObject(this, jsonObject)
         }
@@ -75,8 +91,7 @@ class UsersResponse : TwitterResponse {
     }
 
     override fun toString(): String {
-        return "UsersResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, users=$users, pollsMap=$pollsMap, usersMap=$usersMap, tweetsMap=$tweetsMap)"
+        return "UsersResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, users=$users, pollsMap=$pollsMap, usersMap=$usersMap, tweetsMap=$tweetsMap, meta=$meta)"
     }
-
 
 }
