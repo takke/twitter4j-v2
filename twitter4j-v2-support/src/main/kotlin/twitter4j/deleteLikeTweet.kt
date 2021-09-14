@@ -7,7 +7,7 @@ package twitter4j
  * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id"
  */
 @Throws(TwitterException::class)
-fun Twitter.deleteLikeTweet(
+fun Twitter.unlikeTweet(
     userId: Long,
     tweetId: Long
 ): BooleanResponse {

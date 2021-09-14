@@ -38,11 +38,11 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     }
 
     //--------------------------------------------------
-    // deleteLikeTweet example
+    // unlikeTweet example
     //--------------------------------------------------
-    println("deleteLikeTweet")
-    println("===============")
-    twitter.deleteLikeTweet(
+    println("unlikeTweet")
+    println("===========")
+    twitter.unlikeTweet(
         myId,
         tweetId
     ).let {
