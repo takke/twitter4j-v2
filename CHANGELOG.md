@@ -6,19 +6,15 @@ v0.3.0 (2021.09.xx)
 - Add Twitter.getRetweetUsers() for "GET /2/tweets/:id/retweeted_by"
 - Add Twitter.retweet() for "POST /2/users/:id/retweets"
 - Add Twitter.unretweet() for "DELETE /2/users/:id/retweets/:source_tweet_id"
-
 - Add Twitter.getLikingUsers() for "GET /2/tweets/:id/liking_users"
 - Add Twitter.getLikedTweets() for "GET /2/users/:id/liked_tweets"
 - Add Twitter.likeTweet() for "POST /2/users/:id/likes"
 - Add Twitter.unlikeTweet() for "DELETE /2/users/:id/likes/:tweet_id"
-
 - Add Twitter.getFollowingUsers() for "GET /2/users/:id/following"
 - Add Twitter.getFollowerUsers() for "GET /2/users/:id/followers"
 - Add Twitter.followUser() for "POST /2/users/:id/following"
 - Add Twitter.unfollowUser() for "DELETE /2/users/:source_user_id/following/:target_user_id"
-
 - Add Twitter.getBlockingUsers() for "GET /2/users/:id/blocking"
-
 - Bump Kotlin 1.5.30
 
 v0.2.1 (2021.05.12)
