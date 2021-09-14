@@ -18,11 +18,11 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     // get my id
     val myUser = twitter.verifyCredentials()
+    val myId = myUser.id
 
     //--------------------------------------------------
     // getBlockingUsers example
     //--------------------------------------------------
-    val myId = myUser.id
     twitter.getBlockingUsers(
         myId,
         tweetFields = V2DefaultFields.tweetFieldsFull,
