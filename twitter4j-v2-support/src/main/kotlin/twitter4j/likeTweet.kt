@@ -19,7 +19,7 @@ fun Twitter.likeTweet(
     val json = JSONObject()
     json.put("tweet_id", tweetId.toString())
 
-    return V2ResponseFactory().parseBooleanResponse(
+    return V2ResponseFactory().createBooleanResponse(
         http.post(
             conf.v2Configuration.baseURL + "users/" + userId + "/likes",
             arrayOf(HttpParameter(json)),

@@ -28,7 +28,7 @@ class V2ResponseFactory {
      * }
      */
     @Throws(TwitterException::class)
-    fun parseBooleanResponse(res: HttpResponse, conf: Configuration, key: String): BooleanResponse {
+    fun createBooleanResponse(res: HttpResponse, conf: Configuration, key: String): BooleanResponse {
 
         try {
             if (conf.isJSONStoreEnabled) {
