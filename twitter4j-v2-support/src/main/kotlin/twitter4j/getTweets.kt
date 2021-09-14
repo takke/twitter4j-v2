@@ -46,7 +46,7 @@ fun Twitter.getTweets(
         params.add(HttpParameter("user.fields", userFields))
     }
 
-    return TweetsFactory().createTweetsResponse(
+    return V2ResponseFactory().createTweetsResponse(
         http.get(conf.v2Configuration.baseURL + "tweets", params.toTypedArray(), auth, this),
         conf
     )

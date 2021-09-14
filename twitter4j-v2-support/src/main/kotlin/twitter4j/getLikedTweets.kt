@@ -57,7 +57,7 @@ fun Twitter.getLikedTweets(
         params.add(HttpParameter("user.fields", userFields))
     }
 
-    return TweetsFactory().createTweetsResponse(
+    return V2ResponseFactory().createTweetsResponse(
         http.get(conf.v2Configuration.baseURL + "users/" + userId + "/liked_tweets", params.toTypedArray(), auth, this),
         conf
     )
