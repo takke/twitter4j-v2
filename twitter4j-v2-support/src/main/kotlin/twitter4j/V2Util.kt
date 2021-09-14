@@ -38,4 +38,16 @@ object V2Util {
         }
     }
 
+    fun parseMeta(jsonObject: JSONObject): Meta? {
+        if (jsonObject.has("meta")) {
+            val metaObject = jsonObject.optJSONObject("meta")
+            return Meta(
+                metaObject.getInt("result_count"),
+                metaObject.optString("previous_token"),
+                metaObject.optString("next_token")
+            )
+        }
+        return null
+    }
+
 }

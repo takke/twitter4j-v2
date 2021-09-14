@@ -4,8 +4,6 @@ import java.util.HashMap
 
 class UsersResponse : TwitterResponse {
 
-    data class Meta(val resultCount: Int, val previousToken: String?, val nextToken: String?)
-
     @Transient
     private var rateLimitStatus: RateLimitStatus? = null
 
@@ -68,14 +66,7 @@ class UsersResponse : TwitterResponse {
         //--------------------------------------------------
         // meta
         //--------------------------------------------------
-        if (jsonObject.has("meta")) {
-            val metaObject = jsonObject.optJSONObject("meta")
-            meta = Meta(
-                metaObject.getInt("result_count"),
-                metaObject.optString("previous_token"),
-                metaObject.optString("next_token")
-            )
-        }
+        meta = V2Util.parseMeta(jsonObject)
 
         if (isJSONStoreEnabled) {
             TwitterObjectFactory.registerJSONObject(this, jsonObject)
