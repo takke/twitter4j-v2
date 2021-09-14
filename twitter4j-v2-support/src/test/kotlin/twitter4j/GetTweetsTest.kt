@@ -24,7 +24,7 @@ fun Twitter.getMyLatestTweet(userId: Long): ResponseList<Status>? {
     )
 }
 
-class TweetsResponseTest {
+class GetTweetsTest {
 
     @Test
     fun simplePoll() {
