@@ -54,4 +54,18 @@ class V2ResponseFactory {
         }
     }
 
+    @Throws(TwitterException::class)
+    fun createFollowResponse(res: HttpResponse, conf: Configuration): FollowResponse {
+
+        try {
+            if (conf.isJSONStoreEnabled) {
+                TwitterObjectFactory.clearThreadLocalMap()
+            }
+
+            return FollowResponse(res, conf.isJSONStoreEnabled)
+        } catch (ex: JSONException) {
+            throw TwitterException(ex)
+        }
+    }
+
 }
