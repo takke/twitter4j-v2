@@ -24,7 +24,25 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     // likeTweet example
     //--------------------------------------------------
     val tweetId = 1437346169106042886L
+    println("likeTweet")
+    println("=========")
     twitter.likeTweet(
+        myId,
+        tweetId
+    ).let {
+        println("result: " + it.result)
+        println(it)
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
+        println(json.toString(3))
+    }
+
+    //--------------------------------------------------
+    // deleteLikeTweet example
+    //--------------------------------------------------
+    println("deleteLikeTweet")
+    println("===============")
+    twitter.deleteLikeTweet(
         myId,
         tweetId
     ).let {
