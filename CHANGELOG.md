@@ -3,16 +3,17 @@ Change Log
 
 v0.3.0 (2021.09.xx)
 -------------------
-- Support /2/users/:id/following (Twitter.getFollowingUsers)
-- Support /2/users/:id/followers (Twitter.getFollowerUsers)
-- Support /2/users/:id/blocking (Twitter.getBlockingUsers)
-- Support /2/tweets/:id/retweeted_by (Twitter.getRetweetUsers)
-- Support /2/tweets/:id/liking_users (Twitter.getLikingUsers)
-- Support /2/users/:id/liked_tweets (Twitter.getLikedTweets)
+- Support "GET /2/users/:id/following" (Twitter.getFollowingUsers)
+- Support "GET /2/users/:id/followers" (Twitter.getFollowerUsers)
+- Support "GET /2/users/:id/blocking" (Twitter.getBlockingUsers)
+- Support "GET /2/tweets/:id/retweeted_by" (Twitter.getRetweetUsers)
+- Support "GET /2/tweets/:id/liking_users" (Twitter.getLikingUsers)
+- Support "GET /2/users/:id/liked_tweets" (Twitter.getLikedTweets)
+- Bump Kotlin 1.5.30
 
 v0.2.1 (2021.05.12)
 -------------------
-- Support /2/users/by (Twitter.getUsersBy)
+- Support "GET /2/users/by" (Twitter.getUsersBy)
 - Migrate repository from `bintray` to `github.io`
 - Bump Kotlin 1.5.0
 
@@ -32,11 +33,11 @@ v0.1.2 (2020.08.06)
 
 v0.1.1 (2020.07.22)
 -------------------
-- Support /labs/2/users (Twitter.getUsers)
+- Support "GET /labs/2/users" (Twitter.getUsers)
   - parse just a partial elements only
 
 v0.1.0 (2020.07.20)
 -------------------
 - Initial release
-- Support /labs/2/tweets (Twitter.getTweets)
+- Support "GET /labs/2/tweets" (Twitter.getTweets)
   - parse just a partial elements only
