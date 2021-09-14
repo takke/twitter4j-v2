@@ -31,6 +31,87 @@ fun Twitter.getUserTweets(
 
     if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
 
+    return getUserTweetsIn(
+        conf.v2Configuration.baseURL + "users/" + userId + "/tweets",
+        endTime,
+        exclude,
+        expansions,
+        maxResults,
+        mediaFields,
+        paginationToken,
+        placeFields,
+        pollFields,
+        sinceId,
+        startTime,
+        tweetFields,
+        untilId,
+        userFields
+    )
+}
+
+// 2021/09/14 時点では 500 が返ってくるのでコメントアウトしておく
+//
+///**
+// * Returns the most recent Tweets composed by a single user specified by the requested username.
+// *
+// * @throws TwitterException when Twitter service or network is unavailable
+// * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-by-username-username-tweets"
+// */
+//@Throws(TwitterException::class)
+//fun Twitter.getUserTweetsBy(
+//    username: String,
+//    endTime: Date? = null,
+//    exclude: String? = null,
+//    expansions: String? = null,
+//    maxResults: Int? = null,
+//    mediaFields: String? = null,
+//    paginationToken: String? = null,
+//    placeFields: String? = null,
+//    pollFields: String? = null,
+//    sinceId: Long? = null,
+//    startTime: Date? = null,
+//    tweetFields: String? = null,
+//    untilId: Long? = null,
+//    userFields: String? = null,
+//): TweetsResponse {
+//
+//    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+//
+//    return getUserTweetsIn(
+//        conf.v2Configuration.baseURL + "users/by/username/" + username + "/tweets",
+//        endTime,
+//        exclude,
+//        expansions,
+//        maxResults,
+//        mediaFields,
+//        paginationToken,
+//        placeFields,
+//        pollFields,
+//        sinceId,
+//        startTime,
+//        tweetFields,
+//        untilId,
+//        userFields
+//    )
+//}
+
+@Throws(TwitterException::class)
+private fun TwitterImpl.getUserTweetsIn(
+    url: String,
+    endTime: Date?,
+    exclude: String?,
+    expansions: String?,
+    maxResults: Int?,
+    mediaFields: String?,
+    paginationToken: String?,
+    placeFields: String?,
+    pollFields: String?,
+    sinceId: Long?,
+    startTime: Date?,
+    tweetFields: String?,
+    untilId: Long?,
+    userFields: String?
+): TweetsResponse {
     ensureAuthorizationEnabled()
 
     val params = ArrayList<HttpParameter>()
@@ -93,7 +174,7 @@ fun Twitter.getUserTweets(
 
     return V2ResponseFactory().createTweetsResponse(
         http.get(
-            conf.v2Configuration.baseURL + "users/" + userId + "/tweets",
+            url,
             params.toTypedArray(),
             auth,
             this

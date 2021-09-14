@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 class GetUserTweetsTest {
 
     @Test
-    fun simple() {
+    fun simpleById() {
 
         val twitter = createTwitterInstance()
         val userId = 8379212L       // @takke
@@ -33,7 +33,7 @@ class GetUserTweetsTest {
     }
 
     @Test
-    fun startEndTime() {
+    fun startEndTimeById() {
 
         val twitter = createTwitterInstance()
         val userId = 12L       // @jack
@@ -56,6 +56,29 @@ class GetUserTweetsTest {
         assertThat(res.meta?.previousToken).isNull()
         assertThat(res.meta?.nextToken).isNull()
     }
+
+//    @Test
+//    fun startEndTimeByUsername() {
+//
+//        val twitter = createTwitterInstance()
+//        val res = twitter.getUserTweets(
+//            "twitterdev", maxResults = 50,
+//            exclude = "retweets",
+//            startTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2019-11-01T00:00:00Z"),
+//            endTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2019-11-03T00:00:00Z"),
+//        )
+//        println(res)
+//
+//        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+//        println(json.toString(3))
+//
+//        // meta
+//        assertThat(res.meta?.resultCount).isEqualTo(3)
+//        assertThat(res.meta?.oldestId).isEqualTo(1189976124517781504L)
+//        assertThat(res.meta?.newestId).isEqualTo(1190339489593380864)
+//        assertThat(res.meta?.previousToken).isNull()
+//        assertThat(res.meta?.nextToken).isNull()
+//    }
 
     private fun createTwitterInstance(): Twitter {
         val conf = ConfigurationBuilder()
