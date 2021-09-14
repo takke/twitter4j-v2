@@ -3,23 +3,27 @@ Change Log
 
 v0.3.0 (2021.09.xx)
 -------------------
-- Support "GET /2/users/:id/following" (Twitter.getFollowingUsers)
-- Support "GET /2/users/:id/followers" (Twitter.getFollowerUsers)
-- Support "POST /2/users/:id/following" (Twitter.followUser)
-- Support "DELETE /2/users/:source_user_id/following/:target_user_id" (Twitter.unfollowUser)
-- Support "GET /2/users/:id/blocking" (Twitter.getBlockingUsers)
-- Support "GET /2/tweets/:id/retweeted_by" (Twitter.getRetweetUsers)
-- Support "POST /2/users/:id/retweets" (Twitter.retweet)
-- Support "DELETE /2/users/:id/retweets/:source_tweet_id" (Twitter.unretweet)
-- Support "GET /2/tweets/:id/liking_users" (Twitter.getLikingUsers)
-- Support "GET /2/users/:id/liked_tweets" (Twitter.getLikedTweets)
-- Support "POST /2/users/:id/likes" (Twitter.likeTweet)
-- Support "DELETE /2/users/:id/likes/:tweet_id" (Twitter.unlikeTweet)
+- Add Twitter.getRetweetUsers() for "GET /2/tweets/:id/retweeted_by"
+- Add Twitter.retweet() for "POST /2/users/:id/retweets"
+- Add Twitter.unretweet() for "DELETE /2/users/:id/retweets/:source_tweet_id"
+
+- Add Twitter.getLikingUsers() for "GET /2/tweets/:id/liking_users"
+- Add Twitter.getLikedTweets() for "GET /2/users/:id/liked_tweets"
+- Add Twitter.likeTweet() for "POST /2/users/:id/likes"
+- Add Twitter.unlikeTweet() for "DELETE /2/users/:id/likes/:tweet_id"
+
+- Add Twitter.getFollowingUsers() for "GET /2/users/:id/following"
+- Add Twitter.getFollowerUsers() for "GET /2/users/:id/followers"
+- Add Twitter.followUser() for "POST /2/users/:id/following"
+- Add Twitter.unfollowUser() for "DELETE /2/users/:source_user_id/following/:target_user_id"
+
+- Add Twitter.getBlockingUsers() for "GET /2/users/:id/blocking"
+
 - Bump Kotlin 1.5.30
 
 v0.2.1 (2021.05.12)
 -------------------
-- Support "GET /2/users/by" (Twitter.getUsersBy)
+- Add Twitter.getUsersBy() for "GET /2/users/by"
 - Migrate repository from `bintray` to `github.io`
 - Bump Kotlin 1.5.0
 
@@ -39,11 +43,11 @@ v0.1.2 (2020.08.06)
 
 v0.1.1 (2020.07.22)
 -------------------
-- Support "GET /labs/2/users" (Twitter.getUsers)
+- Add Twitter.getUsers() for "GET /labs/2/users"
   - parse just a partial elements only
 
 v0.1.0 (2020.07.20)
 -------------------
 - Initial release
-- Support "GET /labs/2/tweets" (Twitter.getTweets)
+- Add Twitter.getTweets() for "GET /labs/2/tweets"
   - parse just a partial elements only
