@@ -37,6 +37,9 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
         println(json.toString(3))
     }
 
+    println("waiting...")
+    Thread.sleep(3000)
+
     //--------------------------------------------------
     // unlikeTweet example
     //--------------------------------------------------
