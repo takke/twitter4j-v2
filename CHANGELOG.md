@@ -15,6 +15,8 @@ v0.3.0 (2021.09.xx)
 - Add Twitter.followUser() for "POST /2/users/:id/following"
 - Add Twitter.unfollowUser() for "DELETE /2/users/:source_user_id/following/:target_user_id"
 - Add Twitter.getBlockingUsers() for "GET /2/users/:id/blocking"
+- Add Twitter.blockUser() for "POST /2/users/:id/blocking"
+- Add Twitter.unblockUser() for "DELETE /2/users/:source_user_id/blocking/:target_user_id"
 - Bump Kotlin 1.5.30
 
 v0.2.1 (2021.05.12)
