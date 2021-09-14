@@ -32,7 +32,7 @@ fun Twitter.getLikingUsers(
         params.add(HttpParameter("user.fields", userFields))
     }
 
-    return UsersFactory().createUsersResponse(
+    return V2ResponseFactory().createUsersResponse(
         http.get(
             conf.v2Configuration.baseURL + "tweets/" + tweetId + "/liking_users",
             params.toTypedArray(),

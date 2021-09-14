@@ -31,7 +31,7 @@ fun Twitter.getUsers(
         params.add(HttpParameter("user.fields", userFields))
     }
 
-    return UsersFactory().createUsersResponse(
+    return V2ResponseFactory().createUsersResponse(
         http.get(conf.v2Configuration.baseURL + "users", params.toTypedArray(), auth, this),
         conf
     )

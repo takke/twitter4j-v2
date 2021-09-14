@@ -42,7 +42,7 @@ fun Twitter.getFollowerUsers(
         params.add(HttpParameter("user.fields", userFields))
     }
 
-    return UsersFactory().createUsersResponse(
+    return V2ResponseFactory().createUsersResponse(
         http.get(conf.v2Configuration.baseURL + "users/" + userId + "/followers", params.toTypedArray(), auth, this),
         conf
     )

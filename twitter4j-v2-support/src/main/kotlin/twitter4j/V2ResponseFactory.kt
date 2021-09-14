@@ -16,7 +16,20 @@ class V2ResponseFactory {
         } catch (ex: JSONException) {
             throw TwitterException(ex)
         }
+    }
 
+    @Throws(TwitterException::class)
+    fun createUsersResponse(res: HttpResponse, conf: Configuration): UsersResponse {
+
+        try {
+            if (conf.isJSONStoreEnabled) {
+                TwitterObjectFactory.clearThreadLocalMap()
+            }
+
+            return UsersResponse(res, conf.isJSONStoreEnabled)
+        } catch (ex: JSONException) {
+            throw TwitterException(ex)
+        }
     }
 
     /**

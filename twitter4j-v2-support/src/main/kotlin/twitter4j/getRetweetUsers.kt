@@ -32,7 +32,7 @@ fun Twitter.getRetweetUsers(
         params.add(HttpParameter("user.fields", userFields))
     }
 
-    return UsersFactory().createUsersResponse(
+    return V2ResponseFactory().createUsersResponse(
         http.get(
             conf.v2Configuration.baseURL + "tweets/" + userId + "/retweeted_by",
             params.toTypedArray(),
