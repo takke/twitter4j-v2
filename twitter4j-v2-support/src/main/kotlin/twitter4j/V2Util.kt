@@ -43,8 +43,10 @@ object V2Util {
             val metaObject = jsonObject.optJSONObject("meta")
             return Meta(
                 metaObject.getInt("result_count"),
-                metaObject.optString("previous_token"),
-                metaObject.optString("next_token")
+                metaObject.optString("previous_token", null),
+                metaObject.optString("next_token", null),
+                metaObject.optLong("oldest_id"),
+                metaObject.optLong("newest_id")
             )
         }
         return null
