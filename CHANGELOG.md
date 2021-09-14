@@ -5,6 +5,7 @@ v0.3.0 (2021.09.xx)
 -------------------
 - Timelines
   - Add Twitter.getUserTweets() for "GET /2/users/:id/tweets"
+  - Add Twitter.getUserMentions() for "GET /2/users/:id/mentions"
 - Retweets
   - Add Twitter.getRetweetUsers() for "GET /2/tweets/:id/retweeted_by"
   - Add Twitter.retweet() for "POST /2/users/:id/retweets"
