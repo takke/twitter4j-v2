@@ -9,6 +9,7 @@ v0.3.0 (2021.09.xx)
 - Support "GET /2/tweets/:id/retweeted_by" (Twitter.getRetweetUsers)
 - Support "GET /2/tweets/:id/liking_users" (Twitter.getLikingUsers)
 - Support "GET /2/users/:id/liked_tweets" (Twitter.getLikedTweets)
+- Support "POST /2/users/:id/likes" (Twitter.likeTweet)
 - Bump Kotlin 1.5.30
 
 v0.2.1 (2021.05.12)
