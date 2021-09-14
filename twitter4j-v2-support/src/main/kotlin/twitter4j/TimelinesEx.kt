@@ -3,7 +3,6 @@ package twitter4j
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.TimeZone
-import kotlin.collections.ArrayList
 
 /**
  * Returns Tweets composed by a single user, specified by the requested user ID.
@@ -35,6 +34,49 @@ fun Twitter.getUserTweets(
         conf.v2Configuration.baseURL + "users/" + userId + "/tweets",
         endTime,
         exclude,
+        expansions,
+        maxResults,
+        mediaFields,
+        paginationToken,
+        placeFields,
+        pollFields,
+        sinceId,
+        startTime,
+        tweetFields,
+        untilId,
+        userFields
+    )
+}
+
+/**
+ * Returns Tweets mentioning a single user specified by the requested user ID.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions"
+ */
+@Throws(TwitterException::class)
+fun Twitter.getUserMentions(
+    userId: Long,
+    endTime: Date? = null,
+    expansions: String? = null,
+    maxResults: Int? = null,
+    mediaFields: String? = null,
+    paginationToken: String? = null,
+    placeFields: String? = null,
+    pollFields: String? = null,
+    sinceId: Long? = null,
+    startTime: Date? = null,
+    tweetFields: String? = null,
+    untilId: Long? = null,
+    userFields: String? = null,
+): TweetsResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    return getUserTweetsIn(
+        conf.v2Configuration.baseURL + "users/" + userId + "/mentions",
+        endTime,
+        null,
         expansions,
         maxResults,
         mediaFields,

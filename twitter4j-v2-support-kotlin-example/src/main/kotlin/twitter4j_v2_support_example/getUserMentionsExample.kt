@@ -4,7 +4,7 @@ import twitter4j.JSONObject
 import twitter4j.TwitterFactory
 import twitter4j.TwitterObjectFactory
 import twitter4j.conf.ConfigurationBuilder
-import twitter4j.getUserTweets
+import twitter4j.getUserMentions
 
 
 fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
@@ -20,14 +20,12 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 //    val twitter = TwitterFactory.getSingleton()
 
     //--------------------------------------------------
-    // getUserTweets example
+    // getUserMentions example
     //--------------------------------------------------
-    val userId = 8379212L       // @takke
-//    val userId = 2244994945L    // @TwitterDev
-//    val userId = 87532773L      // @TwitterDesign
+    val userId = twitter.verifyCredentials().id     // me
     println("simple")
     println("======")
-    twitter.getUserTweets(userId, maxResults = 5).let {
+    twitter.getUserMentions(userId, maxResults = 5).let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
