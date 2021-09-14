@@ -1,9 +1,9 @@
 package twitter4j
 
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import twitter4j.conf.ConfigurationBuilder
-import java.util.*
+import java.text.SimpleDateFormat
 
 class GetUserTweetsTest {
 
@@ -36,12 +36,13 @@ class GetUserTweetsTest {
     fun startEndTime() {
 
         val twitter = createTwitterInstance()
-        val userId = 8379212L       // @takke
+        val userId = 12L       // @jack
         println("account id[$userId]")
         val res = twitter.getUserTweets(
             userId, maxResults = 50,
-            endTime = Date(Date().time - 3 * 86400 * 1000),
-            startTime = Date(Date().time - 5 * 86400 * 1000),
+            exclude = "retweets",
+            startTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2019-11-01T00:00:00Z"),
+            endTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2019-11-03T00:00:00Z"),
         )
         println(res)
 
@@ -49,14 +50,11 @@ class GetUserTweetsTest {
         println(json.toString(3))
 
         // meta
-        assertThat(res.meta?.resultCount).isGreaterThan(0)
+        assertThat(res.meta?.resultCount).isEqualTo(3)
+        assertThat(res.meta?.oldestId).isEqualTo(1189976124517781504L)
+        assertThat(res.meta?.newestId).isEqualTo(1190339489593380864)
         assertThat(res.meta?.previousToken).isNull()
-        assertThat(res.meta?.oldestId).isNotNull
-        assertThat(res.meta?.newestId).isNotNull
-
-        res.tweets[0].let {
-            assertThat(it.text.length).isGreaterThan(0)
-        }
+        assertThat(res.meta?.nextToken).isNull()
     }
 
     private fun createTwitterInstance(): Twitter {
