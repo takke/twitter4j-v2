@@ -5,6 +5,8 @@ v0.3.0 (2021.09.xx)
 -------------------
 - Support "GET /2/users/:id/following" (Twitter.getFollowingUsers)
 - Support "GET /2/users/:id/followers" (Twitter.getFollowerUsers)
+- Support "POST /2/users/:id/following" (Twitter.followUser)
+- Support "DELETE /2/users/:source_user_id/following/:target_user_id" (Twitter.unfollowUser)
 - Support "GET /2/users/:id/blocking" (Twitter.getBlockingUsers)
 - Support "GET /2/tweets/:id/retweeted_by" (Twitter.getRetweetUsers)
 - Support "POST /2/users/:id/retweets" (Twitter.retweet)
