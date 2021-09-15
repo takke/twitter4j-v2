@@ -27,6 +27,38 @@ fun Twitter.countRecent(
         query,
         endTime,
         granularity,
+        null,
+        sinceId,
+        startTime,
+        untilId,
+    )
+}
+
+/**
+ * The full-archive search endpoint returns the complete history of public Tweets matching a search query; since the first Tweet was created March 26, 2006.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all"
+ */
+@Throws(TwitterException::class)
+fun Twitter.countAll(
+    query: String,
+    endTime: Date? = null,
+    granularity: String? = null,
+    nextToken: String? = null,
+    sinceId: Long? = null,
+    startTime: Date? = null,
+    untilId: Long? = null
+): CountsResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    return countTweetsIn(
+        conf.v2Configuration.baseURL + "tweets/counts/recent",
+        query,
+        endTime,
+        granularity,
+        nextToken,
         sinceId,
         startTime,
         untilId,
@@ -39,6 +71,7 @@ private fun TwitterImpl.countTweetsIn(
     query: String,
     endTime: Date?,
     granularity: String? = null,
+    nextToken: String? = null,
     sinceId: Long?,
     startTime: Date?,
     untilId: Long?
@@ -57,6 +90,10 @@ private fun TwitterImpl.countTweetsIn(
 
     if (granularity != null) {
         params.add(HttpParameter("granularity", granularity))
+    }
+
+    if (nextToken != null) {
+        params.add(HttpParameter("next_token", nextToken))
     }
 
     if (sinceId != null) {
