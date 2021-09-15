@@ -8,7 +8,7 @@ package twitter4j
  */
 @Throws(TwitterException::class)
 fun Twitter.getRetweetUsers(
-    userId: Long,
+    tweetId: Long,
     expansions: String? = null,
     tweetFields: String? = null,
     userFields: String? = null,
@@ -34,7 +34,7 @@ fun Twitter.getRetweetUsers(
 
     return V2ResponseFactory().createUsersResponse(
         http.get(
-            conf.v2Configuration.baseURL + "tweets/" + userId + "/retweeted_by",
+            conf.v2Configuration.baseURL + "tweets/" + tweetId + "/retweeted_by",
             params.toTypedArray(),
             auth,
             this
