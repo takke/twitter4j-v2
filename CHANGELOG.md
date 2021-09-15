@@ -6,6 +6,9 @@ v0.3.0 (2021.09.xx)
 - Search Tweets
   - Add Twitter.searchRecent() for "GET /2/tweets/search/recent"
   - Add Twitter.searchAll() for "GET /2/tweets/search/all"
+- Tweet counts
+  - Add Twitter.countRecent() for "GET /2/tweets/counts/recent"
+  - Add Twitter.countAll() for "GET /2/tweets/counts/all"
 - Timelines
   - Add Twitter.getUserTweets() for "GET /2/users/:id/tweets"
   - Add Twitter.getUserMentions() for "GET /2/users/:id/mentions"
