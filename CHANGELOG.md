@@ -3,6 +3,9 @@ Change Log
 
 v0.3.0 (2021.09.xx)
 -------------------
+- Search Tweets
+  - Add Twitter.searchRecent() for "GET /2/tweets/search/recent"
+  - Add Twitter.searchAll() for "GET /2/tweets/search/all"
 - Timelines
   - Add Twitter.getUserTweets() for "GET /2/users/:id/tweets"
   - Add Twitter.getUserMentions() for "GET /2/users/:id/mentions"
