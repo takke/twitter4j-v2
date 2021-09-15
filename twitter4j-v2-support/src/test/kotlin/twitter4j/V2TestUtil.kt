@@ -9,6 +9,19 @@ object V2TestUtil {
             .setJSONStoreEnabled(true)
             .build()
         return TwitterFactory(conf).instance
-//        return TwitterFactory.getSingleton()
+    }
+
+    fun createOAuth2TwitterInstance(): Twitter {
+        val conf = ConfigurationBuilder()
+            .setOAuthConsumerKey("dummy")
+            .setOAuthConsumerSecret("dummy")
+            .setOAuth2TokenType("dummy")
+            .setApplicationOnlyAuthEnabled(true)
+            .setJSONStoreEnabled(true)
+            .build()
+
+        // set "oauth2.accessToken" property on twitter4j.properties
+
+        return TwitterFactory(conf).instance
     }
 }
