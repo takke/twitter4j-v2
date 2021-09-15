@@ -57,7 +57,7 @@ See more examples in [kotlin](https://github.com/takke/twitter4j-v2/blob/master/
 
 Requirements
 ------------
-- Kotlin 1.5.0
+- Kotlin 1.5.30
 - Twitter4J 4.0.7
 
 
@@ -75,8 +75,8 @@ Supported APIs
 | |                 | [GET /2/users/:id/mentions](https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions) | [Twitter.getUserMentions()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/TimelinesEx.kt) |
 | |                 | [GET /2/users/by/username/:username/tweets](https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-by-username-username-tweets) | *end-point missing? (2021.9.15)* |
 | |                 | [GET /2/users/by/username/:username/mentions](https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-by-username-username-mentions) | *end-point missing? (2021.9.15)* |
-| | Filtered stream | [GET /2/tweets/search/stream](https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream) |  N/A  |
-| | Sampled stream  | [GET /2/tweets/sample/stream](https://developer.twitter.com/en/docs/twitter-api/tweets/sampled-stream/api-reference/get-tweets-sample-stream) |  N/A  |
+| | Filtered stream | [GET /2/tweets/search/stream](https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream) |  N/A [#1](https://github.com/takke/twitter4j-v2/issues/1) |
+| | Sampled stream  | [GET /2/tweets/sample/stream](https://developer.twitter.com/en/docs/twitter-api/tweets/sampled-stream/api-reference/get-tweets-sample-stream) |  N/A [#1](https://github.com/takke/twitter4j-v2/issues/1) |
 | | Retweets        | [GET /2/tweets/:id/retweeted_by](https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by) |  [Twitter.getRetweetUsers()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/RetweetsEx.kt)  |
 | |                 | [POST /2/users/:id/retweets](https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets) |  [Twitter.retweet()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/RetweetsEx.kt)  |
 | |                 | [DELETE /2/users/:id/retweets/:source_tweet_id](https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id) |  [Twitter.unretweet()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/RetweetsEx.kt)  |
