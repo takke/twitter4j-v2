@@ -5,10 +5,11 @@ import org.junit.Test
 
 class LikesTest {
 
+    private val twitter by lazy { V2TestUtil.createTwitterInstance() }
+    private val myId by lazy { twitter.verifyCredentials().id }
+
     @Test
     fun getLikingUsers_simple() {
-
-        val twitter = V2TestUtil.createTwitterInstance()
 
         // https://twitter.com/TwitterDev/status/1430984356139470849
         val tweetId = 1430984356139470849L
@@ -27,9 +28,6 @@ class LikesTest {
     @Test
     fun getLikedTweets_simple() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
-        val myId = twitter.verifyCredentials().id
-
         val res = twitter.getLikedTweets(myId)
 
         // no dump
@@ -41,9 +39,6 @@ class LikesTest {
 
     @Test
     fun like_then_unlike() {
-
-        val twitter = V2TestUtil.createTwitterInstance()
-        val myId = twitter.verifyCredentials().id
 
         // https://twitter.com/TwitterDev/status/1430984356139470849
         val tweetId = 1430984356139470849L

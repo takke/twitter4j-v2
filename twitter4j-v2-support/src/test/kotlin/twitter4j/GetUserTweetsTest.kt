@@ -7,10 +7,12 @@ import java.util.TimeZone
 
 class GetUserTweetsTest {
 
+    private val twitter by lazy { V2TestUtil.createTwitterInstance() }
+    private val myId by lazy { twitter.verifyCredentials().id }
+
     @Test
     fun simpleById() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
         val userId = 8379212L       // @takke
         println("account id[$userId]")
         val res = twitter.getUserTweets(userId, maxResults = 5)
@@ -35,7 +37,6 @@ class GetUserTweetsTest {
     @Test
     fun startEndTimeById() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
         val userId = 12L       // @jack
         println("account id[$userId]")
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -62,7 +63,6 @@ class GetUserTweetsTest {
 //    @Test
 //    fun startEndTimeByUsername() {
 //
-//        val twitter = V2TestUtil.createTwitterInstance()
 //        val res = twitter.getUserTweets(
 //            "twitterdev", maxResults = 50,
 //            exclude = "retweets",

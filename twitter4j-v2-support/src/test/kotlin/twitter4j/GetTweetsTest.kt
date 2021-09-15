@@ -25,10 +25,12 @@ fun Twitter.getMyLatestTweet(userId: Long): ResponseList<Status>? {
 
 class GetTweetsTest {
 
+    private val twitter by lazy { V2TestUtil.createTwitterInstance() }
+    private val myId by lazy { twitter.verifyCredentials().id }
+
     @Test
     fun simplePoll() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
         val res = twitter.getTweets(
             656974073491156992L,
             mediaFields = V2DefaultFields.mediaFields,
@@ -80,7 +82,6 @@ class GetTweetsTest {
         // twurl -X GET "/labs/2/tweets?ids=656974073491156992"
         //       val res = TweetsResponse(JSONObject("{\"data\":[{\"id\":\"656974073491156992\",\"text\":\"We've got polls now! Which typeface do you prefer?\"}]}"))
 
-        val twitter = V2TestUtil.createTwitterInstance()
         val res = twitter.getTweets(
             656974073491156992L,
             mediaFields = null,
@@ -110,7 +111,6 @@ class GetTweetsTest {
     @Test
     fun repliedTo() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
         val res = twitter.getTweets(1288737678926573568L)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -129,7 +129,6 @@ class GetTweetsTest {
     @Test
     fun quoted() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
         val res = twitter.getTweets(1288745927654510592L)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -147,7 +146,6 @@ class GetTweetsTest {
     @Test
     fun retweet() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
         val res = twitter.getTweets(1288748212795236352L)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -165,7 +163,6 @@ class GetTweetsTest {
     @Test
     fun nonPublicOrganicMetrics() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
         val account = twitter.verifyCredentials()
         if (account == null) {
             fail("invalid account")

@@ -5,13 +5,14 @@ import org.junit.Test
 
 class GetUserMentionsTest {
 
+    private val twitter by lazy { V2TestUtil.createTwitterInstance() }
+    private val myId by lazy { twitter.verifyCredentials().id }
+
     @Test
     fun simpleById() {
 
-        val twitter = V2TestUtil.createTwitterInstance()
-        val userId = twitter.verifyCredentials().id     // me
-        println("account id[$userId]")
-        val res = twitter.getUserMentions(userId, maxResults = 5)
+        println("account id[$myId]")
+        val res = twitter.getUserMentions(myId, maxResults = 5)
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
