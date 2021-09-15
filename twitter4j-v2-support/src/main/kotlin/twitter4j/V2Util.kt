@@ -1,5 +1,9 @@
 package twitter4j
 
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.TimeZone
+
 object V2Util {
 
     fun collectPolls(includes: JSONObject?, pollsMap: HashMap<Long, Poll>) {
@@ -50,6 +54,12 @@ object V2Util {
             )
         }
         return null
+    }
+
+    fun dateToISO8601(date: Date): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        sdf.timeZone = TimeZone.getTimeZone("GMT")
+        return sdf.format(date)
     }
 
 }

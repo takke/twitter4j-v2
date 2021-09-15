@@ -1,8 +1,6 @@
 package twitter4j
 
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.TimeZone
 
 /**
  * The recent search endpoint returns Tweets from the last seven days that match a search query.
@@ -112,9 +110,7 @@ private fun TwitterImpl.searchTweetsIn(
     val params = ArrayList<HttpParameter>()
 
     if (endTime != null) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        sdf.timeZone = TimeZone.getTimeZone("GMT")
-        params.add(HttpParameter("end_time", sdf.format(endTime)))
+        params.add(HttpParameter("end_time", V2Util.dateToISO8601(endTime)))
     }
 
     params.add(HttpParameter("query", query))
@@ -148,9 +144,7 @@ private fun TwitterImpl.searchTweetsIn(
     }
 
     if (startTime != null) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        sdf.timeZone = TimeZone.getTimeZone("GMT")
-        params.add(HttpParameter("start_time", sdf.format(startTime)))
+        params.add(HttpParameter("start_time", V2Util.dateToISO8601(startTime)))
     }
 
     if (tweetFields != null) {

@@ -1,8 +1,6 @@
 package twitter4j
 
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.TimeZone
 
 /**
  * The recent Tweet counts endpoint returns count of Tweets from the last seven days that match a search query.
@@ -83,9 +81,7 @@ private fun TwitterImpl.countTweetsIn(
     params.add(HttpParameter("query", query))
 
     if (endTime != null) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        sdf.timeZone = TimeZone.getTimeZone("GMT")
-        params.add(HttpParameter("end_time", sdf.format(endTime)))
+        params.add(HttpParameter("end_time", V2Util.dateToISO8601(endTime)))
     }
 
     if (granularity != null) {
@@ -101,9 +97,7 @@ private fun TwitterImpl.countTweetsIn(
     }
 
     if (startTime != null) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        sdf.timeZone = TimeZone.getTimeZone("GMT")
-        params.add(HttpParameter("start_time", sdf.format(startTime)))
+        params.add(HttpParameter("start_time", V2Util.dateToISO8601(startTime)))
     }
 
     if (untilId != null) {

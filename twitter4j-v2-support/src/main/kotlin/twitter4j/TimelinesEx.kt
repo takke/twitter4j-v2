@@ -1,8 +1,6 @@
 package twitter4j
 
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.TimeZone
 
 /**
  * Returns Tweets composed by a single user, specified by the requested user ID.
@@ -159,9 +157,7 @@ private fun TwitterImpl.getUserTweetsIn(
     val params = ArrayList<HttpParameter>()
 
     if (endTime != null) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        sdf.timeZone = TimeZone.getTimeZone("GMT")
-        params.add(HttpParameter("end_time", sdf.format(endTime)))
+        params.add(HttpParameter("end_time", V2Util.dateToISO8601(endTime)))
     }
 
     if (exclude != null) {
@@ -197,9 +193,7 @@ private fun TwitterImpl.getUserTweetsIn(
     }
 
     if (startTime != null) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        sdf.timeZone = TimeZone.getTimeZone("GMT")
-        params.add(HttpParameter("start_time", sdf.format(startTime)))
+        params.add(HttpParameter("start_time", V2Util.dateToISO8601(startTime)))
     }
 
     if (tweetFields != null) {
