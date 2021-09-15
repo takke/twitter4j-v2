@@ -19,7 +19,7 @@ class SearchTest {
         println(json.toString(3))
 
         // meta
-        assertThat(res.meta?.resultCount).isEqualTo(10)
+        assertThat(res.meta?.resultCount).isBetween(1, 10)
         assertThat(res.meta?.previousToken).isNull()
         assertThat(res.meta?.nextToken).isNotNull
         assertThat(res.meta?.oldestId).isNotNull
