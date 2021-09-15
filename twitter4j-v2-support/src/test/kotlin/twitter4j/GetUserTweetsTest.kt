@@ -2,7 +2,6 @@ package twitter4j
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import twitter4j.conf.ConfigurationBuilder
 import java.text.SimpleDateFormat
 import java.util.TimeZone
 
@@ -11,7 +10,7 @@ class GetUserTweetsTest {
     @Test
     fun simpleById() {
 
-        val twitter = createTwitterInstance()
+        val twitter = V2TestUtil.createTwitterInstance()
         val userId = 8379212L       // @takke
         println("account id[$userId]")
         val res = twitter.getUserTweets(userId, maxResults = 5)
@@ -36,7 +35,7 @@ class GetUserTweetsTest {
     @Test
     fun startEndTimeById() {
 
-        val twitter = createTwitterInstance()
+        val twitter = V2TestUtil.createTwitterInstance()
         val userId = 12L       // @jack
         println("account id[$userId]")
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -63,7 +62,7 @@ class GetUserTweetsTest {
 //    @Test
 //    fun startEndTimeByUsername() {
 //
-//        val twitter = createTwitterInstance()
+//        val twitter = V2TestUtil.createTwitterInstance()
 //        val res = twitter.getUserTweets(
 //            "twitterdev", maxResults = 50,
 //            exclude = "retweets",
@@ -83,11 +82,4 @@ class GetUserTweetsTest {
 //        assertThat(res.meta?.nextToken).isNull()
 //    }
 
-    private fun createTwitterInstance(): Twitter {
-        val conf = ConfigurationBuilder()
-            .setJSONStoreEnabled(true)
-            .build()
-        return TwitterFactory(conf).instance
-//        return TwitterFactory.getSingleton()
-    }
 }

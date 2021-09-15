@@ -2,14 +2,13 @@ package twitter4j
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import twitter4j.conf.ConfigurationBuilder
 
 class GetUserMentionsTest {
 
     @Test
     fun simpleById() {
 
-        val twitter = createTwitterInstance()
+        val twitter = V2TestUtil.createTwitterInstance()
         val userId = twitter.verifyCredentials().id     // me
         println("account id[$userId]")
         val res = twitter.getUserMentions(userId, maxResults = 5)
@@ -31,11 +30,4 @@ class GetUserMentionsTest {
         }
     }
 
-    private fun createTwitterInstance(): Twitter {
-        val conf = ConfigurationBuilder()
-            .setJSONStoreEnabled(true)
-            .build()
-        return TwitterFactory(conf).instance
-//        return TwitterFactory.getSingleton()
-    }
 }
