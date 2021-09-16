@@ -42,6 +42,16 @@ object V2Util {
         }
     }
 
+    fun collectErrors(jsonObject: JSONObject, errors: List<ErrorInfo>) {
+        val errorsArray = jsonObject.optJSONArray("errors")
+        if (errorsArray != null) {
+            val errors1 = errors as MutableList
+            for (i in 0 until errorsArray.length()) {
+                errors1.add(ErrorInfo(errorsArray.getJSONObject(i)))
+            }
+        }
+    }
+
     fun parseMeta(jsonObject: JSONObject): Meta? {
         if (jsonObject.has("meta")) {
             val metaObject = jsonObject.optJSONObject("meta")
@@ -60,16 +70,6 @@ object V2Util {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         sdf.timeZone = TimeZone.getTimeZone("GMT")
         return sdf.format(date)
-    }
-
-    fun collectErrors(jsonObject: JSONObject, errors: List<ErrorInfo>) {
-        val errorsArray = jsonObject.optJSONArray("errors")
-        if (errorsArray != null) {
-            val errors1 = errors as MutableList
-            for (i in 0 until errorsArray.length()) {
-                errors1.add(ErrorInfo(errorsArray.getJSONObject(i)))
-            }
-        }
     }
 
 }
