@@ -33,6 +33,9 @@ v0.3.0 (2021.09.xx)
 - Mutes
   - Add Twitter.muteUser() for "POST /2/users/:id/muting"
   - Add Twitter.unmuteUser() for "DELETE /2/users/:source_user_id/muting/:target_user_id"
+- Spaces lookup
+  - Add Twitter.getSpaces() for "GET /2/spaces"
+  - Add Twitter.getSpacesByCreatorIds() for "GET /2/spaces/search"
 - Search Spaces
   - Add Twitter.searchSpaces() for "GET /2/spaces/search"
 - Bump Kotlin 1.5.30
