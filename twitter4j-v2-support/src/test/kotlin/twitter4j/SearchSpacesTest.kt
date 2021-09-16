@@ -3,7 +3,7 @@ package twitter4j
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class SpacesTest {
+class SearchSpacesTest {
 
     private val twitter by lazy { V2TestUtil.createOAuth2TwitterInstance() }
     private val myId by lazy { twitter.verifyCredentials().id }
