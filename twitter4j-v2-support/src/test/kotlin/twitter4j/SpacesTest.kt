@@ -56,7 +56,7 @@ class SpacesTest {
         val res = twitter.searchSpaces(
             "a",
             Space.State.Live,
-            maxResults = 3,
+            maxResults = 10,
             expansions = "invited_user_ids,speaker_ids,creator_id,host_ids",
             spaceFields = "host_ids,created_at,creator_id,id,lang,invited_user_ids,participant_count,speaker_ids,started_at,state,title,updated_at,scheduled_start,is_ticketed",
             userFields = "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld"
@@ -86,7 +86,7 @@ class SpacesTest {
                 assertThat(it.startedAt).isNotNull
 //                assertThat(it.title).isNotNull            // ない場合もある
                 assertThat(it.updatedAt).isNotNull
-                assertThat(it.scheduledStart).isNull()
+//                assertThat(it.scheduledStart).isNull()    // スケジュールで開始の場合は存在する
                 assertThat(it.isTicketed).isNotNull
             }
         }
