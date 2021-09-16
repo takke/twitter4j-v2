@@ -98,7 +98,7 @@ Supported APIs
 | |                 | [DELETE /2/users/:source_user_id/muting/:target_user_id](https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting) |  [Twitter.unmuteUser()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/MutesEx.kt)  |
 | **Spaces** | Lookup Spaces | [GET /2/spaces](https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces) |  N/A  |
 | |                 | [GET /2/spaces/by/creator_ids](https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids) |  N/A  |
-| | Search Spaces   | [GET /2/spaces/search](https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search) |  N/A  |
+| | Search Spaces   | [GET /2/spaces/search](https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search) |  [Twitter.searchSpaces()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/SearchSpacesEx.kt)  |
 
 v2 APIs table from [Twitter API v2: Early Access](https://developer.twitter.com/en/docs/twitter-api/early-access)
 
