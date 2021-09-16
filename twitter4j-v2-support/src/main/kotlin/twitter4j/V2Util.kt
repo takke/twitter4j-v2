@@ -52,6 +52,15 @@ object V2Util {
         }
     }
 
+    fun parseIds(array: JSONArray?, listToStore: List<Long>?) {
+        if (array != null) {
+            val list = listToStore as MutableList
+            for (v in 0 until array.length()) {
+                list.add(array.getLong(v))
+            }
+        }
+    }
+
     fun parseMeta(jsonObject: JSONObject): Meta? {
         if (jsonObject.has("meta")) {
             val metaObject = jsonObject.optJSONObject("meta")

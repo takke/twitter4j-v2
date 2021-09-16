@@ -82,4 +82,18 @@ class V2ResponseFactory {
         }
     }
 
+    @Throws(TwitterException::class)
+    fun createSpacesResponse(res: HttpResponse, conf: Configuration): SpacesResponse {
+
+        try {
+            if (conf.isJSONStoreEnabled) {
+                TwitterObjectFactory.clearThreadLocalMap()
+            }
+
+            return SpacesResponse(res, conf.isJSONStoreEnabled)
+        } catch (ex: JSONException) {
+            throw TwitterException(ex)
+        }
+    }
+
 }
