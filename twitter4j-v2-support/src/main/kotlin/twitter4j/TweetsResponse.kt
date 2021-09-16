@@ -1,7 +1,5 @@
 package twitter4j
 
-import java.util.HashMap
-
 class TweetsResponse : TwitterResponse {
 
     @Transient
@@ -75,13 +73,7 @@ class TweetsResponse : TwitterResponse {
         //--------------------------------------------------
         // errors
         //--------------------------------------------------
-        val errorsArray = jsonObject.optJSONArray("errors")
-        if (errorsArray != null) {
-            val errors = errors as MutableList
-            for (i in 0 until errorsArray.length()) {
-                errors.add(ErrorInfo(errorsArray.getJSONObject(i)))
-            }
-        }
+        V2Util.collectErrors(jsonObject, errors)
 
         if (isJSONStoreEnabled) {
             TwitterObjectFactory.registerJSONObject(this, jsonObject)

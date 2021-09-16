@@ -62,4 +62,14 @@ object V2Util {
         return sdf.format(date)
     }
 
+    fun collectErrors(jsonObject: JSONObject, errors: List<ErrorInfo>) {
+        val errorsArray = jsonObject.optJSONArray("errors")
+        if (errorsArray != null) {
+            val errors1 = errors as MutableList
+            for (i in 0 until errorsArray.length()) {
+                errors1.add(ErrorInfo(errorsArray.getJSONObject(i)))
+            }
+        }
+    }
+
 }
