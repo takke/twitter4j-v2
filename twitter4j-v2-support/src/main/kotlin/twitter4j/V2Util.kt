@@ -72,4 +72,8 @@ object V2Util {
         return sdf.format(date)
     }
 
+    fun parseISO8601Date(key: String, data: JSONObject?): Date {
+        return ParseUtil.getDate(key, data, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    }
+
 }

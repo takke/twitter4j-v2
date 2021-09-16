@@ -48,8 +48,8 @@ class CountsResponse : TwitterResponse {
 
                 counts.add(
                     Count(
-                        ParseUtil.getDate(data.getString("end"), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
-                        ParseUtil.getDate(data.getString("start"), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+                        V2Util.parseISO8601Date("end", data),
+                        V2Util.parseISO8601Date("start", data),
                         data.getInt("tweet_count")
                     )
                 )

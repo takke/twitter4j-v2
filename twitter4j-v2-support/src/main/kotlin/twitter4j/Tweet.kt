@@ -81,7 +81,7 @@ data class Tweet(
 
             t.source = data.optString("source", null)
             t.lang = data.optString("lang", null)
-            t.createdAt = ParseUtil.getDate("created_at", data, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            t.createdAt = V2Util.parseISO8601Date("created_at", data)
             data.optJSONObject("public_metrics")?.let {
                 t.publicMetrics = PublicMetrics(it)
             }
