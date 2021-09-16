@@ -60,7 +60,7 @@ data class Poll(
             "closed" -> VotingStatus.CLOSED
             else -> VotingStatus.OPEN
         },
-        endDatetime = V2Util.parseISO8601Date("end_datetime", poll),
+        endDatetime = V2Util.parseISO8601Date("end_datetime", poll)!!,
         durationMinutes = ParseUtil.getInt("duration_minutes", poll)
     )
 }

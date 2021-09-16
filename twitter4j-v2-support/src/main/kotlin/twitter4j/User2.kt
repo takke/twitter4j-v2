@@ -60,9 +60,7 @@ data class User2(
 
             return User2(json.getLong("id"),
                 location = json.optString("location", null),
-                createdAt = json.optString("created_at", null)?.let {
-                    V2Util.parseISO8601Date("created_at", json)
-                },
+                createdAt = V2Util.parseISO8601Date("created_at", json),
                 username = json.getString("username"),
                 protected = json.optBoolean("protected", false),
                 publicMetrics = json.optJSONObject("public_metrics")?.let { PublicMetrics(it) },
