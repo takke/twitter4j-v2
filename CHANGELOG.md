@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v0.3.0 (2021.09.xx)
+v0.3.0 (2021.09.17)
 -------------------
 - Search Tweets
   - Add Twitter.searchRecent() for "GET /2/tweets/search/recent"
