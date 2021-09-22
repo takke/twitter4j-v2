@@ -6,6 +6,9 @@ data class User2(
     val id: Long,
     val location: String?,
     val createdAt: Date?,
+    /**
+     * Known as screen-name
+     */
     val username: String,
     val protected: Boolean,
     val publicMetrics: PublicMetrics?,
