@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+v0.3.1 (2021.09.24)
+-------------------
+- Mutes
+  - Add Twitter.getMutingUsers() for "GET /2/users/:id/muting"
+
 v0.3.0 (2021.09.17)
 -------------------
 - Search Tweets
