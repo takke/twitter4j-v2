@@ -24,6 +24,15 @@ class MutesTest {
         }
 
         // delay
+        println("delaying...")
+        Thread.sleep(2000)
+
+        val mutingUsers = twitter.getMutingUsers(myId, null)
+        println("muting users: ${mutingUsers.users.size}, ${mutingUsers.meta?.resultCount}")
+        assertThat(mutingUsers.users).isNotEmpty
+
+        // delay
+        println("delaying...")
         Thread.sleep(2000)
 
         println("unmuteUser")
