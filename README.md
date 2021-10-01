@@ -85,7 +85,7 @@ Supported APIs
 | | Hide replies    | [PUT /2/tweets/:id/hidden](https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden) |  N/A *(Twitter4J v4.0.7 does not support PUT methods that contain json parameters.)*  |
 | **Lists** | Manage Lists | [POST /2/lists](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists) |  N/A  |
 | | | [DELETE /2/lists/:id](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id) |  N/A  |
-| | | [PUT /2/lists/:id](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id) | N/A |
+| | | [PUT /2/lists/:id](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id) | N/A (Twitter4J v4.0.7 does not support PUT methods that contain json parameters.) |
 | | Manage List members | [POST /2/lists/members](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists-id-members) | N/A |
 | | | [DELETE /2/lists/members/:user_id](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id-members-user_id) | N/A |
 | | Manage List follows | [POST /2/users/:id/followed_lists](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-users-id-followed-lists) | N/A |
