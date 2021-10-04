@@ -134,7 +134,6 @@ fun Twitter.deleteListMember(
     )
 }
 
-
 /**
  * Enables the authenticated user to follow a List.
  *
@@ -203,6 +202,77 @@ fun Twitter.unfollowList(
         ),
         conf,
         "following"
+    )
+}
+
+/**
+ * Enables the authenticated user to pin a List.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-users-id-pinned-lists"
+ */
+@Throws(TwitterException::class)
+fun Twitter.pinList(
+    /**
+     * The user ID who you are pinning a List on behalf of.
+     */
+    userId: Long,
+    /**
+     * The ID of the List that you would like the user id to pin.
+     */
+    listId: Long
+): BooleanResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    val json = JSONObject()
+    json.put("list_id", listId.toString())
+
+    return V2ResponseFactory().createBooleanResponse(
+        http.post(
+            conf.v2Configuration.baseURL + "users/${userId}/pinned_lists",
+            arrayOf(HttpParameter(json)),
+            auth,
+            this
+        ),
+        conf,
+        "pinned"
+    )
+}
+
+/**
+ * Enables the authenticated user to unpin a List.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-users-id-pinned-lists-list_id"
+ */
+@Throws(TwitterException::class)
+fun Twitter.unpinList(
+    /**
+     * The user ID who you are unpin a List on behalf of.
+     */
+    userId: Long,
+    /**
+     * The ID of the List that you would like the user id to unpin.
+     */
+    listId: Long,
+): BooleanResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    return V2ResponseFactory().createBooleanResponse(
+        http.delete(
+            conf.v2Configuration.baseURL + "users/${userId}/pinned_lists/${listId}",
+            emptyArray(),
+            auth,
+            this
+        ),
+        conf,
+        "pinned"
     )
 }
 

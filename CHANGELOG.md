@@ -11,6 +11,9 @@ v0.3.2 (2021.10.xx)
 - Manage List follows
   - Add Twitter.followList() for "POST /2/users/:id/followed_lists"
   - Add Twitter.unfollowList() for "DELETE /2/users/:id/followed_lists/:list_id"
+- Manage pinned List
+  - Add Twitter.pinList() for "POST /2/users/:id/pinned_lists"
+  - Add Twitter.unpinList() for "DELETE /2/users/pinned_lists/:list_id"
 
 v0.3.1 (2021.09.24)
 -------------------

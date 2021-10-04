@@ -131,4 +131,50 @@ class ListsTest {
             assertThat(res.result).isEqualTo(false)
         }
     }
+
+    @Test
+    fun pin_then_unpin() {
+
+        // "Developers" of @Twitter
+        val targetListId = 214727905L
+
+        println("followList")
+        println("==========")
+        twitter.followList(myId, targetListId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(true)
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(2000)
+
+        println("pinList")
+        println("=======")
+        twitter.pinList(myId, targetListId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(true)
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(2000)
+
+        println("unpinList")
+        println("=========")
+        twitter.unpinList(myId, targetListId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(false)
+        }
+    }
+
 }
