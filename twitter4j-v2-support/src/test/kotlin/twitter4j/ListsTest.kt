@@ -7,6 +7,7 @@ import java.util.*
 class ListsTest {
 
     private val twitter by lazy { V2TestUtil.createTwitterInstance() }
+    private val myId by lazy { twitter.verifyCredentials().id }
 
 //    @Test
 //    fun create_then_delete() {
@@ -97,6 +98,37 @@ class ListsTest {
             println(json.toString(3))
 
             assertThat(res.result).isEqualTo(true)
+        }
+    }
+
+    @Test
+    fun follow_then_unfollow() {
+
+        // "Developers" of @Twitter
+        val targetListId = 214727905L
+
+        println("followList")
+        println("==========")
+        twitter.followList(myId, targetListId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(true)
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(2000)
+
+        println("unfollowList")
+        println("============")
+        twitter.unfollowList(myId, targetListId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(false)
         }
     }
 }

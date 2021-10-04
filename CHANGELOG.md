@@ -5,8 +5,12 @@ v0.3.2 (2021.10.xx)
 - Manage Lists
   - Add Twitter.createList() for "POST /2/lists"
   - Add Twitter.deleteList() for "DELETE /2/lists/:id"
+- Manage List members
   - Add Twitter.addListMember() for "POST /2/lists/:id/members"
   - Add Twitter.deleteListMember() for "DELETE /2/lists/:id/members/:user_id"
+- Manage List follows
+  - Add Twitter.followList() for "POST /2/users/:id/followed_lists"
+  - Add Twitter.unfollowList() for "DELETE /2/users/:id/followed_lists/:list_id"
 
 v0.3.1 (2021.09.24)
 -------------------

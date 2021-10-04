@@ -134,3 +134,75 @@ fun Twitter.deleteListMember(
     )
 }
 
+
+/**
+ * Enables the authenticated user to follow a List.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-users-id-followed-lists"
+ */
+@Throws(TwitterException::class)
+fun Twitter.followList(
+    /**
+     * The user ID who you are following a List on behalf of.
+     */
+    userId: Long,
+    /**
+     * The ID of the List that you would like the user id to follow.
+     */
+    listId: Long
+): BooleanResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    val json = JSONObject()
+    json.put("list_id", listId.toString())
+
+    return V2ResponseFactory().createBooleanResponse(
+        http.post(
+            conf.v2Configuration.baseURL + "users/${userId}/followed_lists",
+            arrayOf(HttpParameter(json)),
+            auth,
+            this
+        ),
+        conf,
+        "following"
+    )
+}
+
+/**
+ * Enables the authenticated user to unfollow a List.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-users-id-followed-lists-list_id"
+ */
+@Throws(TwitterException::class)
+fun Twitter.unfollowList(
+    /**
+     * The user ID who you are unfollowing a List on behalf of.
+     */
+    userId: Long,
+    /**
+     * The ID of the List that you would like the user id to unfollow.
+     */
+    listId: Long,
+): BooleanResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    return V2ResponseFactory().createBooleanResponse(
+        http.delete(
+            conf.v2Configuration.baseURL + "users/${userId}/followed_lists/${listId}",
+            emptyArray(),
+            auth,
+            this
+        ),
+        conf,
+        "following"
+    )
+}
+
