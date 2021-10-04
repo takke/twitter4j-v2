@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v0.3.2 (2021.10.xx)
+v0.3.2 (2021.10.04)
 - Manage Lists
   - Add Twitter.createList() for "POST /2/lists"
   - Add Twitter.deleteList() for "DELETE /2/lists/:id"
