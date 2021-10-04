@@ -8,8 +8,39 @@ class ListsTest {
 
     private val twitter by lazy { V2TestUtil.createTwitterInstance() }
 
+//    @Test
+//    fun create_then_delete() {
+//
+//        println("createList")
+//        println("==========")
+//        val listId = twitter.createList("test list " + Date().time).let { res ->
+//            println(res)
+//            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+//            println(json.toString(3))
+//
+//            assertThat(res.id).isGreaterThan(0)
+//            assertThat(res.name).isNotNull
+//
+//            res.id
+//        }
+//
+//        // delay
+//        println("delaying...")
+//        Thread.sleep(2000)
+//
+//        println("deleteList")
+//        println("==========")
+//        twitter.deleteList(listId).let { res ->
+//            println(res)
+//            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+//            println(json.toString(3))
+//
+//            assertThat(res.result).isEqualTo(true)
+//        }
+//    }
+
     @Test
-    fun create_then_delete() {
+    fun create_add_member_then_delete() {
 
         println("createList")
         println("==========")
@@ -28,6 +59,36 @@ class ListsTest {
         println("delaying...")
         Thread.sleep(2000)
 
+        val targetUserId = 14276577L // sample2
+
+        println("addListMember")
+        println("=============")
+        twitter.addListMember(listId, targetUserId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(true)
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(2000)
+
+        println("deleteListMember")
+        println("================")
+        twitter.deleteListMember(listId, targetUserId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(false)
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(2000)
+
         println("deleteList")
         println("==========")
         twitter.deleteList(listId).let { res ->
@@ -38,5 +99,4 @@ class ListsTest {
             assertThat(res.result).isEqualTo(true)
         }
     }
-
 }
