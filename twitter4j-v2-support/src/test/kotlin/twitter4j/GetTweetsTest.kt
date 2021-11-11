@@ -181,13 +181,17 @@ class GetTweetsTest {
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
 
-            res.tweets[0].let {
-                assertNotNull(it.nonPublicMetrics)
-                assertNotNull(it.organicMetrics)
-                assertNotNull(it.publicMetrics)
+            if (res.tweets.isEmpty()) {
+                // 過去30日以内のツイートがないなどの場合には仕方ないのでテストしない
+            } else {
+                res.tweets[0].let {
+                    assertNotNull(it.nonPublicMetrics)
+                    assertNotNull(it.organicMetrics)
+                    assertNotNull(it.publicMetrics)
 
-                println(it.nonPublicMetrics)
-                println(it.organicMetrics)
+                    println(it.nonPublicMetrics)
+                    println(it.organicMetrics)
+                }
             }
         }
     }
