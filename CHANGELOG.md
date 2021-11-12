@@ -1,7 +1,14 @@
 Change Log
 ==========
 
+v0.4.0 (2021.11.12)
+-------------------
+- Manage Tweets
+  - Add Twitter.createTweet() for "POST /2/tweets"
+  - Add Twitter.deleteTweet() for "DELETE /2/tweets/:id"
+
 v0.3.2 (2021.10.04)
+-------------------
 - Manage Lists
   - Add Twitter.createList() for "POST /2/lists"
   - Add Twitter.deleteList() for "DELETE /2/lists/:id"
