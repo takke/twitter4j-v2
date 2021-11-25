@@ -46,7 +46,7 @@ data class Space(
 
             s.createdAt = V2Util.parseISO8601Date("created_at", data)
             s.lang = data.optString("lang", null)
-            s.participantCount = data.optInt("participant_count", -1).takeIf { it != -1 }
+            s.participantCount = data.optIntOrNull("participant_count")
             s.startedAt = V2Util.parseISO8601Date("started_at", data)
             s.title = data.optString("title", null)
             s.updatedAt = V2Util.parseISO8601Date("updated_at", data)

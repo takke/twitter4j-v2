@@ -25,7 +25,7 @@ data class UrlEntity2(
                 }
             }
         },
-        status = json.optInt("status", -1).takeIf { it != -1 },
+        status = json.optIntOrNull("status"),
         title = json.optString("title", null),
         description = json.optString("description", null),
         unwoundUrl = json.optString("unwound_url", null)
