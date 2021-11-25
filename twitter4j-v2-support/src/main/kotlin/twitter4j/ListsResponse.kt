@@ -61,26 +61,42 @@ class ListsResponse : TwitterResponse {
                 //     "name": "test v2 create list"
                 //   }
                 // }
-                lists.add(
-                    TwitterList(
-                        // required fields
-                        id = data.getLong("id"),
-                        name = data.getString("name"),
-
-                        // optional fields
-                        ownerId = data.optLongOrNull("owner_id"),
-                        createdAt = V2Util.parseISO8601Date("created_at", data),
-                        followerCount = data.optIntOrNull("follower_count"),
-                        memberCount = data.optIntOrNull("member_count"),
-                        isPrivate = data.optBooleanOrNull("private"),
-                        description = data.optString("description", null)
-                    )
-                )
+                lists.add(parseTwitterList(data))
             }
             is JSONArray -> {
+                // "data": [
+                //   {
+                //     "id": "1207354259852820480",
+                //     "name": "Tweets by Twitter"
+                //   },
+                //   {
+                //     "id": "1015240715587158021",
+                //     "name": "Interests on Twitter"
+                //   },
+                //   ..
+                // ]
+
+                for (i in 0 until data.length()) {
+                    val entry = data.getJSONObject(i)
+                    lists.add(parseTwitterList(entry))
+                }
             }
         }
     }
+
+    private fun parseTwitterList(data: JSONObject) = TwitterList(
+        // required fields
+        id = data.getLong("id"),
+        name = data.getString("name"),
+
+        // optional fields
+        ownerId = data.optLongOrNull("owner_id"),
+        createdAt = V2Util.parseISO8601Date("created_at", data),
+        followerCount = data.optIntOrNull("follower_count"),
+        memberCount = data.optIntOrNull("member_count"),
+        isPrivate = data.optBooleanOrNull("private"),
+        description = data.optString("description", null)
+    )
 
     override fun getRateLimitStatus(): RateLimitStatus? {
         return rateLimitStatus

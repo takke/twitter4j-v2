@@ -105,6 +105,22 @@ class ListsTest {
     }
 
     @Test
+    fun owned_lists_simple() {
+
+        val ownerId = 783214L
+        twitter.getOwnedLists(
+            ownerId
+        ).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            // actual count = 11 at 2021/11/25
+            assertThat(res.lists.size).isGreaterThanOrEqualTo(2)
+        }
+    }
+
+    @Test
     fun create_add_member_then_delete() {
 
         println("createList")
