@@ -41,7 +41,7 @@ class ListsTest {
 //    }
 
     @Test
-    fun get_list() {
+    fun get_list_simple() {
 
         // Official Twitter Accounts
         val listId = 84839422L
@@ -49,15 +49,18 @@ class ListsTest {
         println(res)
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
-        assertThat(res.id).isEqualTo(listId)
+
+        assertThat(res.lists.size).isEqualTo(1)
+        val list1 = res.lists.first()
+        assertThat(list1.id).isEqualTo(listId)
 
         // optional fields are null
-        assertThat(res.ownerId).isNull()
-        assertThat(res.createdAt).isNull()
-        assertThat(res.followerCount).isNull()
-        assertThat(res.memberCount).isNull()
-        assertThat(res.isPrivate).isNull()
-        assertThat(res.description).isNull()
+        assertThat(list1.ownerId).isNull()
+        assertThat(list1.createdAt).isNull()
+        assertThat(list1.followerCount).isNull()
+        assertThat(list1.memberCount).isNull()
+        assertThat(list1.isPrivate).isNull()
+        assertThat(list1.description).isNull()
 
         // not user
         assertThat(res.usersMap.size).isEqualTo(0)
@@ -77,16 +80,19 @@ class ListsTest {
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
-            assertThat(res.id).isEqualTo(listId)
+
+            assertThat(res.lists.size).isEqualTo(1)
+            val list1 = res.lists.first()
+            assertThat(list1.id).isEqualTo(listId)
 
             // optional fields
             val ownerId = 783214L
-            assertThat(res.ownerId).isEqualTo(ownerId)
-            assertThat(res.createdAt).isNotNull
-            assertThat(res.followerCount).isNotNull
-            assertThat(res.memberCount).isNotNull
-            assertThat(res.isPrivate).isNotNull
-            assertThat(res.description).isNotNull
+            assertThat(list1.ownerId).isEqualTo(ownerId)
+            assertThat(list1.createdAt).isNotNull
+            assertThat(list1.followerCount).isNotNull
+            assertThat(list1.memberCount).isNotNull
+            assertThat(list1.isPrivate).isNotNull
+            assertThat(list1.description).isNotNull
 
             // user
             val user = res.usersMap[ownerId]!!
@@ -109,17 +115,20 @@ class ListsTest {
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
 
-            assertThat(res.id).isGreaterThan(0)
-            assertThat(res.name).isNotNull
+            assertThat(res.lists.size).isEqualTo(1)
+            val list1 = res.lists.first()
 
-            res.id
+            assertThat(list1.id).isGreaterThan(0)
+            assertThat(list1.name).isNotNull
+
+            list1.id
         }
 
         println("getList")
         println("=======")
         val listInfo = twitter.getList(listId)
-        assertThat(listInfo.id).isEqualTo(listId)
-        assertThat(listInfo.name).isEqualTo(name)
+        assertThat(listInfo.lists[0].id).isEqualTo(listId)
+        assertThat(listInfo.lists[0].name).isEqualTo(name)
 
         // delay
         println("delaying...")
