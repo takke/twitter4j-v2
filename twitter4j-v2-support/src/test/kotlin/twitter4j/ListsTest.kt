@@ -62,7 +62,7 @@ class ListsTest {
         assertThat(list1.isPrivate).isNull()
         assertThat(list1.description).isNull()
 
-        // not user
+        // no users
         assertThat(res.usersMap.size).isEqualTo(0)
     }
 
@@ -117,6 +117,19 @@ class ListsTest {
 
             // actual count = 11 at 2021/11/25
             assertThat(res.lists.size).isGreaterThanOrEqualTo(2)
+
+            val list1 = res.lists.first()
+
+            // optional fields are null
+            assertThat(list1.ownerId).isNull()
+            assertThat(list1.createdAt).isNull()
+            assertThat(list1.followerCount).isNull()
+            assertThat(list1.memberCount).isNull()
+            assertThat(list1.isPrivate).isNull()
+            assertThat(list1.description).isNull()
+
+            // no users
+            assertThat(res.usersMap.size).isEqualTo(0)
         }
     }
 

@@ -55,6 +55,8 @@ fun Twitter.getOwnedLists(
     id: Long,
     expansions: String? = null,
     listFields: String? = null,
+    maxResults: Int? = null,
+    paginationToken: String? = null,
     userFields: String? = null,
 ): ListsResponse {
 
@@ -70,6 +72,14 @@ fun Twitter.getOwnedLists(
 
     if (listFields != null) {
         params.add(HttpParameter("list.fields", listFields))
+    }
+
+    if (maxResults != null) {
+        params.add(HttpParameter("max_results", maxResults))
+    }
+
+    if (paginationToken != null) {
+        params.add(HttpParameter("pagination_token", paginationToken))
     }
 
     if (userFields != null) {
