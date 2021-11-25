@@ -97,14 +97,14 @@ class V2ResponseFactory {
     }
 
     @Throws(TwitterException::class)
-    fun createListResponse(res: HttpResponse, conf: Configuration): ListResponse {
+    fun createListsResponse(res: HttpResponse, conf: Configuration): ListsResponse {
 
         try {
             if (conf.isJSONStoreEnabled) {
                 TwitterObjectFactory.clearThreadLocalMap()
             }
 
-            return ListResponse(res, conf.isJSONStoreEnabled)
+            return ListsResponse(res, conf.isJSONStoreEnabled)
         } catch (ex: JSONException) {
             throw TwitterException(ex)
         }

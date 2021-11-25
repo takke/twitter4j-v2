@@ -3,7 +3,7 @@ package twitter4j
 import java.util.*
 import kotlin.collections.HashMap
 
-class ListResponse : TwitterResponse {
+class ListsResponse : TwitterResponse {
 
     @Transient
     private var rateLimitStatus: RateLimitStatus? = null
@@ -90,7 +90,7 @@ class ListResponse : TwitterResponse {
     }
 
     override fun toString(): String {
-        return "ListResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, id=$id, name='$name', ownerId=$ownerId, createdAt=$createdAt, followerCount=$followerCount, memberCount=$memberCount, isPrivate=$isPrivate, description=$description, usersMap=$usersMap)"
+        return "ListsResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, id=$id, name='$name', ownerId=$ownerId, createdAt=$createdAt, followerCount=$followerCount, memberCount=$memberCount, isPrivate=$isPrivate, description=$description, usersMap=$usersMap)"
     }
 
 }

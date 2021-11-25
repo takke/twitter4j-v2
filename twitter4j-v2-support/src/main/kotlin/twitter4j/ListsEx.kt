@@ -15,7 +15,7 @@ fun Twitter.getList(
     expansions: String? = null,
     listFields: String? = null,
     userFields: String? = null,
-): ListResponse {
+): ListsResponse {
 
     if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
 
@@ -35,7 +35,7 @@ fun Twitter.getList(
         params.add(HttpParameter("user.fields", userFields))
     }
 
-    return V2ResponseFactory().createListResponse(
+    return V2ResponseFactory().createListsResponse(
         http.get(conf.v2Configuration.baseURL + "lists/" + id, params.toTypedArray(), auth, this),
         conf
     )
@@ -61,7 +61,7 @@ fun Twitter.createList(
      * Determine whether the List should be private.
      */
     private: Boolean? = null,
-): ListResponse {
+): ListsResponse {
 
     if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
 
@@ -78,7 +78,7 @@ fun Twitter.createList(
         json.put("private", private)
     }
 
-    return V2ResponseFactory().createListResponse(
+    return V2ResponseFactory().createListsResponse(
         http.post(conf.v2Configuration.baseURL + "lists", arrayOf(HttpParameter(json)), auth, this),
         conf
     )
