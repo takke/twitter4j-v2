@@ -74,7 +74,7 @@ data class User2(
                 profileImageUrl = json.optString("profile_image_url", null),
                 name = json.getString("name"),
                 verified = json.optBoolean("verified", false),
-                pinnedTweetId = json.optLong("pinned_tweet_id", -1L).takeIf { it != -1L }
+                pinnedTweetId = json.optLongOrNull("pinned_tweet_id")
             )
         }
     }

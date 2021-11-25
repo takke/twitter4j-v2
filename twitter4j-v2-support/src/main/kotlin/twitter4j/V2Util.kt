@@ -68,8 +68,8 @@ object V2Util {
                 metaObject.getInt("result_count"),
                 metaObject.optString("previous_token", null),
                 metaObject.optString("next_token", null),
-                metaObject.optLong("oldest_id"),
-                metaObject.optLong("newest_id")
+                metaObject.optLongOrNull("oldest_id"),
+                metaObject.optLongOrNull("newest_id")
             )
         }
         return null

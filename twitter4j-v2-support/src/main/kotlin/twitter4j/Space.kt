@@ -42,7 +42,7 @@ data class Space(
             V2Util.parseIds(data.optJSONArray("invited_user_ids"), s.invitedUserIds)
             V2Util.parseIds(data.optJSONArray("speaker_ids"), s.speakerIds)
             V2Util.parseIds(data.optJSONArray("host_ids"), s.hostIds)
-            s.creatorId = data.optLong("creator_id")
+            s.creatorId = data.optLongOrNull("creator_id")
 
             s.createdAt = V2Util.parseISO8601Date("created_at", data)
             s.lang = data.optString("lang", null)

@@ -104,7 +104,7 @@ data class Tweet(
             }
 
             // author_id
-            data.optLong("author_id", -1L).takeIf { it != -1L }?.let { authorId ->
+            data.optLongOrNull("author_id")?.let { authorId ->
                 t.authorId = authorId
             }
 
