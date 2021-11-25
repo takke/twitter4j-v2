@@ -41,7 +41,7 @@ class ListsTest {
 //    }
 
     @Test
-    fun get_list_simple() {
+    fun getList_simple() {
 
         // Official Twitter Accounts
         val listId = 84839422L
@@ -67,7 +67,7 @@ class ListsTest {
     }
 
     @Test
-    fun get_list_expansion_fields() {
+    fun getList_expansion_fields() {
 
         // Official Twitter Accounts
         val listId = 84839422L
@@ -105,7 +105,7 @@ class ListsTest {
     }
 
     @Test
-    fun owned_lists_simple() {
+    fun getOwnedLists_simple() {
 
         val ownerId = 783214L
         twitter.getOwnedLists(
@@ -134,7 +134,7 @@ class ListsTest {
     }
 
     @Test
-    fun owned_lists_expansion_fields() {
+    fun getOwnedLists_expansion_fields() {
 
         val ownerId = 783214L
         twitter.getOwnedLists(
@@ -168,6 +168,19 @@ class ListsTest {
             assertThat(user.createdAt).isNotNull
             assertThat(user.description).isNotNull
         }
+    }
+
+    @Test
+    fun getListTweets_simple() {
+
+        // Official Twitter Accounts
+        val listId = 84839422L
+        val res = twitter.getListTweets(listId)
+        println(res)
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        assertThat(res.tweets.size).isGreaterThanOrEqualTo(1)
     }
 
     @Test
