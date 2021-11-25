@@ -134,6 +134,43 @@ class ListsTest {
     }
 
     @Test
+    fun owned_lists_expansion_fields() {
+
+        val ownerId = 783214L
+        twitter.getOwnedLists(
+            ownerId,
+            expansions = "owner_id",
+            listFields = "created_at,follower_count,member_count,private,description,owner_id",
+            userFields = "created_at,description"
+        ).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            // actual count = 11 at 2021/11/25
+            assertThat(res.lists.size).isGreaterThanOrEqualTo(2)
+
+            val list1 = res.lists.first()
+
+            // optional fields
+            assertThat(list1.ownerId).isEqualTo(ownerId)
+            assertThat(list1.createdAt).isNotNull
+            assertThat(list1.followerCount).isNotNull
+            assertThat(list1.memberCount).isNotNull
+            assertThat(list1.isPrivate).isNotNull
+            assertThat(list1.description).isNotNull
+
+            // user
+            val user = res.usersMap[ownerId]!!
+            assertThat(user.id).isEqualTo(ownerId)
+            assertThat(user.name).isEqualTo("Twitter")
+            assertThat(user.username).isEqualTo("Twitter")
+            assertThat(user.createdAt).isNotNull
+            assertThat(user.description).isNotNull
+        }
+    }
+
+    @Test
     fun create_add_member_then_delete() {
 
         println("createList")
