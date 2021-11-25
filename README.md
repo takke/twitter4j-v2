@@ -110,7 +110,7 @@ Supported APIs
 | |                          | [GET /2/spaces/by/creator_ids](https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids "Returns live or scheduled Spaces created by the specified user IDs.") |  [Twitter.getSpacesByCreatorIds()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/SpacesLookupEx.kt)  |
 | | Search Spaces            | [GET /2/spaces/search](https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search "Return live or scheduled Spaces matching your specified search terms. ") |  [Twitter.searchSpaces()](https://github.com/takke/twitter4j-v2/blob/master/twitter4j-v2-support/src/main/kotlin/twitter4j/SearchSpacesEx.kt)  |
 
-v2 APIs table from [Twitter API v2: Early Access](https://developer.twitter.com/en/docs/twitter-api/early-access)
+v2 APIs table from [Twitter API endpoint map](https://developer.twitter.com/en/docs/twitter-api/migrate/twitter-api-endpoint-map)
 
 See also [Response Field Mapping](https://github.com/takke/twitter4j-v2/wiki/Response-Field-Mapping)
 
