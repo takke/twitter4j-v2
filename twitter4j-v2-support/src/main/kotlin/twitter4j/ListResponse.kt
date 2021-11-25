@@ -1,5 +1,8 @@
 package twitter4j
 
+import java.util.*
+import kotlin.collections.HashMap
+
 class ListResponse : TwitterResponse {
 
     @Transient
@@ -11,6 +14,22 @@ class ListResponse : TwitterResponse {
     val id: Long
 
     val name: String
+
+    // optional fields
+    var ownerId: Long? = null
+
+    var createdAt: Date? = null
+
+    var followerCount: Int? = null
+
+    var memberCount: Int? = null
+
+    var isPrivate: Boolean? = null
+
+    var description: String? = null
+
+    // includes.users
+    val usersMap = HashMap<Long, User2>()
 
 
     constructor(res: HttpResponse, isJSONStoreEnabled: Boolean) {
@@ -34,6 +53,13 @@ class ListResponse : TwitterResponse {
             TwitterObjectFactory.registerJSONObject(this, jsonObject)
         }
 
+        val includes = jsonObject.optJSONObject("includes")
+
+        //--------------------------------------------------
+        // create maps from includes
+        //--------------------------------------------------
+        V2Util.collectUsers(includes, usersMap)
+
         // {
         //   "data": {
         //     "id": "1441162269824405510",
@@ -41,7 +67,18 @@ class ListResponse : TwitterResponse {
         //   }
         // }
 
-        return jsonObject.getJSONObject("data")
+        val data = jsonObject.getJSONObject("data")
+
+        // optional fields
+        ownerId = data.optLongOrNull("owner_id")
+        createdAt = V2Util.parseISO8601Date("created_at", data)
+        followerCount = data.optIntOrNull("follower_count")
+        memberCount = data.optIntOrNull("member_count")
+        isPrivate = data.optBooleanOrNull("private")
+        description = data.optString("description", null)
+
+        // required fields
+        return data
     }
 
     override fun getRateLimitStatus(): RateLimitStatus? {
@@ -53,7 +90,7 @@ class ListResponse : TwitterResponse {
     }
 
     override fun toString(): String {
-        return "ListResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, id=$id, name='$name')"
+        return "ListResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, id=$id, name='$name', ownerId=$ownerId, createdAt=$createdAt, followerCount=$followerCount, memberCount=$memberCount, isPrivate=$isPrivate, description=$description, usersMap=$usersMap)"
     }
 
 }

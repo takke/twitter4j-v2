@@ -3,6 +3,8 @@ Change Log
 
 v1.0.0 (2021.11.xx)
 -------------------
+- Lists lookup
+  - Add Twitter.getList() for "GET /2/lists/:id"
 - Bump Kotlin 1.6.0
 
 v0.4.0 (2021.11.12)

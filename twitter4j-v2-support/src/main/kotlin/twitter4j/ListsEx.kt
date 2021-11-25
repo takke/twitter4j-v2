@@ -1,6 +1,47 @@
 package twitter4j
 
 /**
+ * Lookup a specific list by ID
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-lists-id"
+ */
+@Throws(TwitterException::class)
+fun Twitter.getList(
+    /**
+     * The ID of the List to lookup.
+     */
+    id: Long,
+    expansions: String? = null,
+    listFields: String? = null,
+    userFields: String? = null,
+): ListResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    val params = ArrayList<HttpParameter>()
+
+    if (expansions != null) {
+        params.add(HttpParameter("expansions", expansions))
+    }
+
+    if (listFields != null) {
+        params.add(HttpParameter("list.fields", listFields))
+    }
+
+    if (userFields != null) {
+        params.add(HttpParameter("user.fields", userFields))
+    }
+
+    return V2ResponseFactory().createListResponse(
+        http.get(conf.v2Configuration.baseURL + "lists/" + id, params.toTypedArray(), auth, this),
+        conf
+    )
+}
+
+/**
  * Enables the authenticated user to create a List.
  *
  * @throws TwitterException when Twitter service or network is unavailable
