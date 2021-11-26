@@ -145,6 +145,43 @@ fun Twitter.getListMembers(
 }
 
 /**
+ * Returns all Lists a specified user is a member of
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships"
+ */
+@Throws(TwitterException::class)
+fun Twitter.getListMemberships(
+    /**
+     * The user ID whose List memberships you would like to retrieve.
+     */
+    id: Long,
+    expansions: String? = null,
+    listFields: String? = null,
+    maxResults: Int? = null,
+    paginationToken: String? = null,
+    userFields: String? = null,
+): ListsResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    val params = ArrayList<HttpParameter>()
+
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "list.fields", listFields)
+    V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+    V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+    return V2ResponseFactory().createListsResponse(
+        http.get(conf.v2Configuration.baseURL + "users/" + id + "/list_memberships", params.toTypedArray(), auth, this),
+        conf
+    )
+}
+
+/**
  * Enables the authenticated user to create a List.
  *
  * @throws TwitterException when Twitter service or network is unavailable
