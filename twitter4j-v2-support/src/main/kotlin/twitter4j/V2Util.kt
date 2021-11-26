@@ -97,4 +97,10 @@ object V2Util {
         }
     }
 
+    fun addHttpParamIfNotNull(params: ArrayList<HttpParameter>, name: String, value: Long?) {
+        if (value != null) {
+            params.add(HttpParameter(name, value))
+        }
+    }
+
 }

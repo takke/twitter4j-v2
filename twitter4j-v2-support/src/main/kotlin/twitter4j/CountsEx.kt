@@ -84,25 +84,15 @@ private fun TwitterImpl.countTweetsIn(
         params.add(HttpParameter("end_time", V2Util.dateToISO8601(endTime)))
     }
 
-    if (granularity != null) {
-        params.add(HttpParameter("granularity", granularity))
-    }
-
-    if (nextToken != null) {
-        params.add(HttpParameter("next_token", nextToken))
-    }
-
-    if (sinceId != null) {
-        params.add(HttpParameter("since_id", sinceId))
-    }
+    V2Util.addHttpParamIfNotNull(params, "granularity", granularity)
+    V2Util.addHttpParamIfNotNull(params, "next_token", nextToken)
+    V2Util.addHttpParamIfNotNull(params, "since_id", sinceId)
 
     if (startTime != null) {
         params.add(HttpParameter("start_time", V2Util.dateToISO8601(startTime)))
     }
 
-    if (untilId != null) {
-        params.add(HttpParameter("until_id", untilId))
-    }
+    V2Util.addHttpParamIfNotNull(params, "until_id", untilId)
 
     return V2ResponseFactory().createCountsResponse(
         http.get(
