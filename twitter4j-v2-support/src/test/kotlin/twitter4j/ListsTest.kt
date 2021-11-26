@@ -369,6 +369,25 @@ class ListsTest {
         println("delaying...")
         Thread.sleep(2000)
 
+        println("getPinedLists")
+        println("=============")
+        twitter.getPinnedLists(myId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.lists.size).isGreaterThanOrEqualTo(1)
+
+            // has targetListId
+            assertThat(
+                res.lists.any { it.id == targetListId }
+            ).isTrue
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(2000)
+
         println("unpinList")
         println("=========")
         twitter.unpinList(myId, targetListId).let { res ->

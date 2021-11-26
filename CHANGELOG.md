@@ -14,6 +14,8 @@ v1.0.0 (2021.11.xx)
 - Lists follows
   - Add Twitter.getListFollowers() for "GET /2/lists/:id/followers"
   - Add Twitter.getFollowedLists() for "GET /2/users/:id/followed_lists"
+- Pinned Lists
+  - Add Twitter.getPinnedLists() for "GET /2/users/:id/pinned_lists"
 - Bump Kotlin 1.6.0
 
 v0.4.0 (2021.11.12)

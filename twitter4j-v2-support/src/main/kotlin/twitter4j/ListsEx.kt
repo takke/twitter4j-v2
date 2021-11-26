@@ -254,6 +254,41 @@ fun Twitter.getFollowedLists(
 }
 
 /**
+ * Returns the pinned Lists of the authenticated user
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists"
+ */
+@Throws(TwitterException::class)
+fun Twitter.getPinnedLists(
+    /**
+     * The user ID whose pinned Lists you would like to retrieve.
+     * The user’s ID must correspond to the user ID of the authenticating user,
+     * meaning that you must pass the Access Tokens associated with the user ID when authenticating your request.
+     */
+    id: Long,
+    expansions: String? = null,
+    listFields: String? = null,
+    userFields: String? = null,
+): ListsResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    val params = ArrayList<HttpParameter>()
+
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "list.fields", listFields)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+    return V2ResponseFactory().createListsResponse(
+        http.get(conf.v2Configuration.baseURL + "users/" + id + "/pinned_lists", params.toTypedArray(), auth, this),
+        conf
+    )
+}
+
+/**
  * Enables the authenticated user to create a List.
  *
  * @throws TwitterException when Twitter service or network is unavailable
