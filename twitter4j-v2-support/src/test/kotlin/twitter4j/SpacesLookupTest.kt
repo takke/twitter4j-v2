@@ -75,7 +75,7 @@ class SpacesLookupTest {
         if (res.spaces.isNotEmpty()) {
             res.spaces.forEach {
                 assertThat(it.id.length).isGreaterThan(0)
-                assertThat(it.state).isEqualTo(Space.State.Scheduled)
+                assertThat(it.state).isIn(Space.State.Scheduled, Space.State.Live)
             }
         }
 
