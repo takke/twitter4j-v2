@@ -22,17 +22,9 @@ fun Twitter.getSpaces(
         HttpParameter("ids", spaceIds.joinToString(",")),
     )
 
-    if (expansions != null) {
-        params.add(HttpParameter("expansions", expansions))
-    }
-
-    if (spaceFields != null) {
-        params.add(HttpParameter("space.fields", spaceFields))
-    }
-
-    if (userFields != null) {
-        params.add(HttpParameter("user.fields", userFields))
-    }
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "space.fields", spaceFields)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
     return V2ResponseFactory().createSpacesResponse(
         http.get(
@@ -67,17 +59,9 @@ fun Twitter.getSpacesByCreatorIds(
         HttpParameter("user_ids", userIds.joinToString(",")),
     )
 
-    if (expansions != null) {
-        params.add(HttpParameter("expansions", expansions))
-    }
-
-    if (spaceFields != null) {
-        params.add(HttpParameter("space.fields", spaceFields))
-    }
-
-    if (userFields != null) {
-        params.add(HttpParameter("user.fields", userFields))
-    }
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "space.fields", spaceFields)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
     return V2ResponseFactory().createSpacesResponse(
         http.get(

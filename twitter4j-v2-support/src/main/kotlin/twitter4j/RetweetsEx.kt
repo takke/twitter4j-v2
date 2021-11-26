@@ -20,17 +20,9 @@ fun Twitter.getRetweetUsers(
 
     val params = ArrayList<HttpParameter>()
 
-    if (expansions != null) {
-        params.add(HttpParameter("expansions", expansions))
-    }
-
-    if (tweetFields != null) {
-        params.add(HttpParameter("tweet.fields", tweetFields))
-    }
-
-    if (userFields != null) {
-        params.add(HttpParameter("user.fields", userFields))
-    }
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
     return V2ResponseFactory().createUsersResponse(
         http.get(

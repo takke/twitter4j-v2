@@ -23,17 +23,9 @@ fun Twitter.getList(
 
     val params = ArrayList<HttpParameter>()
 
-    if (expansions != null) {
-        params.add(HttpParameter("expansions", expansions))
-    }
-
-    if (listFields != null) {
-        params.add(HttpParameter("list.fields", listFields))
-    }
-
-    if (userFields != null) {
-        params.add(HttpParameter("user.fields", userFields))
-    }
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "list.fields", listFields)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
     return V2ResponseFactory().createListsResponse(
         http.get(conf.v2Configuration.baseURL + "lists/" + id, params.toTypedArray(), auth, this),
@@ -66,25 +58,11 @@ fun Twitter.getOwnedLists(
 
     val params = ArrayList<HttpParameter>()
 
-    if (expansions != null) {
-        params.add(HttpParameter("expansions", expansions))
-    }
-
-    if (listFields != null) {
-        params.add(HttpParameter("list.fields", listFields))
-    }
-
-    if (maxResults != null) {
-        params.add(HttpParameter("max_results", maxResults))
-    }
-
-    if (paginationToken != null) {
-        params.add(HttpParameter("pagination_token", paginationToken))
-    }
-
-    if (userFields != null) {
-        params.add(HttpParameter("user.fields", userFields))
-    }
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "list.fields", listFields)
+    V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+    V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
     return V2ResponseFactory().createListsResponse(
         http.get(conf.v2Configuration.baseURL + "users/" + id + "/owned_lists", params.toTypedArray(), auth, this),
@@ -117,25 +95,11 @@ fun Twitter.getListTweets(
 
     val params = ArrayList<HttpParameter>()
 
-    if (expansions != null) {
-        params.add(HttpParameter("expansions", expansions))
-    }
-
-    if (maxResults != null) {
-        params.add(HttpParameter("max_results", maxResults))
-    }
-
-    if (paginationToken != null) {
-        params.add(HttpParameter("pagination_token", paginationToken))
-    }
-
-    if (tweetFields != null) {
-        params.add(HttpParameter("tweet.fields", tweetFields))
-    }
-
-    if (userFields != null) {
-        params.add(HttpParameter("user.fields", userFields))
-    }
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+    V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+    V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
     return V2ResponseFactory().createTweetsResponse(
         http.get(conf.v2Configuration.baseURL + "lists/" + id + "/tweets", params.toTypedArray(), auth, this),

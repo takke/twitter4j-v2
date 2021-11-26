@@ -26,25 +26,11 @@ fun Twitter.getTweets(
         HttpParameter("expansions", expansions)
     )
 
-    if (mediaFields != null) {
-        params.add(HttpParameter("media.fields", mediaFields))
-    }
-
-    if (placeFields != null) {
-        params.add(HttpParameter("place.fields", placeFields))
-    }
-
-    if (pollFields != null) {
-        params.add(HttpParameter("poll.fields", pollFields))
-    }
-
-    if (tweetFields != null) {
-        params.add(HttpParameter("tweet.fields", tweetFields))
-    }
-
-    if (userFields != null) {
-        params.add(HttpParameter("user.fields", userFields))
-    }
+    V2Util.addHttpParamIfNotNull(params, "media.fields", mediaFields)
+    V2Util.addHttpParamIfNotNull(params, "place.fields", placeFields)
+    V2Util.addHttpParamIfNotNull(params, "poll.fields", pollFields)
+    V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
     return V2ResponseFactory().createTweetsResponse(
         http.get(conf.v2Configuration.baseURL + "tweets", params.toTypedArray(), auth, this),

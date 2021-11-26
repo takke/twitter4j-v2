@@ -156,57 +156,19 @@ private fun TwitterImpl.getUserTweetsIn(
 
     val params = ArrayList<HttpParameter>()
 
-    if (endTime != null) {
-        params.add(HttpParameter("end_time", V2Util.dateToISO8601(endTime)))
-    }
-
-    if (exclude != null) {
-        params.add(HttpParameter("exclude", exclude))
-    }
-
-    if (expansions != null) {
-        params.add(HttpParameter("expansions", expansions))
-    }
-
-    if (maxResults != null) {
-        params.add(HttpParameter("max_results", maxResults))
-    }
-
-    if (mediaFields != null) {
-        params.add(HttpParameter("media.fields", mediaFields))
-    }
-
-    if (paginationToken != null) {
-        params.add(HttpParameter("pagination_token", paginationToken))
-    }
-
-    if (placeFields != null) {
-        params.add(HttpParameter("place.fields", placeFields))
-    }
-
-    if (pollFields != null) {
-        params.add(HttpParameter("poll.fields", pollFields))
-    }
-
-    if (sinceId != null) {
-        params.add(HttpParameter("since_id", sinceId))
-    }
-
-    if (startTime != null) {
-        params.add(HttpParameter("start_time", V2Util.dateToISO8601(startTime)))
-    }
-
-    if (tweetFields != null) {
-        params.add(HttpParameter("tweet.fields", tweetFields))
-    }
-
-    if (untilId != null) {
-        params.add(HttpParameter("until_id", untilId))
-    }
-
-    if (userFields != null) {
-        params.add(HttpParameter("user.fields", userFields))
-    }
+    V2Util.addHttpParamIfNotNull(params, "end_time", V2Util.dateToISO8601(endTime))
+    V2Util.addHttpParamIfNotNull(params, "exclude", exclude)
+    V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+    V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+    V2Util.addHttpParamIfNotNull(params, "media.fields", mediaFields)
+    V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+    V2Util.addHttpParamIfNotNull(params, "place.fields", placeFields)
+    V2Util.addHttpParamIfNotNull(params, "poll.fields", pollFields)
+    V2Util.addHttpParamIfNotNull(params, "since_id", sinceId)
+    V2Util.addHttpParamIfNotNull(params, "start_time", V2Util.dateToISO8601(startTime))
+    V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+    V2Util.addHttpParamIfNotNull(params, "until_id", untilId)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
     return V2ResponseFactory().createTweetsResponse(
         http.get(

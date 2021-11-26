@@ -75,7 +75,8 @@ object V2Util {
         return null
     }
 
-    fun dateToISO8601(date: Date): String {
+    fun dateToISO8601(date: Date?): String? {
+        date ?: return null
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         sdf.timeZone = TimeZone.getTimeZone("GMT")
         return sdf.format(date)
