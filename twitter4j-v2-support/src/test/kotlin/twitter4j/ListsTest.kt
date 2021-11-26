@@ -222,6 +222,18 @@ class ListsTest {
     }
 
     @Test
+    fun getFollowedLists_simple() {
+
+        val userId = 87532773L      // @TwitterDesign
+        val res = twitter.getFollowedLists(userId)
+        println(res)
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        assertThat(res.lists.size).isGreaterThanOrEqualTo(1)
+    }
+
+    @Test
     fun create_add_member_then_delete() {
 
         println("createList")

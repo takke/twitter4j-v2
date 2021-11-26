@@ -53,7 +53,7 @@ class ListsResponse : TwitterResponse {
         //--------------------------------------------------
         V2Util.collectUsers(includes, usersMap)
 
-        when (val data = jsonObject.get("data")) {
+        when (val data = jsonObject.opt("data")) {
             is JSONObject -> {
                 // {
                 //   "data": {
