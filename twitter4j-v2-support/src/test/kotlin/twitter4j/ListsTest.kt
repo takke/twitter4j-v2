@@ -184,6 +184,19 @@ class ListsTest {
     }
 
     @Test
+    fun getListMembers_simple() {
+
+        // Official Twitter Accounts
+        val listId = 84839422L
+        val res = twitter.getListMembers(listId)
+        println(res)
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        assertThat(res.users.size).isGreaterThanOrEqualTo(1)
+    }
+
+    @Test
     fun create_add_member_then_delete() {
 
         println("createList")
