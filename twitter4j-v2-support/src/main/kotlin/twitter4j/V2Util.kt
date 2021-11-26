@@ -85,4 +85,16 @@ object V2Util {
         return ParseUtil.getDate(key, data, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     }
 
+    fun addHttpParamIfNotNull(params: ArrayList<HttpParameter>, name: String, value: String?) {
+        if (value != null) {
+            params.add(HttpParameter(name, value))
+        }
+    }
+
+    fun addHttpParamIfNotNull(params: ArrayList<HttpParameter>, name: String, value: Int?) {
+        if (value != null) {
+            params.add(HttpParameter(name, value))
+        }
+    }
+
 }
