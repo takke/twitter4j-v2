@@ -11,6 +11,8 @@ v1.0.0 (2021.11.xx)
 - List members
   - Add Twitter.getListMembers() for "GET /2/lists/:id/members"
   - Add Twitter.getListMemberships() for "GET /2/users/:id/list_memberships"
+- Lists follows
+  - Add Twitter.getListFollowers() for "GET /2/lists/:id/followers"
 - Bump Kotlin 1.6.0
 
 v0.4.0 (2021.11.12)
