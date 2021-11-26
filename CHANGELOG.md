@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v1.0.0 (2021.11.xx)
+v1.0.0 (2021.11.26)
 -------------------
 - Lists lookup
   - Add Twitter.getList() for "GET /2/lists/:id"
