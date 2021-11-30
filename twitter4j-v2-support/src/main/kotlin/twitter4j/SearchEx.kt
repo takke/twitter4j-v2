@@ -115,7 +115,7 @@ private fun TwitterImpl.searchTweetsIn(
     V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
     V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
     V2Util.addHttpParamIfNotNull(params, "media.fields", mediaFields)
-    V2Util.addHttpParamIfNotNull(params, "pagination_token", nextToken)
+    V2Util.addHttpParamIfNotNull(params, "next_token", nextToken)
     V2Util.addHttpParamIfNotNull(params, "place.fields", placeFields)
     V2Util.addHttpParamIfNotNull(params, "poll.fields", pollFields)
     V2Util.addHttpParamIfNotNull(params, "since_id", sinceId)
