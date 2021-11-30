@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v1.0.1 (2021.11.30)
+-------------------
+- fix: replace pagination_token by next_token for searchRecent() and searchAll()
+
 v1.0.0 (2021.11.26)
 -------------------
 - Lists lookup
