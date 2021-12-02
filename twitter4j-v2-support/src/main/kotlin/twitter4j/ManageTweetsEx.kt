@@ -82,7 +82,7 @@ fun Twitter.createTweet(
 
     if (inReplyToTweetId != null) {
         json.put("reply", JSONObject().apply {
-            put("in_reply_to_tweet_id", inReplyToTweetId)
+            put("in_reply_to_tweet_id", inReplyToTweetId.toString())
 
             if (excludeReplyUserIds != null) {
                 put("exclude_reply_user_ids", JSONArray().apply {
