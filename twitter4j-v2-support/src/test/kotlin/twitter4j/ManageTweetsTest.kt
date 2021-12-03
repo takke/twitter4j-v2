@@ -14,7 +14,7 @@ class ManageTweetsTest {
         println("createTweet")
         println("===========")
         val tweetId = twitter.createTweet(text = "test: " + System.currentTimeMillis()).let { res ->
-
+            println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
 
@@ -26,12 +26,42 @@ class ManageTweetsTest {
 
         // delay
         println("delaying...")
-        Thread.sleep(2000)
+        Thread.sleep(1000)
+
+        // reply
+        println("createTweet(reply)")
+        println("==================")
+        val tweetId2 = twitter.createTweet(text = "reply: " + System.currentTimeMillis(), inReplyToTweetId = tweetId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.id).isGreaterThan(1)
+            assertThat(res.text).isNotBlank
+
+            res.id
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(1000)
 
         println("deleteTweet")
         println("===========")
 
         twitter.deleteTweet(tweetId).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(true)
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(500)
+
+        twitter.deleteTweet(tweetId2).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
