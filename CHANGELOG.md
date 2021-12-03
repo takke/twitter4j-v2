@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v1.0.2 (2021.12.03)
+-------------------
+- fix: invalid type of `in_reply_to_tweet_id` in createTweet()
+
 v1.0.1 (2021.11.30)
 -------------------
 - fix: replace pagination_token by next_token for searchRecent() and searchAll()
