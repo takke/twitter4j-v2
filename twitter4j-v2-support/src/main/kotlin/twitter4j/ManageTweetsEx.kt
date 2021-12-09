@@ -48,7 +48,7 @@ fun Twitter.createTweet(
         json.put("media", JSONObject().apply {
             put("media_ids", JSONArray().apply {
                 mediaIds.forEach {
-                    put(it)
+                    put(it.toString())
                 }
             })
 
