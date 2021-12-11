@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v1.0.3 (2021.12.11)
+-------------------
+- fix: invalid type of `mediaIds` in createTweet()
+
 v1.0.2 (2021.12.03)
 -------------------
 - fix: invalid type of `in_reply_to_tweet_id` in createTweet()
