@@ -9,7 +9,7 @@ class ManageTweetsTest {
     private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
-    fun create_then_delete_tweet() {
+    fun create_then_reply_delete_tweet() {
 
         println("createTweet")
         println("===========")
@@ -62,6 +62,51 @@ class ManageTweetsTest {
         Thread.sleep(500)
 
         twitter.deleteTweet(tweetId2).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.result).isEqualTo(true)
+        }
+    }
+
+    @Test
+    fun create_media_tweet_then_delete() {
+
+        println("uploadMedia")
+        println("===========")
+        val inputStream = javaClass.classLoader.getResourceAsStream("upload_image_sample1.png")
+        val media = twitter.uploadMedia("file1.png", inputStream)
+        println(media)
+        assertThat(media.mediaId).isGreaterThan(0)
+        assertThat(media.imageWidth).isEqualTo(600)
+        assertThat(media.imageHeight).isEqualTo(400)
+
+        // delay
+        println("delaying...")
+        Thread.sleep(1000)
+
+        println("createTweet")
+        println("===========")
+        val tweetId = twitter.createTweet(text = "tweet with media: " + System.currentTimeMillis(), mediaIds = arrayOf(media.mediaId)).let { res ->
+            println(res)
+            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+            println(json.toString(3))
+
+            assertThat(res.id).isGreaterThan(1)
+            assertThat(res.text).isNotBlank
+
+            res.id
+        }
+
+        // delay
+        println("delaying...")
+        Thread.sleep(1000)
+
+        println("deleteTweet")
+        println("===========")
+
+        twitter.deleteTweet(tweetId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
