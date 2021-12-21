@@ -56,7 +56,7 @@ fun Twitter.createTweet(
             if (taggedUserIds != null) {
                 put("tagged_user_ids", JSONArray().apply {
                     taggedUserIds.forEach {
-                        put(it)
+                        put(it.toString())
                     }
                 })
             }
@@ -77,7 +77,7 @@ fun Twitter.createTweet(
     }
 
     if (quoteTweetId != null) {
-        json.put("quote_tweet_id", quoteTweetId)
+        json.put("quote_tweet_id", quoteTweetId.toString())
     }
 
     if (inReplyToTweetId != null) {
@@ -87,7 +87,7 @@ fun Twitter.createTweet(
             if (excludeReplyUserIds != null) {
                 put("exclude_reply_user_ids", JSONArray().apply {
                     excludeReplyUserIds.forEach {
-                        put(it)
+                        put(it.toString())
                     }
                 })
             }
