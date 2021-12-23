@@ -21,6 +21,10 @@ class SpacesLookupTest {
         val spaceIds = spaces.spaces.map { it.id }.toTypedArray()
         println("target space ids:")
         println(spaceIds.joinToString(","))
+        if (spaceIds.isEmpty()) {
+            println("skip this test cause we can't get any spaces")
+            return
+        }
 
         //--------------------------------------------------
         // call, test
