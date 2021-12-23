@@ -58,6 +58,10 @@ class SpacesLookupTest {
         val creatorIds = spaces.spaces.map { it.creatorId!! }.toLongArray()
         println("target user ids:")
         println(creatorIds.joinToString(","))
+        if (creatorIds.isEmpty()) {
+            println("skip this test cause we can't get any spaces")
+            return
+        }
 
         //--------------------------------------------------
         // call, test
