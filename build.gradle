@@ -1,16 +1,4 @@
 buildscript {
-    // for publishing
-    ext {
-        groupName = 'jp.takke.twitter4j-v2'
-        versionName = '1.0.4'
-        versionDescription = 'twitter4j-v2-support Version ' + versionName
-        descriptionText = 'A simple wrapper for Twitter API v2 that is designed to be used with Twitter4J.'
-        scmUrl = "https://github.com/takke/twitter4j-v2"
-        vcsUrl = "git@github.com:takke/twitter4j-v2.git"
-    }
-}
-
-buildscript {
 
     ext.kotlin_version = '1.6.0'
     repositories {
@@ -19,6 +7,17 @@ buildscript {
     dependencies {
         // Kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        classpath "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
+    }
+}
+
+// Upload to s01.oss.sonatype.org
+allprojects {
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "S01"
+        }
     }
 }
 
@@ -29,68 +28,6 @@ subprojects {
     //--------------------------------------------------
     // for publish
     //--------------------------------------------------
-    // $ ./gradlew publishToMavenLocal  # deploy to ~/.m2/repository/jp/takke/twitter4j-v2/twitter4j-v2-support/
-    apply plugin: 'maven-publish'
-
-    // custom tasks for creating source/javadoc jars
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        archiveClassifier.set('sources')
-        from sourceSets.main.allSource
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        archiveClassifier.set('javadoc')
-        from javadoc.destinationDir
-    }
-
-    // add javadoc/source jar tasks as artifacts
-    artifacts {
-        archives sourcesJar, javadocJar
-    }
-
-    def pomConfig = {
-        licenses {
-            license {
-                name "The Apache Software License, Version 2.0"
-                url "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                distribution "repo"
-            }
-        }
-        developers {
-            developer {
-                id "takke"
-                name "TAKEUCHI Hiroaki"
-                email "takke30@gmail.com"
-            }
-        }
-
-        scm {
-            url scmUrl
-        }
-    }
-
-    publishing {
-        publications {
-            MyPublication(MavenPublication) {
-                from components.java
-                artifact sourcesJar
-                artifact javadocJar
-                groupId groupName
-                version versionName
-
-                pom.withXml {
-                    def root = asNode()
-                    root.appendNode('description', descriptionText)
-                    root.appendNode('name', 'twitter4j-v2')
-                    root.appendNode('url', scmUrl)
-                    root.children().last() + pomConfig
-                }
-            }
-        }
-        repositories {
-            maven {
-                url "file://${rootDir}/release_to_github_io/takke.github.io/maven/"
-            }
-        }
-    }
+    // $ ./gradlew :twitter4j-v2-support:publishToMavenLocal  # deploy to ~/.m2/repository/io/github/takke/jp.takke.twitter4j-v2/
+    apply plugin: "com.vanniktech.maven.publish"
 }
