@@ -24,10 +24,4 @@ allprojects {
 subprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'java-library'
-
-    //--------------------------------------------------
-    // for publish
-    //--------------------------------------------------
-    // $ ./gradlew :twitter4j-v2-support:publishToMavenLocal  # deploy to ~/.m2/repository/io/github/takke/jp.takke.twitter4j-v2/
-    apply plugin: "com.vanniktech.maven.publish"
 }
