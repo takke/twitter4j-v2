@@ -17,6 +17,15 @@ How do I use it?
 ##### Dependencies
 ```groovy
 repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "io.github.takke:jp.takke.twitter4j-v2:$twitter4jV2Version"
+}
+
+// the old way: until v1.0.3
+repositories {
     maven {
         url 'https://takke.github.io/maven'
         content {
@@ -24,11 +33,12 @@ repositories {
         }
     }
 }
-
 dependencies {
     implementation "jp.takke.twitter4j-v2:twitter4j-v2-support:$twitter4jV2SupportVersion"
 }
 ```
+
+see [search.maven.org](https://search.maven.org/artifact/io.github.takke/jp.takke.twitter4j-v2)
 
 ### Example
 
