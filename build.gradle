@@ -24,4 +24,10 @@ allprojects {
 subprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'java-library'
+
+    // apply here to avoid plugin not found error when direct include the twitter4j-v2-support project.
+    // for publish
+    // Note: deploy to ~/.m2/repository/io/github/takke/jp.takke.twitter4j-v2/
+    // $ ./gradlew :twitter4j-v2-support:publishToMavenLocal
+    apply plugin: "com.vanniktech.maven.publish"
 }
