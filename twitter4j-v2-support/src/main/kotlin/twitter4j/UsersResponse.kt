@@ -1,7 +1,5 @@
 package twitter4j
 
-import java.util.HashMap
-
 class UsersResponse : TwitterResponse {
 
     @Transient
@@ -17,6 +15,9 @@ class UsersResponse : TwitterResponse {
 
     // includes.users
     val usersMap = HashMap<Long, User2>()
+
+    // includes.places
+    val placesMap = HashMap<String, Place2>()
 
     // includes.tweets
     val tweetsMap = HashMap<Long, Tweet>()
@@ -47,9 +48,10 @@ class UsersResponse : TwitterResponse {
         //--------------------------------------------------
         V2Util.collectPolls(includes, pollsMap)
         V2Util.collectUsers(includes, usersMap)
+        V2Util.collectPlaces(includes, placesMap)
         V2Util.collectTweets(includes, tweetsMap)
 
-        // TODO includes.places, includes.media ...
+        // TODO includes.media ...
 
         //--------------------------------------------------
         // create users from data
