@@ -19,6 +19,9 @@ class TweetsResponse : TwitterResponse {
     // includes.tweets
     val tweetsMap = HashMap<Long, Tweet>()
 
+    // includes.places
+    val placesMap = HashMap<String, Place2>()
+
     // meta
     var meta: Meta? = null
 
@@ -49,6 +52,7 @@ class TweetsResponse : TwitterResponse {
         //--------------------------------------------------
         V2Util.collectPolls(includes, pollsMap)
         V2Util.collectUsers(includes, usersMap)
+        V2Util.collectPlaces(includes, placesMap)
         V2Util.collectTweets(includes, tweetsMap)
 
         // TODO includes.places, includes.media ...

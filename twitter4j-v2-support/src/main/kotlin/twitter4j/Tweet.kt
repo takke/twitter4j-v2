@@ -15,6 +15,7 @@ data class Tweet(
     var urls: List<UrlEntity2>? = mutableListOf(),
     var authorId: Long? = null,
     var pollId: Long? = null,
+    var placeId: String? = null,
     var repliedToTweetId: Long? = null,
     var quotedTweetId: Long? = null,
     var retweetId: Long? = null
@@ -62,6 +63,12 @@ data class Tweet(
             replyCount = ParseUtil.getInt("reply_count", json),
             likeCount = ParseUtil.getInt("like_count", json)
         )
+    }
+
+    fun place(placeMap: HashMap<String, Place2>): Place2? {
+        return placeId?.let {
+            placeMap[placeId!!] ?: return null
+        }
     }
 
     fun poll(pollsMap: HashMap<Long, Poll>): Poll? {
@@ -120,6 +127,10 @@ data class Tweet(
             if (pollId != null) {
                 t.pollId = pollId
             }
+
+            // place
+            val geo = data.optJSONObject("geo")
+            t.placeId = geo?.optString("place_id")
 
             t.possiblySensitive = data.optBoolean("possibly_sensitive", false)
 

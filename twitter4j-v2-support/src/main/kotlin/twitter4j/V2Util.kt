@@ -32,6 +32,15 @@ object V2Util {
         }
     }
 
+    fun collectPlaces(includes: JSONObject?, placesMap: HashMap<String, Place2>) {
+        includes?.optJSONArray("places")?.let { places ->
+            for (i in 0 until places.length()) {
+                val place = Place2.parse(places.getJSONObject(i))
+                placesMap[place.id] = place
+            }
+        }
+    }
+
     fun collectTweets(includes: JSONObject?, tweetsMap: HashMap<Long, Tweet>) {
 
         includes?.optJSONArray("tweets")?.let { tweets ->
