@@ -77,6 +77,41 @@ class GetTweetsTest {
     }
 
     @Test
+    fun place() {
+
+        // {"data":[{"geo":{"place_id":"2e624efa0028615e"},"possibly_sensitive":false,"lang":"ja","source":"Twitter for Android","created_at":"2022-03-20T10:18:21.000Z","text":"位置情報のてすと","public_metrics":{"retweet_count":0,"reply_count":0,"like_count":1,"quote_count":0},"reply_settings":"everyone","author_id":"8379212","conversation_id":"1505488910205345795","id":"1505488910205345795"}],"includes":{"users":[{"created_at":"2007-08-23T10:06:53.000Z","public_metrics":{"followers_count":1681,"following_count":1065,"tweet_count":61212,"listed_count":126},"profile_image_url":"https:\/\/pbs.twimg.com\/profile_images\/423153841505193984\/yGKSJu78_normal.jpeg","name":"竹内裕昭🐧","protected":false,"entities":{"url":{"urls":[{"start":0,"end":23,"url":"https:\/\/t.co\/B8CEzNa8O2","expanded_url":"http:\/\/www.panecraft.net\/","display_url":"panecraft.net"}]},"description":{"mentions":[{"start":13,"end":22,"username":"TwitPane"}]}},"location":"北海道","id":"8379212","url":"https:\/\/t.co\/B8CEzNa8O2","verified":false,"description":"Twitterクライアント@TwitPane、mixiブラウザTkMixiViewer、英単語学習ソフト P-Study System 、MZ3\/4 などを開発。「ちょっぴり使いやすい」アプリを日々開発しています。ペーンクラフト代表","username":"takke"}],"places":[{"geo":{"type":"Feature","bbox":[139.540126666667,35.8720877777778,141.390018611111,43.0857888888889],"properties":{}},"country":"日本","country_code":"JP","full_name":"北海道 札幌市中央区","place_type":"city","name":"札幌市中央区","id":"2e624efa0028615e"}]}}
+        val res = twitter.getTweets(
+            1505488910205345795,
+            mediaFields = V2DefaultFields.mediaFields,
+            placeFields = V2DefaultFields.placeFields,
+            pollFields = V2DefaultFields.pollFields,
+            tweetFields = V2DefaultFields.tweetFields,
+            userFields = V2DefaultFields.userFields,
+            expansions = V2DefaultFields.expansions
+        )
+
+        assertThat(res.tweets.size).isEqualTo(1)
+        res.tweets[0].let {
+            assertThat(it.id).isEqualTo(1505488910205345795)
+
+            val place = it.place(res.placesMap)!!
+            println(place)
+
+            val placeFromMap = res.placesMap[it.placeId]
+            assertThat(place).isEqualTo(placeFromMap)
+
+            assertThat(place.id).isEqualTo("2e624efa0028615e")
+            assertThat(place.fullName).isEqualTo("北海道 札幌市中央区")
+            assertThat(place.country).isEqualTo("日本")
+            assertThat(place.countryCode).isEqualTo("JP")
+            assertThat(place.name).isEqualTo("札幌市中央区")
+            assertThat(place.placeType).isEqualTo("city")
+
+            assertThat(place.geo?.type).isEqualTo("Feature")
+        }
+    }
+
+    @Test
     fun minimumTweet() {
 
         // twurl -X GET "/labs/2/tweets?ids=656974073491156992"
