@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+v1.0.5 (2022.03.xx)
+-------------------
+- Add `place` object
+- Bump Gradle 7.4.1
+
 v1.0.4 (2021.12.21)
 -------------------
 - fix: invalid type of `taggedUserIds, quoteTweetId, excludeReplyUserIds` in createTweet()
