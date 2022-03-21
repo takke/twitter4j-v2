@@ -101,10 +101,10 @@ class GetTweetsTest {
             assertThat(place).isEqualTo(placeFromMap)
 
             assertThat(place.id).isEqualTo("2e624efa0028615e")
-            assertThat(place.fullName).isEqualTo("北海道 札幌市中央区")
-            assertThat(place.country).isEqualTo("日本")
+            assertThat(place.fullName).isNotEmpty   // "北海道 札幌市中央区" or translated one.
+            assertThat(place.country).isNotEmpty    // "日本" or translated one.
             assertThat(place.countryCode).isEqualTo("JP")
-            assertThat(place.name).isEqualTo("札幌市中央区")
+            assertThat(place.name).isNotEmpty       // "札幌市中央区" or translated one.
             assertThat(place.placeType).isEqualTo("city")
 
             assertThat(place.geo?.type).isEqualTo("Feature")
