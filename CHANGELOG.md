@@ -3,6 +3,8 @@ Change Log
 
 v1.0.5 (2022.03.xx)
 -------------------
+- Quote Tweets
+  - Add Twitter.getQuoteTweets() for "GET /2/tweets/:id/quote_tweets"
 - Add `place` object
 - Bump Gradle 7.4.1
 
