@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v1.0.5 (2022.03.xx)
+v1.0.5 (2022.03.24)
 -------------------
 - Quote Tweets
   - Add Twitter.getQuoteTweets() for "GET /2/tweets/:id/quote_tweets"
