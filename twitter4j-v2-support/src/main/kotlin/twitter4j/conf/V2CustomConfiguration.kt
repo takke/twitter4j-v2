@@ -2,7 +2,6 @@ package twitter4j.conf
 
 import java.io.File
 import java.io.FileInputStream
-import java.io.IOException
 import java.io.InputStream
 import java.util.*
 
@@ -35,7 +34,6 @@ class V2CustomConfiguration {
                 }
             } catch (ignore: SecurityException) {
             }
-            normalize(props)
         } catch (ignore: SecurityException) {
             // Unsigned applets are not allowed to access System properties
             props = Properties()
@@ -59,21 +57,15 @@ class V2CustomConfiguration {
     }
 
     private fun loadProperties(props: Properties, path: String): Boolean {
-        var fis: FileInputStream? = null
         try {
             val file = File(path)
             if (file.exists() && file.isFile) {
-                fis = FileInputStream(file)
-                props.load(fis)
-                normalize(props)
+                FileInputStream(file).use {
+                    props.load(it)
+                }
                 return true
             }
         } catch (ignore: Exception) {
-        } finally {
-            try {
-                fis?.close()
-            } catch (ignore: IOException) {
-            }
         }
         return false
     }
@@ -81,26 +73,10 @@ class V2CustomConfiguration {
     private fun loadProperties(props: Properties, inputStream: InputStream?): Boolean {
         try {
             props.load(inputStream)
-            normalize(props)
             return true
         } catch (ignore: Exception) {
         }
         return false
     }
 
-    private fun normalize(props: Properties) {
-        val toBeNormalized = ArrayList<String>(10)
-        for (key in props.keys) {
-            val keyStr = key as String
-            if (-1 != keyStr.indexOf("twitter4j.")) {
-                toBeNormalized.add(keyStr)
-            }
-        }
-        for (keyStr in toBeNormalized) {
-            val property = props.getProperty(keyStr)
-            val index = keyStr.indexOf("twitter4j.")
-            val newKey = keyStr.substring(0, index) + keyStr.substring(index + 10)
-            props.setProperty(newKey, property)
-        }
-    }
 }
