@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v1.1.0 (2022.03.xx)
+-------------------
+- Add OAuth2TokenProvider for OAuth 2.0 PKCE
+
 v1.0.5 (2022.03.24)
 -------------------
 - Quote Tweets
