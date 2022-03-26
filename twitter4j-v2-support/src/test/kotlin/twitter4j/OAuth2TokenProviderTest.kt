@@ -1,6 +1,7 @@
 package twitter4j
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Ignore
 import org.junit.Test
 import twitter4j.conf.ConfigurationBuilder
 import twitter4j.conf.V2CustomConfiguration
@@ -47,34 +48,36 @@ class OAuth2TokenProviderTest {
         )
     }
 
-//    @Test
-//    fun getAccessToken() {
-//
-//        // replace code from url that redirected
-//        val code = "xxxxx"
-//
-//        val conf = V2CustomConfiguration()
-//
-//        val tokenProvider = OAuth2TokenProvider(ConfigurationBuilder().build())
-//        val result = tokenProvider.getAccessToken(conf.clientId, conf.redirectUri, code, challenge)
-//        println(result)
-//
-//        assertThat(result).isNotNull
-//    }
+    @Test
+    @Ignore("need to set code")
+    fun getAccessToken() {
 
-//    @Test
-//    fun refreshToken() {
-//
-//        // replace below from refreshToken value of the result of getAccessToken
-//        val refreshToken = "xxxxx"
-//
-//        val conf = V2CustomConfiguration()
-//
-//        val tokenProvider = OAuth2TokenProvider(ConfigurationBuilder().build())
-//        val result = tokenProvider.refreshToken(conf.clientId, refreshToken)
-//        println(result)
-//
-//        assertThat(result).isNotNull
-//    }
+        // replace code from url that redirected
+        val code = "xxxxx"
+
+        val conf = V2CustomConfiguration()
+
+        val tokenProvider = OAuth2TokenProvider(ConfigurationBuilder().build())
+        val result = tokenProvider.getAccessToken(conf.clientId, conf.redirectUri, code, challenge)
+        println(result)
+
+        assertThat(result).isNotNull
+    }
+
+    @Test
+    @Ignore("need to set refreshToken")
+    fun refreshToken() {
+
+        // replace below from refreshToken value of the result of getAccessToken
+        val refreshToken = "xxxxx"
+
+        val conf = V2CustomConfiguration()
+
+        val tokenProvider = OAuth2TokenProvider(ConfigurationBuilder().build())
+        val result = tokenProvider.refreshToken(conf.clientId, refreshToken)
+        println(result)
+
+        assertThat(result).isNotNull
+    }
 
 }
