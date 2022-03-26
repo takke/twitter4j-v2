@@ -1,6 +1,7 @@
 package twitter4j
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Ignore
 import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*
@@ -11,6 +12,7 @@ class CountsTest {
     private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
+    @Ignore("need token of OAuth 2.0 Application-Only")
     fun countRecent() {
 
         val res = twitter.countRecent("hello")
@@ -27,6 +29,7 @@ class CountsTest {
     }
 
     @Test
+    @Ignore("need token of OAuth 2.0 Application-Only")
     fun startEndTimeById_hour() {
 
         val startTime = Date(Date().time - 7 * 86400 * 1000)
@@ -53,6 +56,7 @@ class CountsTest {
     }
 
     @Test
+    @Ignore("need token of OAuth 2.0 Application-Only")
     fun startEndTimeById_minute() {
 
         val startTime = Date(Date().time - 7 * 86400 * 1000)

@@ -1,6 +1,7 @@
 package twitter4j
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Ignore
 import org.junit.Test
 
 class SearchSpacesTest {
@@ -9,6 +10,7 @@ class SearchSpacesTest {
     private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
+    @Ignore("expiration time of oauth2.accessToken is too short")
     fun searchSpaces_minimum() {
 
         // Scheduled
@@ -51,6 +53,7 @@ class SearchSpacesTest {
     }
 
     @Test
+    @Ignore("expiration time of oauth2.accessToken is too short")
     fun searchSpaces_full_result() {
 
         val res = twitter.searchSpaces(
