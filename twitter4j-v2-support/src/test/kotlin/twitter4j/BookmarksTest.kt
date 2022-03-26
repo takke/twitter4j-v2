@@ -1,6 +1,7 @@
 package twitter4j
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Ignore
 import org.junit.Test
 
 class BookmarksTest {
@@ -11,6 +12,7 @@ class BookmarksTest {
     private val twitter2 by lazy { V2TestUtil.createOAuth2TwitterInstance() }
 
     @Test
+    @Ignore("expiration time of oauth2.accessToken is too short")
     fun getBookmarks_full() {
 
         val res = twitter2.getBookmarks(
