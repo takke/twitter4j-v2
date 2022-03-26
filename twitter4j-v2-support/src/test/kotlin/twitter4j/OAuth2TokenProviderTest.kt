@@ -47,34 +47,34 @@ class OAuth2TokenProviderTest {
         )
     }
 
-    @Test
-    fun getAccessToken() {
+//    @Test
+//    fun getAccessToken() {
+//
+//        // replace code from url that redirected
+//        val code = "xxxxx"
+//
+//        val conf = V2CustomConfiguration()
+//
+//        val tokenProvider = OAuth2TokenProvider(ConfigurationBuilder().build())
+//        val result = tokenProvider.getAccessToken(conf.clientId, conf.redirectUri, code, challenge)
+//        println(result)
+//
+//        assertThat(result).isNotNull
+//    }
 
-        // replace code from url that redirected
-        val code = "xxxxx"
-
-        val conf = V2CustomConfiguration()
-
-        val tokenProvider = OAuth2TokenProvider(ConfigurationBuilder().build())
-        val result = tokenProvider.getAccessToken(conf.clientId, conf.redirectUri, code, challenge)
-        println(result)
-
-        assertThat(result).isNotNull
-    }
-
-    @Test
-    fun refreshToken() {
-
-        // replace below from refreshToken value of the result of getAccessToken
-        val refreshToken = "xxxxx"
-
-        val conf = V2CustomConfiguration()
-
-        val tokenProvider = OAuth2TokenProvider(ConfigurationBuilder().build())
-        val result = tokenProvider.refreshToken(conf.clientId, refreshToken)
-        println(result)
-
-        assertThat(result).isNotNull
-    }
+//    @Test
+//    fun refreshToken() {
+//
+//        // replace below from refreshToken value of the result of getAccessToken
+//        val refreshToken = "xxxxx"
+//
+//        val conf = V2CustomConfiguration()
+//
+//        val tokenProvider = OAuth2TokenProvider(ConfigurationBuilder().build())
+//        val result = tokenProvider.refreshToken(conf.clientId, refreshToken)
+//        println(result)
+//
+//        assertThat(result).isNotNull
+//    }
 
 }
