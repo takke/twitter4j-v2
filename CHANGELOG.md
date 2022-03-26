@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v1.1.0 (2022.03.xx)
+v1.1.0 (2022.03.27)
 -------------------
 - Add OAuth2TokenProvider for OAuth 2.0 PKCE
 - Bookmarks
