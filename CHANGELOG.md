@@ -6,6 +6,8 @@ v1.1.0 (2022.03.xx)
 - Add OAuth2TokenProvider for OAuth 2.0 PKCE
 - Bookmarks
   - Add Twitter.getBookmarks() for "GET /2/users/:id/bookmarks"
+  - Add Twitter.addBookmark() for "POST /2/users/:id/bookmarks"
+  - Add Twitter.deleteBookmark() for "DELETE /2/users/:id/bookmarks/:tweet_id"
 
 v1.0.5 (2022.03.24)
 -------------------

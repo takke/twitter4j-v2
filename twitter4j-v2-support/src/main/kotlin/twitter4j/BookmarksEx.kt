@@ -42,3 +42,56 @@ fun Twitter.getBookmarks(
         conf
     )
 }
+
+/**
+ * Causes the user ID identified in the path parameter to Bookmark the target Tweet provided in the request body.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/post-users-id-bookmarks"
+ */
+@Throws(TwitterException::class)
+fun Twitter.addBookmark(
+    /**
+     * The user ID who you are bookmarking a Tweet on behalf of.
+     */
+    id: Long,
+    tweetId: Long,
+): BooleanResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    val json = JSONObject()
+    json.put("tweet_id", tweetId.toString())
+
+    return V2ResponseFactory().createBooleanResponse(
+        http.post(conf.v2Configuration.baseURL + "users/" + id + "/bookmarks", arrayOf(HttpParameter(json)), auth, this),
+        conf, "bookmarked"
+    )
+}
+
+/**
+ * Allows a user or authenticated user ID to remove a Bookmark of a Tweet.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id"
+ */
+@Throws(TwitterException::class)
+fun Twitter.deleteBookmark(
+    /**
+     * The user ID who you are bookmarking a Tweet on behalf of.
+     */
+    id: Long,
+    tweetId: Long,
+): BooleanResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    return V2ResponseFactory().createBooleanResponse(
+        http.delete(conf.v2Configuration.baseURL + "users/" + id + "/bookmarks/" + tweetId, emptyArray(), auth, this),
+        conf, "bookmarked"
+    )
+}

@@ -35,4 +35,36 @@ class BookmarksTest {
         assertThat(res.meta?.resultCount).isGreaterThanOrEqualTo(0)
     }
 
+    @Test
+    @Ignore("expiration time of oauth2.accessToken is too short")
+    fun add_get_delete_get() {
+
+        // https://twitter.com/TwitterDevJP/status/1470916207130079239
+        val tweetId = 1470916207130079239L
+
+        println("addBookmark")
+        println("===========")
+        val bookmarked = twitter2.addBookmark(myId, tweetId)
+        assertThat(bookmarked.result).isTrue
+
+        // delay
+        println("delaying...")
+        Thread.sleep(1000)
+
+        println("getBookmarks")
+        println("============")
+        val res = twitter2.getBookmarks(
+            myId,
+            maxResults = 3,
+        )
+        println("recent bookmarks: " + res.tweets.map { it.id }.joinToString(","))
+        assertThat(res.tweets[0].id).isEqualTo(tweetId)
+
+        println("deleteBookmark")
+        println("==============")
+        val deleteResult = twitter2.deleteBookmark(myId, tweetId)
+        println(deleteResult)
+        assertThat(deleteResult.result).isFalse
+    }
+
 }
