@@ -6,10 +6,12 @@ import org.junit.Test
 
 class BookmarksTest {
 
-    private val twitter1 by lazy { V2TestUtil.createTwitterInstance() }
-    private val myId by lazy { twitter1.verifyCredentials().id }
-
     private val twitter2 by lazy { V2TestUtil.createOAuth2TwitterInstance() }
+    private val myId by lazy {
+        val me = twitter2.getMe().users[0]
+//        println(me)
+        me.id
+    }
 
     @Test
     @Ignore("expiration time of oauth2.accessToken is too short")

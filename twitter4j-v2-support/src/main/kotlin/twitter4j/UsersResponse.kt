@@ -56,11 +56,17 @@ class UsersResponse : TwitterResponse {
         //--------------------------------------------------
         // create users from data
         //--------------------------------------------------
-        val dataArray = jsonObject.optJSONArray("data")
-        if (dataArray != null) {
-            for (i in 0 until dataArray.length()) {
-                val data = dataArray.getJSONObject(i)
+        when (val data = jsonObject.get("data")) {
+            is JSONArray -> {
+                for (i in 0 until data.length()) {
+                    val e = data.getJSONObject(i)
 
+                    users.add(User2.parse(e))
+                }
+            }
+
+            is JSONObject -> {
+                // e.g. getMe()
                 users.add(User2.parse(data))
             }
         }

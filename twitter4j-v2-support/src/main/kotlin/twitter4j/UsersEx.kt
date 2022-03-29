@@ -63,3 +63,33 @@ fun Twitter.getUsersBy(
         conf
     )
 }
+
+/**
+ * Returns information about an authorized user.
+ *
+ * @throws TwitterException when Twitter service or network is unavailable
+ * @see "https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me"
+ */
+@Throws(TwitterException::class)
+fun Twitter.getMe(
+    expansions: String = "pinned_tweet_id",
+    tweetFields: String? = V2DefaultFields.tweetFields,
+    userFields: String? = V2DefaultFields.userFields,
+): UsersResponse {
+
+    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+
+    ensureAuthorizationEnabled()
+
+    val params = arrayListOf(
+        HttpParameter("expansions", expansions)
+    )
+
+    V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+    V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+    return V2ResponseFactory().createUsersResponse(
+        http.get(conf.v2Configuration.baseURL + "users/me", params.toTypedArray(), auth, this),
+        conf
+    )
+}
