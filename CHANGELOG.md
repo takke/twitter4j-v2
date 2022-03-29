@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v1.1.1 (2022.03.xx)
+-------------------
+- Add Twitter.getMe() for "GET /2/users/me"
+
 v1.1.0 (2022.03.27)
 -------------------
 - Add OAuth2TokenProvider for OAuth 2.0 PKCE
