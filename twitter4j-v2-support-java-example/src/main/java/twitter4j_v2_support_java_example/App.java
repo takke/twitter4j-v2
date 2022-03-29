@@ -1,11 +1,11 @@
 package twitter4j_v2_support_java_example;
 
 import twitter4j.GetTweetsKt;
-import twitter4j.GetUsersKt;
 import twitter4j.TweetsResponse;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.UsersExKt;
 import twitter4j.UsersResponse;
 
 public final class App {
@@ -26,7 +26,7 @@ public final class App {
         // getUsers example
         //--------------------------------------------------
         final long twitterDesignId = 87532773L;
-        final UsersResponse users = GetUsersKt.getUsers(twitter, new long[]{twitterDesignId}, null, null, "");
+        final UsersResponse users = UsersExKt.getUsers(twitter, new long[]{twitterDesignId}, null, null, "");
         System.out.println("users = " + users);
     }
 }
