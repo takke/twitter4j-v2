@@ -5,8 +5,8 @@ import java.util.*
 data class Poll(
     val id: Long,
     val options: Array<PollOption>,
-    val votingStatus: VotingStatus,
-    val endDatetime: Date,
+    val votingStatus: VotingStatus?,
+    val endDatetime: Date?,
     val durationMinutes: Int
 ) {
     // for convenient of serialization
@@ -56,11 +56,12 @@ data class Poll(
                 )
             }
         }.toTypedArray(),
-        votingStatus = when (poll.getString("voting_status")) {
+        votingStatus = when (poll.optString("voting_status")) {
             "closed" -> VotingStatus.CLOSED
-            else -> VotingStatus.OPEN
+            "open" -> VotingStatus.OPEN
+            else -> null
         },
-        endDatetime = V2Util.parseISO8601Date("end_datetime", poll)!!,
+        endDatetime = V2Util.parseISO8601Date("end_datetime", poll),
         durationMinutes = ParseUtil.getInt("duration_minutes", poll)
     )
 }
