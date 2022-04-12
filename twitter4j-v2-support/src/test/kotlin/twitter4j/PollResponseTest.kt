@@ -10,7 +10,6 @@ class PollResponseTest {
         val res = TweetsResponse(
             JSONObject(
                 "{\"data\":[{\"attachments\":{\"poll_ids\":[\"1410\"]},\"text\":\"Winged Hussars\",\"author_id\":\"273\",\"id\":\"1190\"}],\"includes\":{\"polls\":[{\"options\":[{\"position\":1,\"label\":\"Poland\",\"votes\":1},{\"position\":2,\"label\":\"Germany\",\"votes\":0}],\"duration_minutes\":1410,\"id\":\"1410\",\"voting_status\":\"open\",\"end_datetime\":\"1410-07-15T18:00:00.000Z\"}],\"users\":[{\"id\":\"273\",\"name\":\"Władysław Jagiełło\",\"username\":\"King Władysław Jagiełło\"}]},\"meta\":{\"newest_id\":\"1190\",\"oldest_id\":\"1190\",\"result_count\":1}}"
-
             )
         )
         assertThat(res.pollsMap.size).isEqualTo(1)
@@ -26,11 +25,10 @@ class PollResponseTest {
     }
 
     @Test
-    fun whenPollIsOpenWithoutData() {
+    fun whenEndDatetimeIsAbsentInResponse() {
         val res = TweetsResponse(
             JSONObject(
                 "{\"data\":[{\"attachments\":{\"poll_ids\":[\"1410\"]},\"text\":\"Winged Hussars\",\"author_id\":\"273\",\"id\":\"1190\"}],\"includes\":{\"polls\":[{\"options\":[{\"position\":1,\"label\":\"Poland\",\"votes\":1},{\"position\":2,\"label\":\"Germany\",\"votes\":0}],\"duration_minutes\":1410,\"id\":\"1410\",\"voting_status\":\"open\"}],\"users\":[{\"id\":\"273\",\"name\":\"Władysław Jagiełło\",\"username\":\"King Władysław Jagiełło\"}]},\"meta\":{\"newest_id\":\"1190\",\"oldest_id\":\"1190\",\"result_count\":1}}"
-
             )
         )
         assertThat(res.pollsMap.size).isEqualTo(1)
@@ -47,11 +45,10 @@ class PollResponseTest {
     }
 
     @Test
-    fun whenPollIsOpenWithoutVotingStatus() {
+    fun whenVotingStatusIsAbsentInResponse() {
         val res = TweetsResponse(
             JSONObject(
                 "{\"data\":[{\"attachments\":{\"poll_ids\":[\"1410\"]},\"text\":\"Winged Hussars\",\"author_id\":\"273\",\"id\":\"1190\"}],\"includes\":{\"polls\":[{\"options\":[{\"position\":1,\"label\":\"Poland\",\"votes\":1},{\"position\":2,\"label\":\"Germany\",\"votes\":0}],\"duration_minutes\":1410,\"id\":\"1410\",\"end_datetime\":\"1410-07-15T18:00:00.000Z\"}],\"users\":[{\"id\":\"273\",\"name\":\"Władysław Jagiełło\",\"username\":\"King Władysław Jagiełło\"}]},\"meta\":{\"newest_id\":\"1190\",\"oldest_id\":\"1190\",\"result_count\":1}}"
-
             )
         )
         assertThat(res.pollsMap.size).isEqualTo(1)
@@ -88,7 +85,9 @@ class PollResponseTest {
     @Test
     fun whenPollIsEmpty() {
         val res = TweetsResponse(
-            JSONObject("{\"data\":[{\"author_id\":\"273\",\"id\":\"1190\",\"text\":\"Winged Hussars\"}],\"includes\":{\"users\":[{\"id\":\"273\",\"name\":\"Władysław Jagiełło\",\"username\":\"King Władysław Jagiełło\"}]},\"meta\":{\"newest_id\":\"1190\",\"oldest_id\":\"1190\",\"result_count\":1}}")
+            JSONObject(
+                "{\"data\":[{\"author_id\":\"273\",\"id\":\"1190\",\"text\":\"Winged Hussars\"}],\"includes\":{\"users\":[{\"id\":\"273\",\"name\":\"Władysław Jagiełło\",\"username\":\"King Władysław Jagiełło\"}]},\"meta\":{\"newest_id\":\"1190\",\"oldest_id\":\"1190\",\"result_count\":1}}"
+            )
         )
         assertThat(res.pollsMap.size).isEqualTo(0)
         assertThat(res.pollsMap[0]?.options).isNull()
