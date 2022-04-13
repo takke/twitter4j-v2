@@ -18,7 +18,8 @@ data class Tweet(
     var placeId: String? = null,
     var repliedToTweetId: Long? = null,
     var quotedTweetId: Long? = null,
-    var retweetId: Long? = null
+    var retweetId: Long? = null,
+    var conversationId: Long? = null
 ) {
 
     data class PublicMetrics(
@@ -151,6 +152,9 @@ data class Tweet(
                     }
                 }
             }
+
+            // conversation_id
+            t.conversationId = data.optLongOrNull("conversation_id")
 
             return t
         }

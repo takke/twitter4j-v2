@@ -231,4 +231,24 @@ class GetTweetsTest {
         }
     }
 
+    @Test
+    fun getConversationId() {
+
+        val res = twitter.getTweets(
+            1514061441749245952L,
+            mediaFields = null,
+            placeFields = null,
+            pollFields = null,
+            tweetFields = "conversation_id",
+            userFields = null,
+            expansions = ""
+        )
+
+        assertThat(res.tweets.size).isEqualTo(1)
+        res.tweets[0].let {
+            assertThat(it.id).isEqualTo(1514061441749245952L)
+            assertThat(it.conversationId).isEqualTo(1513995134370676736L)
+        }
+    }
+
 }
