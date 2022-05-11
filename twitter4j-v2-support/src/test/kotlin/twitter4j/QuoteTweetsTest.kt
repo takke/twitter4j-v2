@@ -10,9 +10,9 @@ class QuoteTweetsTest {
     @Test
     fun getQuoteTweets_full() {
 
-        // https://twitter.com/TwitterJP/status/1506789702019416069
+        // https://twitter.com/TwitterJP/status/1522058667377696769
         val res = twitter.getQuoteTweets(
-            1506789702019416069L,
+            1522058667377696769L,
             V2DefaultFields.expansions,
             10,
             V2DefaultFields.mediaFields,
