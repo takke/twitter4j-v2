@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v1.1.1 (2022.04.xx)
+v1.1.1 (2022.05.11)
 -------------------
 - Add Twitter.getMe() for "GET /2/users/me"
 - Add Tweet.conversationId
