@@ -67,7 +67,7 @@ See more examples in [kotlin](https://github.com/takke/twitter4j-v2/blob/master/
 
 Requirements
 ------------
-- Kotlin 1.6.10
+- Kotlin 1.6.21
 - Twitter4J 4.0.7
 
 
