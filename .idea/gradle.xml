@@ -16,7 +16,6 @@
             <option value="$PROJECT_DIR$/twitter4j-v2-support-kotlin-example" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
