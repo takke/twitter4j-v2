@@ -15,6 +15,7 @@ class QuoteTweetsTest {
             1522058667377696769L,
             V2DefaultFields.expansions,
             10,
+            null,
             V2DefaultFields.mediaFields,
             null,
             V2DefaultFields.placeFields,
