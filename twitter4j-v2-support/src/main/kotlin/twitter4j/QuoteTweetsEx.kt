@@ -14,6 +14,7 @@ fun Twitter.getQuoteTweets(
     id: Long,
     expansions: String? = null,
     maxResults: Int? = null,
+    exclude: String? = null,
     mediaFields: String? = null,
     paginationToken: String? = null,
     placeFields: String? = null,
@@ -30,6 +31,7 @@ fun Twitter.getQuoteTweets(
 
     V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
     V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+    V2Util.addHttpParamIfNotNull(params, "exclude", exclude)
     V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
     V2Util.addHttpParamIfNotNull(params, "media.fields", mediaFields)
     V2Util.addHttpParamIfNotNull(params, "place.fields", placeFields)
