@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+v1.1.2 (2022.05.xx)
+- Add exclude parameter to Twitter.getQuoteTweets()
+
 v1.1.1 (2022.05.11)
 -------------------
 - Add Twitter.getMe() for "GET /2/users/me"
