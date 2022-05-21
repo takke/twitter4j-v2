@@ -5,6 +5,7 @@ v1.2.0 (2022.05.xx)
 -------------------
 - Add Twitter.getReverseChronologicalTimeline() for "GET /2/users/:id/timelines/reverse_chronological"
 - Add exclude parameter to Twitter.getQuoteTweets()
+- Bump Kotlin 1.6.21
 
 v1.1.1 (2022.05.11)
 -------------------
