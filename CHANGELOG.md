@@ -1,7 +1,9 @@
 Change Log
 ==========
 
-v1.1.2 (2022.05.xx)
+v1.2.0 (2022.05.xx)
+-------------------
+- Add Twitter.getReverseChronologicalTimeline() for "GET /2/users/:id/timelines/reverse_chronological"
 - Add exclude parameter to Twitter.getQuoteTweets()
 
 v1.1.1 (2022.05.11)
