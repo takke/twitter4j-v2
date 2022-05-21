@@ -83,6 +83,30 @@ class TimelinesTest {
         assertThat(res.meta?.nextToken).isNull()
     }
 
+    @Test
+    fun getReverseChronologicalTimeline_simple() {
+
+        val res = twitter.getReverseChronologicalTimeline(myId, maxResults = 100)
+        // CI のログに残らないように出力を抑制する
+//        println(res)
+        println(res.meta)
+
+//        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+//        println(json.toString(3))
+
+        // meta
+        assertThat(res.meta?.resultCount).isGreaterThanOrEqualTo(1)
+        assertThat(res.meta?.previousToken).isNull()
+        assertThat(res.meta?.nextToken).isNotNull
+        assertThat(res.meta?.oldestId).isNotNull
+        assertThat(res.meta?.newestId).isNotNull
+
+        assertThat(res.tweets.size).isGreaterThanOrEqualTo(1)
+        res.tweets[0].let {
+            assertThat(it.text.length).isGreaterThan(0)
+        }
+    }
+
 //    @Test
 //    fun getUserTweets_startEndTimeByUsername() {
 //
