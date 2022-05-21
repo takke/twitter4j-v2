@@ -3,13 +3,13 @@ package twitter4j
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class GetUserMentionsTest {
+class TimelinesTest {
 
     private val twitter by lazy { V2TestUtil.createTwitterInstance() }
     private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
-    fun simpleById() {
+    fun getUserMentions_simpleById() {
 
         println("account id[$myId]")
         val res = twitter.getUserMentions(myId, maxResults = 5)
