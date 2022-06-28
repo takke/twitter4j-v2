@@ -52,7 +52,7 @@ fun Twitter.countAll(
     if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
 
     return countTweetsIn(
-        conf.v2Configuration.baseURL + "tweets/counts/recent",
+        conf.v2Configuration.baseURL + "tweets/counts/all",
         query,
         endTime,
         granularity,

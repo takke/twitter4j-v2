@@ -29,6 +29,23 @@ class CountsTest {
     }
 
     @Test
+    @Ignore("need token of OAuth 2.0 Application-Only, and need special credentials like `Academic Research access`")
+    fun countAll() {
+
+        val res = twitter.countAll("hello")
+        println(res)
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        assertThat(res.counts.size).isGreaterThan(0)
+        assertThat(res.totalTweetCount).isGreaterThan(0)
+        res.counts[0].let {
+            assertThat(it.tweetCount).isGreaterThan(0)
+        }
+    }
+
+    @Test
     @Ignore("need token of OAuth 2.0 Application-Only")
     fun startEndTimeById_hour() {
 
