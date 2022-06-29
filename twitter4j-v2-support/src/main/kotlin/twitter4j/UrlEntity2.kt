@@ -16,8 +16,8 @@ data class UrlEntity2(
         url = json.getString("url"),
         start = json.getInt("start"),
         end = json.getInt("end"),
-        expandedUrl = json.getString("expanded_url"),
-        displayUrl = json.getString("display_url"),
+        expandedUrl = json.optString("expanded_url", ""),
+        displayUrl = json.optString("display_url", ""),
         images = json.optJSONArray("images")?.let { imagesArray ->
             mutableListOf<ImageUrl2>().also { images ->
                 for (i in 0 until imagesArray.length()) {
