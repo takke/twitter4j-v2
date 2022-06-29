@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+v1.2.1 (2022.06.29)
+-------------------
+- Fix incorrect end-point of `Twitter.countAll`
+- Fix problem when `expanded_url` or `display_url` fields are missing.
+- Bump Kotlin 1.7.0
+
 v1.2.0 (2022.05.21)
 -------------------
 - Add Twitter.getReverseChronologicalTimeline() for "GET /2/users/:id/timelines/reverse_chronological"
