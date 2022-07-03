@@ -26,7 +26,7 @@ fun Twitter.getMyLatestTweet(userId: Long): ResponseList<Status>? {
 class GetTweetsTest {
 
     private val twitter by lazy { V2TestUtil.createTwitterInstance() }
-    private val myId by lazy { twitter.verifyCredentials().id }
+//    private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
     fun simplePoll() {
@@ -249,6 +249,226 @@ class GetTweetsTest {
             assertThat(it.id).isEqualTo(1514061441749245952L)
             assertThat(it.conversationId).isEqualTo(1513995134370676736L)
         }
+    }
+
+    @Test
+    fun media_image() {
+
+        val res = twitter.getTweets(
+            1541785063028842498L,
+            tweetFields = "attachments",
+            expansions = "attachments.media_keys",
+            mediaFields = V2DefaultFields.mediaFields,
+            placeFields = null,
+            pollFields = null,
+            userFields = null,
+        )
+
+        //{
+        //   "data": [
+        //      {
+        //         "id": "1541785063028842498",
+        //         "attachments": {
+        //            "media_keys": [
+        //               "3_1541785060919185408"
+        //            ]
+        //         },
+        //         "text": "This player just won't let go of his old boots... 😆 \n\nWho is it? 🤷‍♂️\n\n#UCL https:\/\/t.co\/4dETe8vjyL"
+        //      }
+        //   ],
+        //   "includes": {
+        //      "media": [
+        //         {
+        //            "url": "https:\/\/pbs.twimg.com\/media\/FWWFWBwXkAApnXt.jpg",
+        //            "type": "photo",
+        //            "height": 712,
+        //            "width": 632,
+        //            "media_key": "3_1541785060919185408"
+        //         }
+        //      ]
+        //   }
+        //}
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        println(res)
+
+        assertThat(res.tweets[0].id).isEqualTo(1541785063028842498L)
+
+        // TODO add tests
+    }
+
+    @Test
+    fun media_images() {
+
+        val res = twitter.getTweets(
+            1519966129946791936L,
+            tweetFields = "attachments",
+            expansions = "attachments.media_keys",
+            mediaFields = V2DefaultFields.mediaFields,
+            placeFields = null,
+            pollFields = null,
+            userFields = null,
+        )
+
+        // {
+        //   "data": [
+        //      {
+        //         "text": "コスプレ体験エリアすごかったなぁ！#超会議2022 https:\/\/t.co\/BK6iAsT2qE",
+        //         "attachments": {
+        //            "media_keys": [
+        //               "3_1519966116327849984",
+        //               "3_1519966116353015809",
+        //               "3_1519966116797612037",
+        //               "3_1519966120467648512"
+        //            ]
+        //         },
+        //         "id": "1519966129946791936"
+        //      }
+        //   ],
+        //   "includes": {
+        //      "media": [
+        //         {
+        //            "url": "https:\/\/pbs.twimg.com\/media\/FRgBITJaAAAu6rV.jpg",
+        //            "media_key": "3_1519966116327849984",
+        //            "height": 2048,
+        //            "width": 1536,
+        //            "type": "photo"
+        //         },
+        //         {
+        //            "url": "https:\/\/pbs.twimg.com\/media\/FRgBITPaAAER7p0.jpg",
+        //            "media_key": "3_1519966116353015809",
+        //            "height": 2048,
+        //            "width": 1536,
+        //            "type": "photo"
+        //         },
+        //         {
+        //            "url": "https:\/\/pbs.twimg.com\/media\/FRgBIU5aAAUNVA1.jpg",
+        //            "media_key": "3_1519966116797612037",
+        //            "height": 2048,
+        //            "width": 1536,
+        //            "type": "photo"
+        //         },
+        //         {
+        //            "url": "https:\/\/pbs.twimg.com\/media\/FRgBIikaUAAx5mG.jpg",
+        //            "media_key": "3_1519966120467648512",
+        //            "height": 2048,
+        //            "width": 1536,
+        //            "type": "photo"
+        //         }
+        //      ]
+        //   }
+        // }
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        println(res)
+
+        assertThat(res.tweets[0].id).isEqualTo(1519966129946791936L)
+
+        // TODO add tests
+    }
+
+    @Test
+    fun media_gif() {
+
+        val res = twitter.getTweets(
+            1323351722119495681L,
+            tweetFields = "attachments",
+            expansions = "attachments.media_keys",
+            mediaFields = V2DefaultFields.mediaFields,
+            placeFields = null,
+            pollFields = null,
+            userFields = null,
+        )
+
+        // {
+        //   "data": [
+        //      {
+        //         "attachments": {
+        //            "media_keys": [
+        //               "16_1323351712476717057"
+        //            ]
+        //         },
+        //         "text": "https:\/\/t.co\/aLA9mVBAfB",
+        //         "id": "1323351722119495681"
+        //      }
+        //   ],
+        //   "includes": {
+        //      "media": [
+        //         {
+        //            "media_key": "16_1323351712476717057",
+        //            "type": "animated_gif",
+        //            "height": 278,
+        //            "width": 498,
+        //            "preview_image_url": "https:\/\/pbs.twimg.com\/tweet_video_thumb\/El19Xv8UYAEWxVd.jpg"
+        //         }
+        //      ]
+        //   }
+        // }
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        println(res)
+
+        assertThat(res.tweets[0].id).isEqualTo(1323351722119495681L)
+
+        // TODO add tests
+    }
+
+    @Test
+    fun media_video() {
+
+        val res = twitter.getTweets(
+            1543286684846104576L,
+            tweetFields = "attachments",
+            expansions = "attachments.media_keys",
+            mediaFields = V2DefaultFields.mediaFields,
+            placeFields = null,
+            pollFields = null,
+            userFields = null,
+        )
+
+        // {
+        //   "data": [
+        //      {
+        //         "id": "1543286684846104576",
+        //         "attachments": {
+        //            "media_keys": [
+        //               "13_1335947635014905857"
+        //            ]
+        //         },
+        //         "text": "All types of goals from all situations 🔥\n\nCristiano Ronaldo's best Champions League goals are something else! 🍿\n\nhttps:\/\/t.co\/lSzee8d61m"
+        //      }
+        //   ],
+        //   "includes": {
+        //      "media": [
+        //         {
+        //            "preview_image_url": "https:\/\/pbs.twimg.com\/media\/Eoo9YilXcAI6tNm.jpg",
+        //            "duration_ms": 256240,
+        //            "public_metrics": {
+        //               "view_count": 234761
+        //            },
+        //            "type": "video",
+        //            "width": 1920,
+        //            "media_key": "13_1335947635014905857",
+        //            "height": 1080
+        //         }
+        //      ]
+        //   }
+        // }
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        println(res)
+
+        assertThat(res.tweets[0].id).isEqualTo(1543286684846104576L)
+
+        // TODO add tests
     }
 
 }
