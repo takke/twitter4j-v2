@@ -31,6 +31,28 @@ class SearchTest {
         }
     }
 
+//    @Test
+//    fun searchAll() {
+//
+//        val res = twitter.searchAll("hello", maxResults = 10)
+//        println(res)
+//
+//        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+//        println(json.toString(3))
+//
+//        // meta
+//        assertThat(res.meta?.resultCount).isBetween(1, 10)
+//        assertThat(res.meta?.previousToken).isNull()
+//        assertThat(res.meta?.nextToken).isNotNull
+//        assertThat(res.meta?.oldestId).isNotNull
+//        assertThat(res.meta?.newestId).isNotNull
+//
+//        assertThat(res.tweets.size).isEqualTo(10)
+//        res.tweets[0].let {
+//            assertThat(it.text.length).isGreaterThan(0)
+//        }
+//    }
+
     @Test
     fun startEndTimeById() {
 
