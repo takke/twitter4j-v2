@@ -43,7 +43,7 @@ sealed class Media {
         val publicMetrics: PublicMetrics
     ) : Media()
 
-    data class InvalidMedia(
+    data class UnknownMedia(
         override val mediaKey: MediaKey,
         override val type: Type,
     ) : Media()
@@ -100,7 +100,7 @@ sealed class Media {
                 }
 
                 else -> {
-                    InvalidMedia(mediaKey, type)
+                    UnknownMedia(mediaKey, type)
                 }
             }
         }
