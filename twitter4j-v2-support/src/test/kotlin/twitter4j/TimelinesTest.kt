@@ -107,6 +107,39 @@ class TimelinesTest {
         }
     }
 
+    @Test
+    fun getReverseChronologicalTimeline_full() {
+
+        val res = twitter.getReverseChronologicalTimeline(
+            myId,
+            maxResults = 100,
+            mediaFields = V2DefaultFields.mediaFields,
+            placeFields = V2DefaultFields.placeFields,
+            pollFields = V2DefaultFields.pollFields,
+            tweetFields = V2DefaultFields.tweetFields,
+            userFields = V2DefaultFields.userFields,
+            expansions = V2DefaultFields.expansions,
+        )
+        // CI のログに残らないように出力を抑制する
+//        println(res)
+        println(res.meta)
+
+//        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+//        println(json.toString(3))
+
+        // meta
+        assertThat(res.meta?.resultCount).isGreaterThanOrEqualTo(1)
+        assertThat(res.meta?.previousToken).isNull()
+        assertThat(res.meta?.nextToken).isNotNull
+        assertThat(res.meta?.oldestId).isNotNull
+        assertThat(res.meta?.newestId).isNotNull
+
+        assertThat(res.tweets.size).isGreaterThanOrEqualTo(1)
+        res.tweets[0].let {
+            assertThat(it.text.length).isGreaterThan(0)
+        }
+    }
+
 //    @Test
 //    fun getUserTweets_startEndTimeByUsername() {
 //
