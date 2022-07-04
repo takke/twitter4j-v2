@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v1.2.2 (2022.07.xx)
+-------------------
+- Add media support: `Tweet.mediaKeys`, `TweetResponse.mediaMap`, `Media`, `Photo`, `AnimatedGif` and `Video`
+
 v1.2.1 (2022.06.29)
 -------------------
 - Fix incorrect end-point of `Twitter.countAll`
