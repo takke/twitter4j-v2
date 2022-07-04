@@ -508,8 +508,18 @@ class GetTweetsTest {
         println(res)
 
         assertThat(res.tweets[0].id).isEqualTo(1543286684846104576L)
+        assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("13_1335947635014905857"))
 
-        // TODO add tests
+        assertThat(res.mediaMap.size).isEqualTo(1)
+
+        val video = res.mediaMap[MediaKey("13_1335947635014905857")]!!.asVideo
+        assertThat(video.type).isEqualTo(Media.Type.Video)
+
+        assertThat(video.previewImageUrl).isEqualTo("https://pbs.twimg.com/media/Eoo9YilXcAI6tNm.jpg")
+        assertThat(video.durationMs).isEqualTo(256240)
+        assertThat(video.publicMetrics.viewCount).isGreaterThan(234761)
+        assertThat(video.width).isEqualTo(1920)
+        assertThat(video.height).isEqualTo(1080)
     }
 
 }

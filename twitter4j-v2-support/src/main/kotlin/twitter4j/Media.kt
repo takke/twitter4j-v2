@@ -51,8 +51,8 @@ sealed class Media {
     data class PublicMetrics(
         val viewCount: Int,
     ) {
-        constructor(json: JSONObject) : this(
-            viewCount = ParseUtil.getInt("retweet_count", json)
+        constructor(json: JSONObject?) : this(
+            viewCount = ParseUtil.getInt("view_count", json)
         )
     }
 
@@ -85,6 +85,17 @@ sealed class Media {
                         json.getString("preview_image_url"),
                         json.getInt("width"),
                         json.getInt("height")
+                    )
+                }
+
+                Type.Video -> {
+                    Video(
+                        mediaKey, type,
+                        json.getString("preview_image_url"),
+                        json.getInt("width"),
+                        json.getInt("height"),
+                        json.getInt("duration_ms"),
+                        PublicMetrics(json.optJSONObject("public_metrics"))
                     )
                 }
 
