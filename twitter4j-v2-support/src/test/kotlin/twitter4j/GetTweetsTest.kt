@@ -59,6 +59,7 @@ class GetTweetsTest {
             assertThat(it.possiblySensitive).isEqualTo(false)
             assertThat(it.repliedToTweetId).isNull()
             assertThat(it.quotedTweetId).isNull()
+            assertThat(it.mediaKeys).isNull()
         }
 
         // poll
@@ -140,6 +141,7 @@ class GetTweetsTest {
             assertThat(it.pollId).isNull()
             assertThat(it.repliedToTweetId).isNull()
             assertThat(it.quotedTweetId).isNull()
+            assertThat(it.mediaKeys).isNull()
         }
     }
 
@@ -295,8 +297,12 @@ class GetTweetsTest {
         println(res)
 
         assertThat(res.tweets[0].id).isEqualTo(1541785063028842498L)
+        assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("3_1541785060919185408"))
 
-        // TODO add tests
+        val photo = res.mediaMap[MediaKey("3_1541785060919185408")]!!.asPhoto
+        assertThat(photo.url).isEqualTo("https://pbs.twimg.com/media/FWWFWBwXkAApnXt.jpg")
+        assertThat(photo.height).isEqualTo(712)
+        assertThat(photo.width).isEqualTo(632)
     }
 
     @Test

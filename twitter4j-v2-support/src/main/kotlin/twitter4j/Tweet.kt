@@ -19,7 +19,8 @@ data class Tweet(
     var repliedToTweetId: Long? = null,
     var quotedTweetId: Long? = null,
     var retweetId: Long? = null,
-    var conversationId: Long? = null
+    var conversationId: Long? = null,
+    var mediaKeys: Array<MediaKey>? = null
 ) {
 
     data class PublicMetrics(
@@ -78,6 +79,59 @@ data class Tweet(
         }
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Tweet
+
+        if (id != other.id) return false
+        if (text != other.text) return false
+        if (source != other.source) return false
+        if (lang != other.lang) return false
+        if (createdAt != other.createdAt) return false
+        if (publicMetrics != other.publicMetrics) return false
+        if (nonPublicMetrics != other.nonPublicMetrics) return false
+        if (organicMetrics != other.organicMetrics) return false
+        if (possiblySensitive != other.possiblySensitive) return false
+        if (urls != other.urls) return false
+        if (authorId != other.authorId) return false
+        if (pollId != other.pollId) return false
+        if (placeId != other.placeId) return false
+        if (repliedToTweetId != other.repliedToTweetId) return false
+        if (quotedTweetId != other.quotedTweetId) return false
+        if (retweetId != other.retweetId) return false
+        if (conversationId != other.conversationId) return false
+        if (mediaKeys != null) {
+            if (other.mediaKeys == null) return false
+            if (!mediaKeys.contentEquals(other.mediaKeys)) return false
+        } else if (other.mediaKeys != null) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + text.hashCode()
+        result = 31 * result + (source?.hashCode() ?: 0)
+        result = 31 * result + (lang?.hashCode() ?: 0)
+        result = 31 * result + (createdAt?.hashCode() ?: 0)
+        result = 31 * result + (publicMetrics?.hashCode() ?: 0)
+        result = 31 * result + (nonPublicMetrics?.hashCode() ?: 0)
+        result = 31 * result + (organicMetrics?.hashCode() ?: 0)
+        result = 31 * result + possiblySensitive.hashCode()
+        result = 31 * result + (urls?.hashCode() ?: 0)
+        result = 31 * result + (authorId?.hashCode() ?: 0)
+        result = 31 * result + (pollId?.hashCode() ?: 0)
+        result = 31 * result + (placeId?.hashCode() ?: 0)
+        result = 31 * result + (repliedToTweetId?.hashCode() ?: 0)
+        result = 31 * result + (quotedTweetId?.hashCode() ?: 0)
+        result = 31 * result + (retweetId?.hashCode() ?: 0)
+        result = 31 * result + (conversationId?.hashCode() ?: 0)
+        result = 31 * result + (mediaKeys?.contentHashCode() ?: 0)
+        return result
+    }
+
     companion object {
 
         fun parse(data: JSONObject): Tweet {
@@ -127,6 +181,21 @@ data class Tweet(
             }
             if (pollId != null) {
                 t.pollId = pollId
+            }
+
+            // media_keys
+            val mediaKeys = attachments?.optJSONArray("media_keys")?.let {
+                val length = it.length()
+                if (length == 0) {
+                    null
+                } else {
+                    Array(length) { i ->
+                        MediaKey(it.getString(i))
+                    }
+                }
+            }
+            if (mediaKeys != null) {
+                t.mediaKeys = mediaKeys
             }
 
             // place

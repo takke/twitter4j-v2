@@ -13,6 +13,9 @@ class TweetsResponse : TwitterResponse {
     // includes.polls
     val pollsMap = HashMap<Long, Poll>()
 
+    // includes.media
+    val mediaMap = HashMap<MediaKey, Media>()
+
     // includes.users
     val usersMap = HashMap<Long, User2>()
 
@@ -54,8 +57,9 @@ class TweetsResponse : TwitterResponse {
         V2Util.collectUsers(includes, usersMap)
         V2Util.collectPlaces(includes, placesMap)
         V2Util.collectTweets(includes, tweetsMap)
+        V2Util.collectMediaKeys(includes, mediaMap)
 
-        // TODO includes.places, includes.media ...
+        // TODO includes.places ...
 
         //--------------------------------------------------
         // create tweets from data

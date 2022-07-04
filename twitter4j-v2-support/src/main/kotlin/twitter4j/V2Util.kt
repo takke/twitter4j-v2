@@ -22,6 +22,22 @@ object V2Util {
         }
     }
 
+    fun collectMediaKeys(includes: JSONObject?, mediaMap: HashMap<MediaKey, Media>) {
+        includes?.optJSONArray("media")?.let { mediaArray ->
+            for (i in 0 until mediaArray.length()) {
+                val mediaString = mediaArray.getString(i)
+
+                val media = Media.parse(JSONObject(mediaString)).also {
+                    // original json
+                    // TODO implement if you need
+//                    it.jsonText = mediaString
+                }
+
+                mediaMap[media.mediaKey] = media
+            }
+        }
+    }
+
     fun collectUsers(includes: JSONObject?, usersMap: HashMap<Long, User2>) {
 
         includes?.optJSONArray("users")?.let { users ->
