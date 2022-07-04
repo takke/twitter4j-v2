@@ -3,10 +3,12 @@ package twitter4j
 sealed class Media {
 
     abstract val mediaKey: MediaKey
-
     abstract val type: Type
 
+    // cast
     val asPhoto: Photo get() = this as Photo
+    val asAnimatedGif: AnimatedGif get() = this as AnimatedGif
+    val asVideo: Video get() = this as Video
 
     enum class Type {
         Photo,
@@ -60,6 +62,8 @@ sealed class Media {
 
             val type = when (json.getString("type")) {
                 "photo" -> Type.Photo
+                "animated_gif" -> Type.AnimatedGif
+                "video" -> Type.Video
                 else -> Type.Unknown
             }
 
@@ -70,6 +74,15 @@ sealed class Media {
                     Photo(
                         mediaKey, type,
                         json.getString("url"),
+                        json.getInt("width"),
+                        json.getInt("height")
+                    )
+                }
+
+                Type.AnimatedGif -> {
+                    AnimatedGif(
+                        mediaKey, type,
+                        json.getString("preview_image_url"),
                         json.getInt("width"),
                         json.getInt("height")
                     )

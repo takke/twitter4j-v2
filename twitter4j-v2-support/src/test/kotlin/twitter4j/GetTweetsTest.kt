@@ -299,7 +299,10 @@ class GetTweetsTest {
         assertThat(res.tweets[0].id).isEqualTo(1541785063028842498L)
         assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("3_1541785060919185408"))
 
+        assertThat(res.mediaMap.size).isEqualTo(1)
+
         val photo = res.mediaMap[MediaKey("3_1541785060919185408")]!!.asPhoto
+        assertThat(photo.type).isEqualTo(Media.Type.Photo)
         assertThat(photo.url).isEqualTo("https://pbs.twimg.com/media/FWWFWBwXkAApnXt.jpg")
         assertThat(photo.height).isEqualTo(712)
         assertThat(photo.width).isEqualTo(632)
@@ -373,8 +376,33 @@ class GetTweetsTest {
         println(res)
 
         assertThat(res.tweets[0].id).isEqualTo(1519966129946791936L)
+        assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("3_1519966116327849984"))
+        assertThat(res.tweets[0].mediaKeys!![1]).isEqualTo(MediaKey("3_1519966116353015809"))
+        assertThat(res.tweets[0].mediaKeys!![2]).isEqualTo(MediaKey("3_1519966116797612037"))
+        assertThat(res.tweets[0].mediaKeys!![3]).isEqualTo(MediaKey("3_1519966120467648512"))
 
-        // TODO add tests
+        assertThat(res.mediaMap.size).isEqualTo(4)
+
+        res.mediaMap[MediaKey("3_1519966116327849984")]!!.asPhoto.let { photo ->
+            assertThat(photo.url).isEqualTo("https://pbs.twimg.com/media/FRgBITJaAAAu6rV.jpg")
+            assertThat(photo.height).isEqualTo(2048)
+            assertThat(photo.width).isEqualTo(1536)
+        }
+        res.mediaMap[MediaKey("3_1519966116353015809")]!!.asPhoto.let { photo ->
+            assertThat(photo.url).isEqualTo("https://pbs.twimg.com/media/FRgBITPaAAER7p0.jpg")
+            assertThat(photo.height).isEqualTo(2048)
+            assertThat(photo.width).isEqualTo(1536)
+        }
+        res.mediaMap[MediaKey("3_1519966116797612037")]!!.asPhoto.let { photo ->
+            assertThat(photo.url).isEqualTo("https://pbs.twimg.com/media/FRgBIU5aAAUNVA1.jpg")
+            assertThat(photo.height).isEqualTo(2048)
+            assertThat(photo.width).isEqualTo(1536)
+        }
+        res.mediaMap[MediaKey("3_1519966120467648512")]!!.asPhoto.let { photo ->
+            assertThat(photo.url).isEqualTo("https://pbs.twimg.com/media/FRgBIikaUAAx5mG.jpg")
+            assertThat(photo.height).isEqualTo(2048)
+            assertThat(photo.width).isEqualTo(1536)
+        }
     }
 
     @Test
@@ -421,8 +449,15 @@ class GetTweetsTest {
         println(res)
 
         assertThat(res.tweets[0].id).isEqualTo(1323351722119495681L)
+        assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("16_1323351712476717057"))
 
-        // TODO add tests
+        assertThat(res.mediaMap.size).isEqualTo(1)
+
+        val animatedGif = res.mediaMap[MediaKey("16_1323351712476717057")]!!.asAnimatedGif
+        assertThat(animatedGif.type).isEqualTo(Media.Type.AnimatedGif)
+        assertThat(animatedGif.previewImageUrl).isEqualTo("https://pbs.twimg.com/tweet_video_thumb/El19Xv8UYAEWxVd.jpg")
+        assertThat(animatedGif.height).isEqualTo(278)
+        assertThat(animatedGif.width).isEqualTo(498)
     }
 
     @Test
