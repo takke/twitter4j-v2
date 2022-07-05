@@ -98,7 +98,7 @@ class ListsTest {
             val user = res.usersMap[ownerId]!!
             assertThat(user.id).isEqualTo(ownerId)
             assertThat(user.name).isEqualTo("Twitter")
-            assertThat(user.username).isEqualTo("Twitter")
+            assertThat(user.screenName).isEqualTo("Twitter")
             assertThat(user.createdAt).isNotNull
             assertThat(user.description).isNotNull
         }
@@ -164,7 +164,7 @@ class ListsTest {
             val user = res.usersMap[ownerId]!!
             assertThat(user.id).isEqualTo(ownerId)
             assertThat(user.name).isEqualTo("Twitter")
-            assertThat(user.username).isEqualTo("Twitter")
+            assertThat(user.screenName).isEqualTo("Twitter")
             assertThat(user.createdAt).isNotNull
             assertThat(user.description).isNotNull
         }

@@ -1,9 +1,10 @@
 Change Log
 ==========
 
-v1.2.2 (2022.07.xx)
+v1.3.0 (2022.07.xx)
 -------------------
 - Add media support: `Tweet.mediaKeys`, `TweetResponse.mediaMap`, `Media`, `Photo`, `AnimatedGif` and `Video`
+- `User.username` -> `User.screenName`
 
 v1.2.1 (2022.06.29)
 -------------------

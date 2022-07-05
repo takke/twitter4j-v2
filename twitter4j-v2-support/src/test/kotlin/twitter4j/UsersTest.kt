@@ -24,7 +24,7 @@ class UsersTest {
 
         val user = res.users[0]
         assertThat(user.id).isEqualTo(2244994945L)
-        assertThat(user.username).isEqualTo("TwitterDev")
+        assertThat(user.screenName).isEqualTo("TwitterDev")
     }
 
 }

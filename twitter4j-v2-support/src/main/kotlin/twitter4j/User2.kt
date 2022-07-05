@@ -6,10 +6,7 @@ data class User2(
     val id: Long,
     val location: String?,
     val createdAt: Date?,
-    /**
-     * Known as screen-name
-     */
-    val username: String,
+    val screenName: String,
     val protected: Boolean,
     val publicMetrics: PublicMetrics?,
     val urlEntities: List<UrlEntity2>? = mutableListOf(),
@@ -64,7 +61,7 @@ data class User2(
             return User2(json.getLong("id"),
                 location = json.optString("location", null),
                 createdAt = V2Util.parseISO8601Date("created_at", json),
-                username = json.getString("username"),
+                screenName = json.getString("username"),
                 protected = json.optBoolean("protected", false),
                 publicMetrics = json.optJSONObject("public_metrics")?.let { PublicMetrics(it) },
                 urlEntities = urlEntities,

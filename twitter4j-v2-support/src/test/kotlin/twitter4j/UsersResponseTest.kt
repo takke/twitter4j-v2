@@ -23,7 +23,7 @@ class UsersResponseTest {
         )
         assertThat(res.users.size).isEqualTo(1)
         assertThat(res.users[0].id).isEqualTo(87532773)
-        assertThat(res.users[0].username).isEqualTo("TwitterDesign")
+        assertThat(res.users[0].screenName).isEqualTo("TwitterDesign")
         assertThat(res.users[0].name).isEqualTo("Twitter Design")
     }
 }

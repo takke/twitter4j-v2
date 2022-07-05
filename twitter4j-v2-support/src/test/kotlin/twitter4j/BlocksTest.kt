@@ -17,7 +17,7 @@ class BlocksTest {
         assertThat(res.meta?.resultCount).isGreaterThan(0)
         assertThat(res.users[0].id).isGreaterThan(0)
         assertThat(res.users[0].name.length).isGreaterThan(0)
-        assertThat(res.users[0].username.length).isGreaterThan(0)
+        assertThat(res.users[0].screenName.length).isGreaterThan(0)
     }
 
     @Test

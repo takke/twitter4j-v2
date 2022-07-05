@@ -52,7 +52,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("page1:")
     println(json1.toString(3))
-    println(page1.users.map { "(${it.id}, ${it.name}, ${it.username})" })
+    println(page1.users.map { "(${it.id}, ${it.name}, ${it.screenName})" })
 
     val page2 = twitter.getFollowingUsers(
         twitterDesignId,
@@ -63,6 +63,6 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("page2:")
     println(json2.toString(3))
-    println(page2.users.map { "(${it.id}, ${it.name}, ${it.username})" })
+    println(page2.users.map { "(${it.id}, ${it.name}, ${it.screenName})" })
 
 }
