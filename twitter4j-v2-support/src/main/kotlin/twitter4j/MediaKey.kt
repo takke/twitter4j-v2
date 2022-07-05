@@ -1,3 +1,4 @@
 package twitter4j
 
-data class MediaKey(val value: String)
+@JvmInline
+value class MediaKey(val value: String)
