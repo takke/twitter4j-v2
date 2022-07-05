@@ -4,7 +4,8 @@ Change Log
 v1.3.0 (2022.07.xx)
 -------------------
 - Add media support: `Tweet.mediaKeys`, `TweetResponse.mediaMap`, `Media`, `Photo`, `AnimatedGif` and `Video`
-- `User.username` -> `User.screenName`
+- Introduce `PaginationToken` for paging
+- `User2.username` -> `User2.screenName`
 
 v1.2.1 (2022.06.29)
 -------------------
