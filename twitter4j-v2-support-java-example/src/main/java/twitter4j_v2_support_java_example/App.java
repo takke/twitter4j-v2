@@ -7,6 +7,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.UsersExKt;
 import twitter4j.UsersResponse;
+import twitter4j.V2DefaultFields;
 
 public final class App {
 
@@ -17,8 +18,8 @@ public final class App {
         //--------------------------------------------------
         Twitter twitter = new TwitterFactory().getInstance();
         final TweetsResponse tweets = GetTweetsKt.getTweets(twitter,
-                new long[]{656974073491156992L},
-                null, null, null, null, null, "");
+                new long[]{1519966129946791936L},
+                V2DefaultFields.mediaFields, null, null, "attachments", null, "attachments.media_keys");
         System.out.println("tweets = " + tweets);
 
 
