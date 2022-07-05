@@ -91,8 +91,8 @@ object V2Util {
             val metaObject = jsonObject.optJSONObject("meta")
             return Meta(
                 metaObject.getInt("result_count"),
-                metaObject.optString("previous_token", null),
-                metaObject.optString("next_token", null),
+                metaObject.optString("previous_token", null)?.let { PaginationToken(it) },
+                metaObject.optString("next_token", null)?.let { PaginationToken(it) },
                 metaObject.optLongOrNull("oldest_id"),
                 metaObject.optLongOrNull("newest_id")
             )
@@ -114,6 +114,12 @@ object V2Util {
     fun addHttpParamIfNotNull(params: ArrayList<HttpParameter>, name: String, value: String?) {
         if (value != null) {
             params.add(HttpParameter(name, value))
+        }
+    }
+
+    fun addHttpParamIfNotNull(params: ArrayList<HttpParameter>, name: String, token: PaginationToken?) {
+        if (token != null) {
+            params.add(HttpParameter(name, token.value))
         }
     }
 

@@ -11,7 +11,7 @@ fun Twitter.getFollowingUsers(
     userId: Long,
     expansions: String? = "pinned_tweet_id",
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     tweetFields: String? = null,
     userFields: String? = null,
 ): UsersResponse {
@@ -45,7 +45,7 @@ fun Twitter.getFollowerUsers(
     userId: Long,
     expansions: String? = "pinned_tweet_id",
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     tweetFields: String? = null,
     userFields: String? = null
 ): UsersResponse {

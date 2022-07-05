@@ -15,7 +15,7 @@ fun Twitter.getBookmarks(
     expansions: String? = null,
     maxResults: Int? = null,
     mediaFields: String? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     placeFields: String? = null,
     pollFields: String? = null,
     tweetFields: String? = null,

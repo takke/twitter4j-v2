@@ -16,7 +16,7 @@ fun Twitter.getQuoteTweets(
     maxResults: Int? = null,
     exclude: String? = null,
     mediaFields: String? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     placeFields: String? = null,
     pollFields: String? = null,
     tweetFields: String? = null,

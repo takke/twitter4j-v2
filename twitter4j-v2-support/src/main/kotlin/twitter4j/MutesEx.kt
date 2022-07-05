@@ -19,7 +19,7 @@ fun Twitter.getMutingUsers(
      * The maximum number of results to be returned per page. This can be a number between 1 and 1000. By default, each page will return 100 results.
      */
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     tweetFields: String? = null,
     userFields: String? = null,
 ): UsersResponse {

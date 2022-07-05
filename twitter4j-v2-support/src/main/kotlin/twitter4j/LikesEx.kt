@@ -46,7 +46,7 @@ fun Twitter.getLikedTweets(
     userId: Long,
     expansions: String? = null,
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     mediaFields: String? = null,
     placeFields: String? = null,
     pollFields: String? = null,

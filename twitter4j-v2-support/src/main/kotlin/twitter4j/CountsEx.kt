@@ -43,7 +43,7 @@ fun Twitter.countAll(
     query: String,
     endTime: Date? = null,
     granularity: String? = null,
-    nextToken: String? = null,
+    nextToken: PaginationToken? = null,
     sinceId: Long? = null,
     startTime: Date? = null,
     untilId: Long? = null
@@ -69,7 +69,7 @@ private fun TwitterImpl.countTweetsIn(
     query: String,
     endTime: Date?,
     granularity: String? = null,
-    nextToken: String? = null,
+    nextToken: PaginationToken? = null,
     sinceId: Long?,
     startTime: Date?,
     untilId: Long?

@@ -48,7 +48,7 @@ fun Twitter.getOwnedLists(
     expansions: String? = null,
     listFields: String? = null,
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     userFields: String? = null,
 ): ListsResponse {
 
@@ -84,7 +84,7 @@ fun Twitter.getListTweets(
     id: Long,
     expansions: String? = null,
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     tweetFields: String? = null,
     userFields: String? = null,
 ): TweetsResponse {
@@ -121,7 +121,7 @@ fun Twitter.getListMembers(
     id: Long,
     expansions: String? = null,
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     tweetFields: String? = null,
     userFields: String? = null,
 ): UsersResponse {
@@ -159,7 +159,7 @@ fun Twitter.getListMemberships(
     expansions: String? = null,
     listFields: String? = null,
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     userFields: String? = null,
 ): ListsResponse {
 
@@ -195,7 +195,7 @@ fun Twitter.getListFollowers(
     id: Long,
     expansions: String? = null,
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     tweetFields: String? = null,
     userFields: String? = null,
 ): UsersResponse {
@@ -232,7 +232,7 @@ fun Twitter.getFollowedLists(
     id: Long,
     expansions: String? = null,
     maxResults: Int? = null,
-    paginationToken: String? = null,
+    paginationToken: PaginationToken? = null,
     userFields: String? = null,
 ): ListsResponse {
 
