@@ -51,8 +51,6 @@ class UsersResponse : TwitterResponse {
         V2Util.collectPlaces(includes, placesMap)
         V2Util.collectTweets(includes, tweetsMap)
 
-        // TODO includes.media ...
-
         //--------------------------------------------------
         // create users from data
         //--------------------------------------------------
