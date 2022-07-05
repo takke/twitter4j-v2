@@ -15,7 +15,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
 }
 
-// ./gradlew run
+// ./gradlew :twitter4j-v2-support-kotlin-example:run
 application {
-    mainClassName = 'twitter4j_v2_support_example.GetTweetsExampleKt'
+    mainClass.set('twitter4j_v2_support_example.GetTweetsExampleKt')
 }
