@@ -3,7 +3,7 @@ package twitter4j
 object V2DefaultFields {
 
     // media.fields
-    const val mediaFields = "duration_ms,height,media_key,preview_image_url,public_metrics,type,url,width"
+    const val mediaFields = "duration_ms,height,media_key,preview_image_url,public_metrics,type,url,width,variants"
 
     // place.fields
     const val placeFields = "contained_within,country,country_code,full_name,geo,id,name,place_type"
