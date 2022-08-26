@@ -628,12 +628,19 @@ class GetTweetsTest {
         println(res)
 
         assertThat(res.tweets[0].id).isEqualTo(1562974113903153153L)
-        assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("13_1335947635014905857"))
+        assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("3_1562973624725749765"))
+        assertThat(res.tweets[0].mediaKeys!![1]).isEqualTo(MediaKey("3_1562974097176309761"))
 
-        assertThat(res.mediaMap.size).isEqualTo(1)
+        assertThat(res.mediaMap.size).isEqualTo(2)
 
-        val video = res.mediaMap[MediaKey("13_1335947635014905857")]!!.asVideo
-        assertThat(video.type).isEqualTo(Media.Type.Video)
+        res.mediaMap[MediaKey("3_1562973624725749765")]!!.asPhoto.let {
+            assertThat(it.type).isEqualTo(Media.Type.Photo)
+            assertThat(it.altText).isEqualTo("プロフィール用のアイコン画像")
+        }
+        res.mediaMap[MediaKey("3_1562974097176309761")]!!.asPhoto.let {
+            assertThat(it.type).isEqualTo(Media.Type.Photo)
+            assertThat(it.altText).isEqualTo("TwitPaneのアイコン画像")
+        }
     }
 
 }
