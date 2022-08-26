@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v1.3.1 (2022.08.xx)
+-------------------
+- Bump Kotlin 1.7.10
+
 v1.3.0 (2022.07.05)
 -------------------
 - Add media support: `Tweet.mediaKeys`, `TweetResponse.mediaMap`, `Media`, `Photo`, `AnimatedGif` and `Video`
