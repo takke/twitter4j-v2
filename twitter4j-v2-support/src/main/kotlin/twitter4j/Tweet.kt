@@ -14,6 +14,7 @@ data class Tweet(
     var possiblySensitive: Boolean = false,
     var urls: List<UrlEntity2>? = mutableListOf(),
     var hashtags: List<HashtagEntity> = mutableListOf(),
+    var mentions: List<UserMentionEntity2> = mutableListOf(),
     var authorId: Long? = null,
     var pollId: Long? = null,
     var placeId: String? = null,
@@ -97,6 +98,7 @@ data class Tweet(
         if (possiblySensitive != other.possiblySensitive) return false
         if (urls != other.urls) return false
         if (hashtags != other.hashtags) return false
+        if (mentions != other.mentions) return false
         if (authorId != other.authorId) return false
         if (pollId != other.pollId) return false
         if (placeId != other.placeId) return false
@@ -124,6 +126,7 @@ data class Tweet(
         result = 31 * result + possiblySensitive.hashCode()
         result = 31 * result + (urls?.hashCode() ?: 0)
         result = 31 * result + hashtags.hashCode()
+        result = 31 * result + mentions.hashCode()
         result = 31 * result + (authorId?.hashCode() ?: 0)
         result = 31 * result + (pollId?.hashCode() ?: 0)
         result = 31 * result + (placeId?.hashCode() ?: 0)
@@ -172,6 +175,14 @@ data class Tweet(
                     for (i in 0 until hashtagsArray.length()) {
                         val hashtagJson = hashtagsArray.getJSONObject(i)
                         hashtags.add(HashtagEntityV2Impl(hashtagJson))
+                    }
+                }
+                // entities.mentions
+                entities.optJSONArray("mentions")?.let { mentionsArray ->
+                    val mentions = t.mentions as MutableList
+                    for (i in 0 until mentionsArray.length()) {
+                        val mentionJson = mentionsArray.getJSONObject(i)
+                        mentions.add(UserMentionEntity2(mentionJson))
                     }
                 }
             }

@@ -200,15 +200,21 @@ class GetTweetsTest {
     @Test
     fun hashtags_mentions() {
 
-        val res = twitter.getTweets(1545438020412837888L)
+        // https://twitter.com/takke/status/1563008140131459073
+        val res = twitter.getTweets(1563008140131459073L)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
 
         res.tweets[0].let {
-            assertThat(it.id).isEqualTo(1545438020412837888L)
+            assertThat(it.id).isEqualTo(1563008140131459073L)
 
-            assertThat(it.hashtags[0]).isEqualTo(HashtagEntityV2Impl(45, 50, "mufc"))
+            assertThat(it.hashtags[0]).isEqualTo(HashtagEntityV2Impl(4, 12, "Mention"))
+            assertThat(it.hashtags[1]).isEqualTo(HashtagEntityV2Impl(39, 47, "Hashtag"))
+            assertThat(it.hashtags[2]).isEqualTo(HashtagEntityV2Impl(50, 54, "テスト"))
+
+            assertThat(it.mentions[0]).isEqualTo(UserMentionEntity2(14, 24, "takke1982", 2536882327L))
+            assertThat(it.mentions[1]).isEqualTo(UserMentionEntity2(26, 35, "twitpane", 1565770556L))
         }
     }
 

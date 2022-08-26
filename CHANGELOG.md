@@ -5,6 +5,7 @@ v1.3.1 (2022.08.xx)
 -------------------
 - Add variants to media
 - Add alt_text to media
+- Add `Tweet.hashtags` and `Tweet.mentions`
 - Bump Kotlin 1.7.10
 
 v1.3.0 (2022.07.05)
