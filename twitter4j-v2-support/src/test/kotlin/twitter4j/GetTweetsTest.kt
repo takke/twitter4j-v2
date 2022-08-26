@@ -198,6 +198,21 @@ class GetTweetsTest {
     }
 
     @Test
+    fun hashtags_mentions() {
+
+        val res = twitter.getTweets(1545438020412837888L)
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        res.tweets[0].let {
+            assertThat(it.id).isEqualTo(1545438020412837888L)
+
+            assertThat(it.hashtags[0]).isEqualTo(HashtagEntityV2Impl(45, 50, "mufc"))
+        }
+    }
+
+    @Test
     fun nonPublicOrganicMetrics() {
 
         val account = twitter.verifyCredentials()
