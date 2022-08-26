@@ -13,6 +13,7 @@ data class Tweet(
     var organicMetrics: OrganicMetrics? = null,
     var possiblySensitive: Boolean = false,
     var urls: List<UrlEntity2>? = mutableListOf(),
+    var hashtags: List<HashtagEntity> = mutableListOf(),
     var authorId: Long? = null,
     var pollId: Long? = null,
     var placeId: String? = null,
@@ -95,6 +96,7 @@ data class Tweet(
         if (organicMetrics != other.organicMetrics) return false
         if (possiblySensitive != other.possiblySensitive) return false
         if (urls != other.urls) return false
+        if (hashtags != other.hashtags) return false
         if (authorId != other.authorId) return false
         if (pollId != other.pollId) return false
         if (placeId != other.placeId) return false
@@ -121,6 +123,7 @@ data class Tweet(
         result = 31 * result + (organicMetrics?.hashCode() ?: 0)
         result = 31 * result + possiblySensitive.hashCode()
         result = 31 * result + (urls?.hashCode() ?: 0)
+        result = 31 * result + hashtags.hashCode()
         result = 31 * result + (authorId?.hashCode() ?: 0)
         result = 31 * result + (pollId?.hashCode() ?: 0)
         result = 31 * result + (placeId?.hashCode() ?: 0)
@@ -154,13 +157,21 @@ data class Tweet(
                 t.organicMetrics = OrganicMetrics(it)
             }
 
-            // entities.urls
             data.optJSONObject("entities")?.let { entities ->
+                // entities.urls
                 entities.optJSONArray("urls")?.let { urlsArray ->
                     val urls = t.urls as MutableList
                     for (iUrl in 0 until urlsArray.length()) {
                         val url = urlsArray.getJSONObject(iUrl)
                         urls.add(UrlEntity2(url))
+                    }
+                }
+                // entities.hashtags
+                entities.optJSONArray("hashtags")?.let { hashtagsArray ->
+                    val hashtags = t.hashtags as MutableList
+                    for (i in 0 until hashtagsArray.length()) {
+                        val hashtagJson = hashtagsArray.getJSONObject(i)
+                        hashtags.add(HashtagEntityV2Impl(hashtagJson))
                     }
                 }
             }
