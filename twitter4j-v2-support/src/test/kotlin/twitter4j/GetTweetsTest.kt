@@ -491,12 +491,33 @@ class GetTweetsTest {
         //            "preview_image_url": "https:\/\/pbs.twimg.com\/media\/Eoo9YilXcAI6tNm.jpg",
         //            "duration_ms": 256240,
         //            "public_metrics": {
-        //               "view_count": 234761
+        //                "view_count": 238062
         //            },
         //            "type": "video",
         //            "width": 1920,
         //            "media_key": "13_1335947635014905857",
-        //            "height": 1080
+        //            "height": 1080,
+        //            "variants": [
+        //                {
+        //                    "bit_rate": 832000,
+        //                    "content_type": "video\/mp4",
+        //                    "url": "https:\/\/video.twimg.com\/amplify_video\/1335947635014905857\/vid\/640x360\/pRCUFi8H_x8jL5KM.mp4?tag=13"
+        //                },
+        //                {
+        //                    "bit_rate": 288000,
+        //                    "content_type": "video\/mp4",
+        //                    "url": "https:\/\/video.twimg.com\/amplify_video\/1335947635014905857\/vid\/480x270\/nLhybIFYjGkSZ3UW.mp4?tag=13"
+        //                },
+        //                {
+        //                    "content_type": "application\/x-mpegURL",
+        //                    "url": "https:\/\/video.twimg.com\/amplify_video\/1335947635014905857\/pl\/wSROnrJTqUNVDl7n.m3u8?tag=13"
+        //                },
+        //                {
+        //                    "bit_rate": 2176000,
+        //                    "content_type": "video\/mp4",
+        //                    "url": "https:\/\/video.twimg.com\/amplify_video\/1335947635014905857\/vid\/1280x720\/z2ew8py8ODet_3Za.mp4?tag=13"
+        //                }
+        //            ]
         //         }
         //      ]
         //   }
@@ -520,6 +541,36 @@ class GetTweetsTest {
         assertThat(video.publicMetrics.viewCount).isGreaterThan(234761)
         assertThat(video.width).isEqualTo(1920)
         assertThat(video.height).isEqualTo(1080)
+
+        assertThat(video.variants.size).isEqualTo(4)
+        assertThat(video.variants.any {
+            it == Media.Variant(
+                832000,
+                "video/mp4",
+                "https://video.twimg.com/amplify_video/1335947635014905857/vid/640x360/pRCUFi8H_x8jL5KM.mp4?tag=13"
+            )
+        }).isTrue
+        assertThat(video.variants.any {
+            it == Media.Variant(
+                288000,
+                "video/mp4",
+                "https://video.twimg.com/amplify_video/1335947635014905857/vid/480x270/nLhybIFYjGkSZ3UW.mp4?tag=13"
+            )
+        }).isTrue
+        assertThat(video.variants.any {
+            it == Media.Variant(
+                null,
+                "application/x-mpegURL",
+                "https://video.twimg.com/amplify_video/1335947635014905857/pl/wSROnrJTqUNVDl7n.m3u8?tag=13"
+            )
+        }).isTrue
+        assertThat(video.variants.any {
+            it == Media.Variant(
+                2176000,
+                "video/mp4",
+                "https://video.twimg.com/amplify_video/1335947635014905857/vid/1280x720/z2ew8py8ODet_3Za.mp4?tag=13"
+            )
+        }).isTrue
     }
 
 }

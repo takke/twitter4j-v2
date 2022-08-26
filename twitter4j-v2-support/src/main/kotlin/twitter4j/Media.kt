@@ -40,8 +40,46 @@ sealed class Media {
         val width: Int,
         val height: Int,
         val durationMs: Int,
-        val publicMetrics: PublicMetrics
-    ) : Media()
+        val publicMetrics: PublicMetrics,
+        val variants: Array<Variant>
+    ) : Media() {
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as Video
+
+            if (mediaKey != other.mediaKey) return false
+            if (type != other.type) return false
+            if (previewImageUrl != other.previewImageUrl) return false
+            if (width != other.width) return false
+            if (height != other.height) return false
+            if (durationMs != other.durationMs) return false
+            if (publicMetrics != other.publicMetrics) return false
+            if (!variants.contentEquals(other.variants)) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = mediaKey.hashCode()
+            result = 31 * result + type.hashCode()
+            result = 31 * result + previewImageUrl.hashCode()
+            result = 31 * result + width
+            result = 31 * result + height
+            result = 31 * result + durationMs
+            result = 31 * result + publicMetrics.hashCode()
+            result = 31 * result + variants.contentHashCode()
+            return result
+        }
+    }
+
+    data class Variant(
+        val bitRate: Int?,
+        val contentType: String,
+        val url: String
+    )
 
     data class UnknownMedia(
         override val mediaKey: MediaKey,
@@ -89,13 +127,24 @@ sealed class Media {
                 }
 
                 Type.Video -> {
+                    val variantsJson = json.optJSONArray("variants")
+                    val variants = Array(variantsJson?.length() ?: 0) { index ->
+                        val v = variantsJson!!.getJSONObject(index)
+                        Variant(
+                            if (v.has("bit_rate")) v.getInt("bit_rate") else null,
+                            v.getString("content_type"),
+                            v.getString("url")
+                        )
+                    }
+
                     Video(
                         mediaKey, type,
                         json.getString("preview_image_url"),
                         json.getInt("width"),
                         json.getInt("height"),
                         json.getInt("duration_ms"),
-                        PublicMetrics(json.optJSONObject("public_metrics"))
+                        PublicMetrics(json.optJSONObject("public_metrics")),
+                        variants
                     )
                 }
 
