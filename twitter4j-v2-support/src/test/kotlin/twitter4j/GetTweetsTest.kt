@@ -573,4 +573,74 @@ class GetTweetsTest {
         }).isTrue
     }
 
+    @Test
+    fun media_alt_text() {
+
+        // https://twitter.com/takke/status/1562974113903153153
+        val res = twitter.getTweets(
+            1562974113903153153L,
+            tweetFields = "attachments",
+            expansions = "attachments.media_keys",
+            mediaFields = V2DefaultFields.mediaFields,
+            placeFields = null,
+            pollFields = null,
+            userFields = null,
+        )
+
+        // {
+        //   "data": [
+        //      {
+        //         "attachments": {
+        //            "media_keys": [
+        //               "3_1562973624725749765",
+        //               "3_1562974097176309761"
+        //            ]
+        //         },
+        //         "text": "alt text のサンプル https:\/\/t.co\/eNzx08Cpjc",
+        //         "id": "1562974113903153153"
+        //      }
+        //   ],
+        //   "includes": {
+        //      "media": [
+        //         {
+        //            "alt_text": "プロフィール用のアイコン画像",
+        //            "height": 200,
+        //            "width": 200,
+        //            "media_key": "3_1562973624725749765",
+        //            "type": "photo",
+        //            "url": "https:\/\/pbs.twimg.com\/media\/FbDMOw8VQAUIeVQ.jpg"
+        //         },
+        //         {
+        //            "alt_text": "TwitPaneのアイコン画像",
+        //            "height": 512,
+        //            "width": 512,
+        //            "media_key": "3_1562974097176309761",
+        //            "type": "photo",
+        //            "url": "https:\/\/pbs.twimg.com\/media\/FbDMqQ9UsAEWGtR.png"
+        //         }
+        //      ]
+        //   }
+        // }
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        println(res)
+
+        assertThat(res.tweets[0].id).isEqualTo(1562974113903153153L)
+        assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("3_1562973624725749765"))
+        assertThat(res.tweets[0].mediaKeys!![1]).isEqualTo(MediaKey("3_1562974097176309761"))
+
+        assertThat(res.mediaMap.size).isEqualTo(2)
+
+        res.mediaMap[MediaKey("3_1562973624725749765")]!!.asPhoto.let {
+            assertThat(it.type).isEqualTo(Media.Type.Photo)
+            assertThat(it.altText).isEqualTo("プロフィール用のアイコン画像")
+        }
+        res.mediaMap[MediaKey("3_1562974097176309761")]!!.asPhoto.let {
+            assertThat(it.type).isEqualTo(Media.Type.Photo)
+            assertThat(it.altText).isEqualTo("TwitPaneのアイコン画像")
+        }
+    }
+
 }

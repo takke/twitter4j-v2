@@ -4,6 +4,7 @@ sealed class Media {
 
     abstract val mediaKey: MediaKey
     abstract val type: Type
+    abstract val altText: String?
 
     // cast
     val asPhoto: Photo get() = this as Photo
@@ -20,6 +21,7 @@ sealed class Media {
     data class Photo(
         override val mediaKey: MediaKey,
         override val type: Type,
+        override val altText: String?,
         val url: String,
         val width: Int,
         val height: Int,
@@ -28,6 +30,7 @@ sealed class Media {
     data class AnimatedGif(
         override val mediaKey: MediaKey,
         override val type: Type,
+        override val altText: String?,
         val previewImageUrl: String,
         val width: Int,
         val height: Int,
@@ -36,6 +39,7 @@ sealed class Media {
     data class Video(
         override val mediaKey: MediaKey,
         override val type: Type,
+        override val altText: String?,
         val previewImageUrl: String,
         val width: Int,
         val height: Int,
@@ -84,6 +88,7 @@ sealed class Media {
     data class UnknownMedia(
         override val mediaKey: MediaKey,
         override val type: Type,
+        override val altText: String?,
     ) : Media()
 
     data class PublicMetrics(
@@ -106,11 +111,12 @@ sealed class Media {
             }
 
             val mediaKey = MediaKey(json.getString("media_key"))
+            val altText = if (json.has("alt_text")) json.getString("alt_text") else null
 
             return when (type) {
                 Type.Photo -> {
                     Photo(
-                        mediaKey, type,
+                        mediaKey, type, altText,
                         json.getString("url"),
                         json.getInt("width"),
                         json.getInt("height")
@@ -119,7 +125,7 @@ sealed class Media {
 
                 Type.AnimatedGif -> {
                     AnimatedGif(
-                        mediaKey, type,
+                        mediaKey, type, altText,
                         json.getString("preview_image_url"),
                         json.getInt("width"),
                         json.getInt("height")
@@ -138,7 +144,7 @@ sealed class Media {
                     }
 
                     Video(
-                        mediaKey, type,
+                        mediaKey, type, altText,
                         json.getString("preview_image_url"),
                         json.getInt("width"),
                         json.getInt("height"),
@@ -149,7 +155,7 @@ sealed class Media {
                 }
 
                 else -> {
-                    UnknownMedia(mediaKey, type)
+                    UnknownMedia(mediaKey, type, altText)
                 }
             }
         }
