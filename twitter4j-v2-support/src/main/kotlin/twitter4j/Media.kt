@@ -34,7 +34,36 @@ sealed class Media {
         val previewImageUrl: String,
         val width: Int,
         val height: Int,
-    ) : Media()
+        val variants: Array<Variant>
+    ) : Media() {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as AnimatedGif
+
+            if (mediaKey != other.mediaKey) return false
+            if (type != other.type) return false
+            if (altText != other.altText) return false
+            if (previewImageUrl != other.previewImageUrl) return false
+            if (width != other.width) return false
+            if (height != other.height) return false
+            if (!variants.contentEquals(other.variants)) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = mediaKey.hashCode()
+            result = 31 * result + type.hashCode()
+            result = 31 * result + (altText?.hashCode() ?: 0)
+            result = 31 * result + previewImageUrl.hashCode()
+            result = 31 * result + width
+            result = 31 * result + height
+            result = 31 * result + variants.contentHashCode()
+            return result
+        }
+    }
 
     data class Video(
         override val mediaKey: MediaKey,
@@ -128,21 +157,12 @@ sealed class Media {
                         mediaKey, type, altText,
                         json.getString("preview_image_url"),
                         json.getInt("width"),
-                        json.getInt("height")
+                        json.getInt("height"),
+                        parseVariants(json)
                     )
                 }
 
                 Type.Video -> {
-                    val variantsJson = json.optJSONArray("variants")
-                    val variants = Array(variantsJson?.length() ?: 0) { index ->
-                        val v = variantsJson!!.getJSONObject(index)
-                        Variant(
-                            if (v.has("bit_rate")) v.getInt("bit_rate") else null,
-                            v.getString("content_type"),
-                            v.getString("url")
-                        )
-                    }
-
                     Video(
                         mediaKey, type, altText,
                         json.getString("preview_image_url"),
@@ -150,7 +170,7 @@ sealed class Media {
                         json.getInt("height"),
                         json.getInt("duration_ms"),
                         PublicMetrics(json.optJSONObject("public_metrics")),
-                        variants
+                        parseVariants(json)
                     )
                 }
 
@@ -158,6 +178,19 @@ sealed class Media {
                     UnknownMedia(mediaKey, type, altText)
                 }
             }
+        }
+
+        private fun parseVariants(json: JSONObject): Array<Variant> {
+            val variantsJson = json.optJSONArray("variants")
+            val variants = Array(variantsJson?.length() ?: 0) { index ->
+                val v = variantsJson!!.getJSONObject(index)
+                Variant(
+                    if (v.has("bit_rate")) v.getInt("bit_rate") else null,
+                    v.getString("content_type"),
+                    v.getString("url")
+                )
+            }
+            return variants
         }
 
     }

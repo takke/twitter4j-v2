@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v1.3.2 (2022.08.xx)
+-------------------
+- Add variants to media (animated_gif)
+
 v1.3.1 (2022.08.26)
 -------------------
 - Add variants to media

@@ -595,6 +595,78 @@ class GetTweetsTest {
     }
 
     @Test
+    fun media_animated_gif() {
+
+        val res = twitter.getTweets(
+            1563397072644374529L,
+            tweetFields = "attachments",
+            expansions = "attachments.media_keys",
+            mediaFields = V2DefaultFields.mediaFields,
+            placeFields = null,
+            pollFields = null,
+            userFields = null,
+        )
+
+        // {
+        //   "data": [
+        //      {
+        //         "id": "1563397072644374529",
+        //         "text": "アニメーションGIFのテスト https:\/\/t.co\/4m8CQ6zeGE",
+        //         "attachments": {
+        //            "media_keys": [
+        //               "16_1563397065933475840"
+        //            ]
+        //         }
+        //      }
+        //   ],
+        //   "includes": {
+        //      "media": [
+        //         {
+        //            "width": 498,
+        //            "preview_image_url": "https:\/\/pbs.twimg.com\/tweet_video_thumb\/FbJNWSXaUAATviC.jpg",
+        //            "height": 262,
+        //            "type": "animated_gif",
+        //            "media_key": "16_1563397065933475840",
+        //            "variants": [
+        //               {
+        //                  "bit_rate": 0,
+        //                  "content_type": "video\/mp4",
+        //                  "url": "https:\/\/video.twimg.com\/tweet_video\/FbJNWSXaUAATviC.mp4"
+        //               }
+        //            ]
+        //         }
+        //      ]
+        //   }
+        // }
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        println(res)
+
+        assertThat(res.tweets[0].id).isEqualTo(1563397072644374529L)
+        assertThat(res.tweets[0].mediaKeys!![0]).isEqualTo(MediaKey("16_1563397065933475840"))
+
+        assertThat(res.mediaMap.size).isEqualTo(1)
+
+        val video = res.mediaMap[MediaKey("16_1563397065933475840")]!!.asAnimatedGif
+        assertThat(video.type).isEqualTo(Media.Type.AnimatedGif)
+
+        assertThat(video.previewImageUrl).isEqualTo("https://pbs.twimg.com/tweet_video_thumb/FbJNWSXaUAATviC.jpg")
+        assertThat(video.width).isEqualTo(498)
+        assertThat(video.height).isEqualTo(262)
+
+        assertThat(video.variants.size).isEqualTo(1)
+        assertThat(video.variants[0]).isEqualTo(
+            Media.Variant(
+                0,
+                "video/mp4",
+                "https://video.twimg.com/tweet_video/FbJNWSXaUAATviC.mp4"
+            )
+        )
+    }
+
+    @Test
     fun media_alt_text() {
 
         // https://twitter.com/takke/status/1562974113903153153
