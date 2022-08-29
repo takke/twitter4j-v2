@@ -563,35 +563,28 @@ class GetTweetsTest {
         assertThat(video.width).isEqualTo(1920)
         assertThat(video.height).isEqualTo(1080)
 
-        assertThat(video.variants.size).isEqualTo(4)
-        assertThat(video.variants.any {
-            it == Media.Variant(
+        assertThat(video.variants).containsOnly(
+            Media.Variant(
                 832000,
                 "video/mp4",
                 "https://video.twimg.com/amplify_video/1335947635014905857/vid/640x360/pRCUFi8H_x8jL5KM.mp4?tag=13"
-            )
-        }).isTrue
-        assertThat(video.variants.any {
-            it == Media.Variant(
+            ),
+            Media.Variant(
                 288000,
                 "video/mp4",
                 "https://video.twimg.com/amplify_video/1335947635014905857/vid/480x270/nLhybIFYjGkSZ3UW.mp4?tag=13"
-            )
-        }).isTrue
-        assertThat(video.variants.any {
-            it == Media.Variant(
+            ),
+            Media.Variant(
                 null,
                 "application/x-mpegURL",
                 "https://video.twimg.com/amplify_video/1335947635014905857/pl/wSROnrJTqUNVDl7n.m3u8?tag=13"
-            )
-        }).isTrue
-        assertThat(video.variants.any {
-            it == Media.Variant(
+            ),
+            Media.Variant(
                 2176000,
                 "video/mp4",
                 "https://video.twimg.com/amplify_video/1335947635014905857/vid/1280x720/z2ew8py8ODet_3Za.mp4?tag=13"
             )
-        }).isTrue
+        )
     }
 
     @Test
