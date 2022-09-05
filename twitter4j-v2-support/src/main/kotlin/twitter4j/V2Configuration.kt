@@ -3,7 +3,7 @@ package twitter4j
 import twitter4j.conf.Configuration
 import java.util.concurrent.ConcurrentHashMap
 
-data class V2Configuration(var baseURL: String = "https://api.twitter.com/2/")
+data class V2Configuration(val baseURL: String)
 
 internal object V2ConfigurationContainer {
     val v2ConfigurationMap = ConcurrentHashMap<Configuration, V2Configuration>()
@@ -14,8 +14,11 @@ val Configuration.v2Configuration: V2Configuration
         return if (V2ConfigurationContainer.v2ConfigurationMap.containsKey(this)) {
             V2ConfigurationContainer.v2ConfigurationMap[this]!!
         } else {
-            val v2Configuration = V2Configuration()
-            V2ConfigurationContainer.v2ConfigurationMap.putIfAbsent(this, v2Configuration)
+            val url =
+                if (restBaseURL == "https://api.twittertwitter.com/1.1/") "https://api.twitter.com/2/"
+                else restBaseURL
+
+            V2ConfigurationContainer.v2ConfigurationMap.putIfAbsent(this, V2Configuration(url))
             v2Configuration
         }
     }
