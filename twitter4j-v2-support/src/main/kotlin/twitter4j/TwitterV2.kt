@@ -378,6 +378,18 @@ interface TwitterV2 {
     ): BooleanResponse
 
     /**
+     * Hides or unhides a reply to a Tweet.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden"
+     */
+    @Throws(TwitterException::class)
+    fun hideReplies(
+        tweetId: Long,
+        hidden: Boolean
+    ): BooleanResponse
+
+    /**
      * Returns a variety of information about one or more users specified by the requested IDs.
      *
      * @throws TwitterException when Twitter service or network is unavailable

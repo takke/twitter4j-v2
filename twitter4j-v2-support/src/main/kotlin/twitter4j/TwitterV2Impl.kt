@@ -742,6 +742,25 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     }
 
     @Throws(TwitterException::class)
+    override fun hideReplies(
+        tweetId: Long,
+        hidden: Boolean
+    ): BooleanResponse {
+
+        val json = JSONObject()
+        json.put("hidden", hidden)
+
+        return V2ResponseFactory().createBooleanResponse(
+            put(
+                conf.v2Configuration.baseURL + "tweets/" + tweetId + "/hidden",
+                arrayOf(HttpParameter(json))
+            ),
+            conf,
+            "hidden"
+        )
+    }
+
+    @Throws(TwitterException::class)
     override fun getUsers(
         vararg ids: Long,
         tweetFields: String?,
@@ -1392,6 +1411,15 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         twitter.ensureAuthorizationEnabled()
 
         return twitter.http.delete(url, emptyArray(), twitter.auth, twitter)
+    }
+
+    private fun put(url: String, params: Array<HttpParameter>): HttpResponse {
+
+        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+        twitter.ensureAuthorizationEnabled()
+
+        // TODO Support put method at the constructor of HttpRequest
+        return twitter.http.put(url, params, twitter.auth, twitter)
     }
 
 }

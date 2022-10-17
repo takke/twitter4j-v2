@@ -27,7 +27,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     val targetUserId = 14276577L // sample2
     println("blockUser")
     println("=========")
-    twitter.blockUser(
+    twitter.v2.blockUser(
         myId,
         targetUserId
     ).let {
@@ -46,7 +46,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     println("unblockUser")
     println("===========")
-    twitter.unblockUser(
+    twitter.v2.unblockUser(
         myId,
         targetUserId
     ).let {

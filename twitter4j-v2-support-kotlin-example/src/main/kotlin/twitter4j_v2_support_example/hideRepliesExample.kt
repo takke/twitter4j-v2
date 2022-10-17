@@ -35,7 +35,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     println("hideReplies: hidden=true")
     println("========================")
-    twitter.hideReplies(
+    twitter.v2.hideReplies(
         lastTweet.id,
         true
     ).let {
@@ -51,7 +51,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("hideReplies: hidden=false")
     println("=========================")
-    twitter.hideReplies(
+    twitter.v2.hideReplies(
         lastTweet.id,
         false
     ).let {
