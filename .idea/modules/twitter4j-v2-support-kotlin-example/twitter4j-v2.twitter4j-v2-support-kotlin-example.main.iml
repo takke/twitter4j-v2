@@ -13,6 +13,9 @@
           <option name="noReflect" value="true" />
           <option name="moduleName" value="twitter4j-v2-support-kotlin-example" />
           <option name="jvmTarget" value="1.8" />
+          <option name="friendPaths">
+            <array />
+          </option>
           <option name="languageVersion" value="1.7" />
           <option name="apiVersion" value="1.7" />
           <option name="pluginOptions">
