@@ -606,4 +606,297 @@ interface TwitterV2 {
         userFields: String? = null,
     ): SpacesResponse
 
+    /**
+     * Lookup a specific list by ID
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-lists-id"
+     */
+    @Throws(TwitterException::class)
+    fun getList(
+        /**
+         * The ID of the List to lookup.
+         */
+        id: Long,
+        expansions: String? = null,
+        listFields: String? = null,
+        userFields: String? = null,
+    ): ListsResponse
+
+    /**
+     * Lookup a specific list by ID
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists#Optional"
+     */
+    @Throws(TwitterException::class)
+    fun getOwnedLists(
+        /**
+         * The user ID whose owned Lists you would like to retrieve.
+         */
+        id: Long,
+        expansions: String? = null,
+        listFields: String? = null,
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        userFields: String? = null,
+    ): ListsResponse
+
+    /**
+     * Lookup Tweets from a specified List
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/api-reference/get-lists-id-tweets"
+     */
+    @Throws(TwitterException::class)
+    fun getListTweets(
+        /**
+         * The ID of the List whose Tweets you would like to retrieve.
+         */
+        id: Long,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): TweetsResponse
+
+    /**
+     * Returns a list of members from a specified List
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members"
+     */
+    @Throws(TwitterException::class)
+    fun getListMembers(
+        /**
+         * The ID of the List whose members you would like to retrieve.
+         */
+        id: Long,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): UsersResponse
+
+    /**
+     * Returns all Lists a specified user is a member of
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships"
+     */
+    @Throws(TwitterException::class)
+    fun getListMemberships(
+        /**
+         * The user ID whose List memberships you would like to retrieve.
+         */
+        id: Long,
+        expansions: String? = null,
+        listFields: String? = null,
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        userFields: String? = null,
+    ): ListsResponse
+
+    /**
+     * Returns all followers of a specified List
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers"
+     */
+    @Throws(TwitterException::class)
+    fun getListFollowers(
+        /**
+         * The ID of the List whose followers you would like to retrieve.
+         */
+        id: Long,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): UsersResponse
+
+    /**
+     * Returns all Lists a specified user follows
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists"
+     */
+    @Throws(TwitterException::class)
+    fun getFollowedLists(
+        /**
+         * The user ID whose followed Lists you would like to retrieve.
+         */
+        id: Long,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        userFields: String? = null,
+    ): ListsResponse
+
+    /**
+     * Returns the pinned Lists of the authenticated user
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists"
+     */
+    @Throws(TwitterException::class)
+    fun getPinnedLists(
+        /**
+         * The user ID whose pinned Lists you would like to retrieve.
+         * The user’s ID must correspond to the user ID of the authenticating user,
+         * meaning that you must pass the Access Tokens associated with the user ID when authenticating your request.
+         */
+        id: Long,
+        expansions: String? = null,
+        listFields: String? = null,
+        userFields: String? = null,
+    ): ListsResponse
+
+    /**
+     * Enables the authenticated user to create a List.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists"
+     */
+    @Throws(TwitterException::class)
+    fun createList(
+        /**
+         * The name of the List you wish to create.
+         */
+        name: String,
+        /**
+         * Description of the List.
+         */
+        description: String? = null,
+        /**
+         * Determine whether the List should be private.
+         */
+        private: Boolean? = null,
+    ): ListsResponse
+
+    /**
+     * Enables the authenticated user to delete a List that they own.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id"
+     */
+    @Throws(TwitterException::class)
+    fun deleteList(
+        /**
+         * The ID of the List to be deleted.
+         */
+        id: Long
+    ): BooleanResponse
+
+    /**
+     * Enables the authenticated user to add a member to a List they own.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists-id-members"
+     */
+    @Throws(TwitterException::class)
+    fun addListMember(
+        /**
+         * The ID of the List you are adding a member to.
+         */
+        listId: Long,
+        /**
+         * The ID of the user you wish to add as a member of the List.
+         */
+        userId: Long
+    ): BooleanResponse
+
+    /**
+     * Enables the authenticated user to remove a member from a List they own.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id-members-user_id"
+     */
+    @Throws(TwitterException::class)
+    fun deleteListMember(
+        /**
+         * The ID of the List you are removing a member from.
+         */
+        listId: Long,
+        /**
+         * The ID of the user you wish to remove as a member of the List.
+         */
+        userId: Long
+    ): BooleanResponse
+
+    /**
+     * Enables the authenticated user to follow a List.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-users-id-followed-lists"
+     */
+    @Throws(TwitterException::class)
+    fun followList(
+        /**
+         * The user ID who you are following a List on behalf of.
+         */
+        userId: Long,
+        /**
+         * The ID of the List that you would like the user id to follow.
+         */
+        listId: Long
+    ): BooleanResponse
+
+    /**
+     * Enables the authenticated user to unfollow a List.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-users-id-followed-lists-list_id"
+     */
+    @Throws(TwitterException::class)
+    fun unfollowList(
+        /**
+         * The user ID who you are unfollowing a List on behalf of.
+         */
+        userId: Long,
+        /**
+         * The ID of the List that you would like the user id to unfollow.
+         */
+        listId: Long,
+    ): BooleanResponse
+
+    /**
+     * Enables the authenticated user to pin a List.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-users-id-pinned-lists"
+     */
+    @Throws(TwitterException::class)
+    fun pinList(
+        /**
+         * The user ID who you are pinning a List on behalf of.
+         */
+        userId: Long,
+        /**
+         * The ID of the List that you would like the user id to pin.
+         */
+        listId: Long
+    ): BooleanResponse
+
+    /**
+     * Enables the authenticated user to unpin a List.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-users-id-pinned-lists-list_id"
+     */
+    @Throws(TwitterException::class)
+    fun unpinList(
+        /**
+         * The user ID who you are unpin a List on behalf of.
+         */
+        userId: Long,
+        /**
+         * The ID of the List that you would like the user id to unpin.
+         */
+        listId: Long,
+    ): BooleanResponse
+
 }

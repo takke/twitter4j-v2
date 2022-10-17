@@ -14,7 +14,7 @@ class ListsTest {
 //
 //        println("createList")
 //        println("==========")
-//        val listId = twitter.createList("test list " + Date().time).let { res ->
+//        val listId = twitter.v2.createList("test list " + Date().time).let { res ->
 //            println(res)
 //            val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
 //            println(json.toString(3))
@@ -45,7 +45,7 @@ class ListsTest {
 
         // Official Twitter Accounts
         val listId = 84839422L
-        val res = twitter.getList(listId)
+        val res = twitter.v2.getList(listId)
         println(res)
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -71,7 +71,7 @@ class ListsTest {
 
         // Official Twitter Accounts
         val listId = 84839422L
-        twitter.getList(
+        twitter.v2.getList(
             listId,
             expansions = "owner_id",
             listFields = "created_at,follower_count,member_count,private,description,owner_id",
@@ -108,7 +108,7 @@ class ListsTest {
     fun getOwnedLists_simple() {
 
         val ownerId = 783214L
-        twitter.getOwnedLists(
+        twitter.v2.getOwnedLists(
             ownerId
         ).let { res ->
             println(res)
@@ -137,7 +137,7 @@ class ListsTest {
     fun getOwnedLists_expansion_fields() {
 
         val ownerId = 783214L
-        twitter.getOwnedLists(
+        twitter.v2.getOwnedLists(
             ownerId,
             expansions = "owner_id",
             listFields = "created_at,follower_count,member_count,private,description,owner_id",
@@ -175,7 +175,7 @@ class ListsTest {
 
         // Official Twitter Accounts
         val listId = 84839422L
-        val res = twitter.getListTweets(listId)
+        val res = twitter.v2.getListTweets(listId)
         println(res)
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -188,7 +188,7 @@ class ListsTest {
 
         // Official Twitter Accounts
         val listId = 84839422L
-        val res = twitter.getListMembers(listId)
+        val res = twitter.v2.getListMembers(listId)
         println(res)
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -200,7 +200,7 @@ class ListsTest {
     fun getListMemberships_simple() {
 
         val userId = 783214L
-        val res = twitter.getListMemberships(userId)
+        val res = twitter.v2.getListMemberships(userId)
         println(res)
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -213,7 +213,7 @@ class ListsTest {
 
         // Official Twitter Accounts
         val listId = 84839422L
-        val res = twitter.getListFollowers(listId)
+        val res = twitter.v2.getListFollowers(listId)
         println(res)
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -225,7 +225,7 @@ class ListsTest {
     fun getFollowedLists_simple() {
 
         val userId = 87532773L      // @TwitterDesign
-        val res = twitter.getFollowedLists(userId)
+        val res = twitter.v2.getFollowedLists(userId)
         println(res)
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -239,7 +239,7 @@ class ListsTest {
         println("createList")
         println("==========")
         val name = "test list " + Date().time
-        val listId = twitter.createList(name).let { res ->
+        val listId = twitter.v2.createList(name).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -255,7 +255,7 @@ class ListsTest {
 
         println("getList")
         println("=======")
-        val listInfo = twitter.getList(listId)
+        val listInfo = twitter.v2.getList(listId)
         assertThat(listInfo.lists[0].id).isEqualTo(listId)
         assertThat(listInfo.lists[0].name).isEqualTo(name)
 
@@ -267,7 +267,7 @@ class ListsTest {
 
         println("addListMember")
         println("=============")
-        twitter.addListMember(listId, targetUserId).let { res ->
+        twitter.v2.addListMember(listId, targetUserId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -281,7 +281,7 @@ class ListsTest {
 
         println("deleteListMember")
         println("================")
-        twitter.deleteListMember(listId, targetUserId).let { res ->
+        twitter.v2.deleteListMember(listId, targetUserId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -295,7 +295,7 @@ class ListsTest {
 
         println("deleteList")
         println("==========")
-        twitter.deleteList(listId).let { res ->
+        twitter.v2.deleteList(listId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -312,7 +312,7 @@ class ListsTest {
 
         println("followList")
         println("==========")
-        twitter.followList(myId, targetListId).let { res ->
+        twitter.v2.followList(myId, targetListId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -326,7 +326,7 @@ class ListsTest {
 
         println("unfollowList")
         println("============")
-        twitter.unfollowList(myId, targetListId).let { res ->
+        twitter.v2.unfollowList(myId, targetListId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -343,7 +343,7 @@ class ListsTest {
 
         println("followList")
         println("==========")
-        twitter.followList(myId, targetListId).let { res ->
+        twitter.v2.followList(myId, targetListId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -357,7 +357,7 @@ class ListsTest {
 
         println("pinList")
         println("=======")
-        twitter.pinList(myId, targetListId).let { res ->
+        twitter.v2.pinList(myId, targetListId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -371,7 +371,7 @@ class ListsTest {
 
         println("getPinedLists")
         println("=============")
-        twitter.getPinnedLists(myId).let { res ->
+        twitter.v2.getPinnedLists(myId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -390,7 +390,7 @@ class ListsTest {
 
         println("unpinList")
         println("=========")
-        twitter.unpinList(myId, targetListId).let { res ->
+        twitter.v2.unpinList(myId, targetListId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))

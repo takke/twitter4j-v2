@@ -135,9 +135,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun deleteTweet(
-        /**
-         * The Tweet ID you are deleting.
-         */
         id: Long
     ): BooleanResponse {
 
@@ -546,9 +543,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun getQuoteTweets(
-        /**
-         * Unique identifier of the Tweet to request.
-         */
         id: Long,
         expansions: String?,
         maxResults: Int?,
@@ -692,9 +686,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun getBookmarks(
-        /**
-         * User ID of an authenticated user to request bookmarked Tweets for.
-         */
         id: Long,
         expansions: String?,
         maxResults: Int?,
@@ -725,9 +716,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun addBookmark(
-        /**
-         * The user ID who you are bookmarking a Tweet on behalf of.
-         */
         id: Long,
         tweetId: Long,
     ): BooleanResponse {
@@ -743,9 +731,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun deleteBookmark(
-        /**
-         * The user ID who you are bookmarking a Tweet on behalf of.
-         */
         id: Long,
         tweetId: Long,
     ): BooleanResponse {
@@ -951,19 +936,8 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun getMutingUsers(
-        /**
-         * The user ID whose muted users you would like to retrieve. The user’s ID must correspond to the user ID of the
-         * authenticating user, meaning that you must pass the Access Tokens associated with the user ID when authenticating
-         * your request.
-         */
         userId: Long,
         expansions: String?,
-        /**
-         * The maximum number of results to be returned per page. This can be a number between 1 and 1000. By default, each page will return 100 results.
-         */
-        /**
-         * The maximum number of results to be returned per page. This can be a number between 1 and 1000. By default, each page will return 100 results.
-         */
         maxResults: Int?,
         paginationToken: PaginationToken?,
         tweetFields: String?,
@@ -1080,6 +1054,311 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         return V2ResponseFactory().createSpacesResponse(
             get(conf.v2Configuration.baseURL + "spaces/search", params.toTypedArray()),
             conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getList(
+        id: Long,
+        expansions: String?,
+        listFields: String?,
+        userFields: String?,
+    ): ListsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "list.fields", listFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createListsResponse(
+            get(conf.v2Configuration.baseURL + "lists/" + id, params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getOwnedLists(
+        id: Long,
+        expansions: String?,
+        listFields: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        userFields: String?,
+    ): ListsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "list.fields", listFields)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createListsResponse(
+            get(conf.v2Configuration.baseURL + "users/" + id + "/owned_lists", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getListTweets(
+        id: Long,
+        expansions: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        tweetFields: String?,
+        userFields: String?,
+    ): TweetsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createTweetsResponse(
+            get(conf.v2Configuration.baseURL + "lists/" + id + "/tweets", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getListMembers(
+        id: Long,
+        expansions: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        tweetFields: String?,
+        userFields: String?,
+    ): UsersResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "lists/" + id + "/members", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getListMemberships(
+        id: Long,
+        expansions: String?,
+        listFields: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        userFields: String?,
+    ): ListsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "list.fields", listFields)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createListsResponse(
+            get(conf.v2Configuration.baseURL + "users/" + id + "/list_memberships", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getListFollowers(
+        id: Long,
+        expansions: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        tweetFields: String?,
+        userFields: String?,
+    ): UsersResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "lists/" + id + "/followers", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getFollowedLists(
+        id: Long,
+        expansions: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        userFields: String?,
+    ): ListsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createListsResponse(
+            get(conf.v2Configuration.baseURL + "users/" + id + "/followed_lists", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getPinnedLists(
+        id: Long,
+        expansions: String?,
+        listFields: String?,
+        userFields: String?,
+    ): ListsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "list.fields", listFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createListsResponse(
+            get(conf.v2Configuration.baseURL + "users/" + id + "/pinned_lists", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun createList(
+        name: String,
+        description: String?,
+        private: Boolean?,
+    ): ListsResponse {
+
+        val json = JSONObject()
+        json.put("name", name)
+
+        if (description != null) {
+            json.put("description", description)
+        }
+
+        if (private != null) {
+            json.put("private", private)
+        }
+
+        return V2ResponseFactory().createListsResponse(
+            post(conf.v2Configuration.baseURL + "lists", json),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun deleteList(
+        id: Long
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "lists/" + id),
+            conf,
+            "deleted"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun addListMember(
+        listId: Long,
+        userId: Long
+    ): BooleanResponse {
+
+        val json = JSONObject()
+        json.put("user_id", userId.toString())
+
+        return V2ResponseFactory().createBooleanResponse(
+            post(conf.v2Configuration.baseURL + "lists/" + listId + "/members", json),
+            conf,
+            "is_member"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun deleteListMember(
+        listId: Long,
+        userId: Long
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "lists/" + listId + "/members/" + userId),
+            conf,
+            "is_member"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun followList(
+        userId: Long,
+        listId: Long
+    ): BooleanResponse {
+
+        val json = JSONObject()
+        json.put("list_id", listId.toString())
+
+        return V2ResponseFactory().createBooleanResponse(
+            post(conf.v2Configuration.baseURL + "users/${userId}/followed_lists", json),
+            conf,
+            "following"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun unfollowList(
+        userId: Long,
+        listId: Long,
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "users/${userId}/followed_lists/${listId}"),
+            conf,
+            "following"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun pinList(
+        userId: Long,
+        listId: Long
+    ): BooleanResponse {
+
+        val json = JSONObject()
+        json.put("list_id", listId.toString())
+
+        return V2ResponseFactory().createBooleanResponse(
+            post(conf.v2Configuration.baseURL + "users/${userId}/pinned_lists", json),
+            conf,
+            "pinned"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun unpinList(
+        userId: Long,
+        listId: Long,
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "users/${userId}/pinned_lists/${listId}"),
+            conf,
+            "pinned"
         )
     }
 
