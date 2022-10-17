@@ -690,12 +690,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
-    /**
-     * Allows you to get an authenticated user's 800 most recent bookmarked Tweets.
-     *
-     * @throws TwitterException when Twitter service or network is unavailable
-     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks"
-     */
     @Throws(TwitterException::class)
     override fun getBookmarks(
         /**
@@ -729,12 +723,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
-    /**
-     * Causes the user ID identified in the path parameter to Bookmark the target Tweet provided in the request body.
-     *
-     * @throws TwitterException when Twitter service or network is unavailable
-     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/post-users-id-bookmarks"
-     */
     @Throws(TwitterException::class)
     override fun addBookmark(
         /**
@@ -753,12 +741,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
-    /**
-     * Allows a user or authenticated user ID to remove a Bookmark of a Tweet.
-     *
-     * @throws TwitterException when Twitter service or network is unavailable
-     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id"
-     */
     @Throws(TwitterException::class)
     override fun deleteBookmark(
         /**
@@ -771,6 +753,70 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         return V2ResponseFactory().createBooleanResponse(
             delete(conf.v2Configuration.baseURL + "users/" + id + "/bookmarks/" + tweetId),
             conf, "bookmarked"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getUsers(
+        vararg ids: Long,
+        tweetFields: String?,
+        userFields: String?,
+        expansions: String
+    ): UsersResponse {
+
+        val params = arrayListOf(
+            HttpParameter("ids", ids.joinToString(",")),
+            HttpParameter("expansions", expansions)
+        )
+
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "users", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getUsersBy(
+        vararg usernames: String,
+        tweetFields: String?,
+        userFields: String?,
+        expansions: String
+    ): UsersResponse {
+
+        val params = arrayListOf(
+            HttpParameter("usernames", usernames.joinToString(",")),
+            HttpParameter("expansions", expansions)
+        )
+
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "users/by", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getMe(
+        expansions: String,
+        tweetFields: String?,
+        userFields: String?,
+    ): UsersResponse {
+
+        val params = arrayListOf(
+            HttpParameter("expansions", expansions)
+        )
+
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "users/me", params.toTypedArray()),
+            conf
         )
     }
 

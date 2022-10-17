@@ -10,7 +10,7 @@ class UsersTest {
     @Test
     fun usersBy() {
 
-        val res = twitter.getUsersBy(
+        val res = twitter.v2.getUsersBy(
             "twitterdev",
             tweetFields = V2DefaultFields.tweetFields,
             userFields = V2DefaultFields.userFields,

@@ -345,7 +345,7 @@ interface TwitterV2 {
         pollFields: String? = null,
         tweetFields: String? = null,
         userFields: String? = null,
-    ): TweetsResponse 
+    ): TweetsResponse
 
     /**
      * Causes the user ID identified in the path parameter to Bookmark the target Tweet provided in the request body.
@@ -376,5 +376,47 @@ interface TwitterV2 {
         id: Long,
         tweetId: Long,
     ): BooleanResponse
+
+    /**
+     * Returns a variety of information about one or more users specified by the requested IDs.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users"
+     */
+    @Throws(TwitterException::class)
+    fun getUsers(
+        vararg ids: Long,
+        tweetFields: String? = V2DefaultFields.tweetFields,
+        userFields: String? = V2DefaultFields.userFields,
+        expansions: String = "pinned_tweet_id"
+    ): UsersResponse
+
+    /**
+     * Returns a variety of information about one or more users specified by their usernames.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by"
+     */
+    @Throws(TwitterException::class)
+    fun getUsersBy(
+        vararg usernames: String,
+        tweetFields: String? = V2DefaultFields.tweetFields,
+        userFields: String? = V2DefaultFields.userFields,
+        expansions: String = "pinned_tweet_id"
+    ): UsersResponse
+
+    /**
+     * Returns information about an authorized user.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me"
+     */
+    @Throws(TwitterException::class)
+    fun getMe(
+        expansions: String = "pinned_tweet_id",
+        tweetFields: String? = V2DefaultFields.tweetFields,
+        userFields: String? = V2DefaultFields.userFields,
+    ): UsersResponse
+
 
 }

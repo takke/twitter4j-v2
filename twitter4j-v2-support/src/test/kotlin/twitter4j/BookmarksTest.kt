@@ -8,7 +8,7 @@ class BookmarksTest {
 
     private val twitter2 by lazy { V2TestUtil.createOAuth2TwitterInstance() }
     private val myId by lazy {
-        val me = twitter2.getMe().users[0]
+        val me = twitter2.v2.getMe().users[0]
 //        println(me)
         me.id
     }
