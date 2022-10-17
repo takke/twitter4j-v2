@@ -15,7 +15,7 @@ class MutesTest {
 
         println("muteUser")
         println("========")
-        twitter.muteUser(myId, targetUserId).let { res ->
+        twitter.v2.muteUser(myId, targetUserId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -27,7 +27,7 @@ class MutesTest {
         println("delaying...")
         Thread.sleep(2000)
 
-        val mutingUsers = twitter.getMutingUsers(myId, null)
+        val mutingUsers = twitter.v2.getMutingUsers(myId, null)
         println("muting users: ${mutingUsers.users.size}, ${mutingUsers.meta?.resultCount}")
         assertThat(mutingUsers.users).isNotEmpty
 
@@ -37,7 +37,7 @@ class MutesTest {
 
         println("unmuteUser")
         println("============")
-        twitter.unmuteUser(myId, targetUserId).let { res ->
+        twitter.v2.unmuteUser(myId, targetUserId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))

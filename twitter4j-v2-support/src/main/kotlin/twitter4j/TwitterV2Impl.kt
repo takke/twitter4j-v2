@@ -949,6 +949,70 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    @Throws(TwitterException::class)
+    override fun getMutingUsers(
+        /**
+         * The user ID whose muted users you would like to retrieve. The user’s ID must correspond to the user ID of the
+         * authenticating user, meaning that you must pass the Access Tokens associated with the user ID when authenticating
+         * your request.
+         */
+        userId: Long,
+        expansions: String?,
+        /**
+         * The maximum number of results to be returned per page. This can be a number between 1 and 1000. By default, each page will return 100 results.
+         */
+        /**
+         * The maximum number of results to be returned per page. This can be a number between 1 and 1000. By default, each page will return 100 results.
+         */
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        tweetFields: String?,
+        userFields: String?,
+    ): UsersResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "users/" + userId + "/muting", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun muteUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): BooleanResponse {
+
+        val json = JSONObject()
+        json.put("target_user_id", targetUserId.toString())
+
+        return V2ResponseFactory().createBooleanResponse(
+            post(conf.v2Configuration.baseURL + "users/" + sourceUserId + "/muting", json),
+            conf,
+            "muting"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun unmuteUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "users/" + sourceUserId + "/muting/" + targetUserId),
+            conf,
+            "muting"
+        )
+    }
+
     //--------------------------------------------------
     // get/post/delete
     //--------------------------------------------------
