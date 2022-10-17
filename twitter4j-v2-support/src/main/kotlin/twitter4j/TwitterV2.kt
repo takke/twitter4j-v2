@@ -267,4 +267,61 @@ interface TwitterV2 {
         userId: Long,
         tweetId: Long
     ): BooleanResponse
+
+    /**
+     * Allows you to get information about a Tweet’s liking users.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users"
+     */
+    @Throws(TwitterException::class)
+    fun getLikingUsers(
+        tweetId: Long,
+        expansions: String? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): UsersResponse
+
+    /**
+     * Allows you to get information about a user’s liked Tweets.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets"
+     */
+    @Throws(TwitterException::class)
+    fun getLikedTweets(
+        userId: Long,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        mediaFields: String? = null,
+        placeFields: String? = null,
+        pollFields: String? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): TweetsResponse
+
+    /**
+     * Causes the user ID identified in the path parameter to Like the target Tweet.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-id-likes"
+     */
+    @Throws(TwitterException::class)
+    fun likeTweet(
+        userId: Long,
+        tweetId: Long
+    ): BooleanResponse
+
+    /**
+     * Allows a user or authenticated user ID to unlike a Tweet.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id"
+     */
+    @Throws(TwitterException::class)
+    fun unlikeTweet(
+        userId: Long,
+        tweetId: Long
+    ): BooleanResponse
 }

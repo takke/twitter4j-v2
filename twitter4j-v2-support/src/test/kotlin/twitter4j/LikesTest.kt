@@ -13,7 +13,7 @@ class LikesTest {
 
         // https://twitter.com/TwitterDev/status/1430984356139470849
         val tweetId = 1430984356139470849L
-        val res = twitter.getLikingUsers(tweetId)
+        val res = twitter.v2.getLikingUsers(tweetId)
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -28,7 +28,7 @@ class LikesTest {
     @Test
     fun getLikedTweets_simple() {
 
-        val res = twitter.getLikedTweets(myId)
+        val res = twitter.v2.getLikedTweets(myId)
 
         // no dump
         println("res.tweets.size: " + res.tweets.size)
@@ -44,7 +44,7 @@ class LikesTest {
         val tweetId = 1430984356139470849L
 
         // like
-        twitter.likeTweet(myId, tweetId).let { res ->
+        twitter.v2.likeTweet(myId, tweetId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -56,7 +56,7 @@ class LikesTest {
         Thread.sleep(2000)
 
         // unlike
-        twitter.unlikeTweet(myId, tweetId).let { res ->
+        twitter.v2.unlikeTweet(myId, tweetId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))

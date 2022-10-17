@@ -21,7 +21,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     // getLikingUsers example
     //--------------------------------------------------
     val statusId = 1435645603065778176L
-    twitter.getLikingUsers(
+    twitter.v2.getLikingUsers(
         statusId,
         expansions = "pinned_tweet_id",
         tweetFields = V2DefaultFields.tweetFields,
@@ -35,7 +35,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("minimum query")
     println("=============")
-    twitter.getLikingUsers(
+    twitter.v2.getLikingUsers(
         statusId
     ).let {
         println(it)
