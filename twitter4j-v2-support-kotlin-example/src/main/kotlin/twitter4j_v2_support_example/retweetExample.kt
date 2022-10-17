@@ -26,7 +26,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     val tweetId = 1437346169106042886L
     println("retweet")
     println("=========")
-    twitter.retweet(
+    twitter.v2.retweet(
         myId,
         tweetId
     ).let {
@@ -45,7 +45,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     println("unretweet")
     println("===========")
-    twitter.unretweet(
+    twitter.v2.unretweet(
         myId,
         tweetId
     ).let {

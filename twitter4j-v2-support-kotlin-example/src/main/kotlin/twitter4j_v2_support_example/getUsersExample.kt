@@ -1,10 +1,7 @@
 package twitter4j_v2_support_example
 
-import twitter4j.JSONObject
-import twitter4j.TwitterFactory
-import twitter4j.TwitterObjectFactory
+import twitter4j.*
 import twitter4j.conf.ConfigurationBuilder
-import twitter4j.getUsers
 
 
 fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
@@ -28,7 +25,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 //    val takkeId = 8379212L
 //    val twitterDevId = 2244994945L
     val twitterDesignId = 87532773L
-    twitter.getUsers(twitterDesignId).let {
+    twitter.v2.getUsers(twitterDesignId).let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
@@ -37,7 +34,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("minimum query")
     println("=============")
-    twitter.getUsers(
+    twitter.v2.getUsers(
         twitterDesignId,
         tweetFields = null,
         userFields = null,
@@ -51,7 +48,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pinned_tweet")
     println("============")
-    twitter.getUsers(
+    twitter.v2.getUsers(
         twitterDesignId,
         tweetFields = null,
         userFields = "pinned_tweet_id",
@@ -67,7 +64,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pinned_tweet_id only")
     println("====================")
-    twitter.getUsers(
+    twitter.v2.getUsers(
         twitterDesignId,
         tweetFields = null,
         userFields = "pinned_tweet_id",

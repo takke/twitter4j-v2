@@ -27,7 +27,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     val targetUserId = 14276577L // sample2
     println("muteUser")
     println("========")
-    twitter.muteUser(
+    twitter.v2.muteUser(
         myId,
         targetUserId
     ).let {
@@ -46,7 +46,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     println("unmuteUser")
     println("==========")
-    twitter.unmuteUser(
+    twitter.v2.unmuteUser(
         myId,
         targetUserId
     ).let {

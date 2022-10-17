@@ -26,7 +26,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     val tweetId = 1437346169106042886L
     println("likeTweet")
     println("=========")
-    twitter.likeTweet(
+    twitter.v2.likeTweet(
         myId,
         tweetId
     ).let {
@@ -45,7 +45,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     println("unlikeTweet")
     println("===========")
-    twitter.unlikeTweet(
+    twitter.v2.unlikeTweet(
         myId,
         tweetId
     ).let {

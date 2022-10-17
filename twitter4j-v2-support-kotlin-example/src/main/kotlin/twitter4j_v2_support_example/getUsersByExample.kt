@@ -1,10 +1,7 @@
 package twitter4j_v2_support_example
 
-import twitter4j.JSONObject
-import twitter4j.TwitterFactory
-import twitter4j.TwitterObjectFactory
+import twitter4j.*
 import twitter4j.conf.ConfigurationBuilder
-import twitter4j.getUsersBy
 
 
 fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
@@ -21,14 +18,14 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     // getUsersBy example
     //--------------------------------------------------
-    twitter.getUsersBy("takke").let {
+    twitter.v2.getUsersBy("takke").let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
         println(json.toString(3))
     }
 
-    twitter.getUsersBy("takke", "twitterdesign").let {
+    twitter.v2.getUsersBy("takke", "twitterdesign").let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
@@ -37,7 +34,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pinned_tweet")
     println("============")
-    twitter.getUsersBy(
+    twitter.v2.getUsersBy(
         "twitterdesign",
         tweetFields = null,
         userFields = "pinned_tweet_id",
@@ -53,7 +50,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pinned_tweet_id only")
     println("====================")
-    twitter.getUsersBy(
+    twitter.v2.getUsersBy(
         "twitterdesign",
         tweetFields = null,
         userFields = "pinned_tweet_id",

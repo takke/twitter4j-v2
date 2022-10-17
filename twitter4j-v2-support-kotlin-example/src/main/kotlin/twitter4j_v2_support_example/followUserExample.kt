@@ -27,7 +27,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     val targetUserId = 14276577L // sample2
     println("followUser")
     println("==========")
-    twitter.followUser(
+    twitter.v2.followUser(
         myId,
         targetUserId
     ).let {
@@ -46,7 +46,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     println("unfollowUser")
     println("============")
-    twitter.unfollowUser(
+    twitter.v2.unfollowUser(
         myId,
         targetUserId
     ).let {

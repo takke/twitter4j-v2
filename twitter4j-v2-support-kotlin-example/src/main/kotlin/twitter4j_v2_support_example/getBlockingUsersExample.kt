@@ -23,7 +23,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     // getBlockingUsers example
     //--------------------------------------------------
-    twitter.getBlockingUsers(
+    twitter.v2.getBlockingUsers(
         myId,
         tweetFields = V2DefaultFields.tweetFieldsFull,
         userFields = V2DefaultFields.userFields
@@ -36,7 +36,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("minimum query")
     println("=============")
-    twitter.getBlockingUsers(
+    twitter.v2.getBlockingUsers(
         myId
     ).let {
         println(it)
