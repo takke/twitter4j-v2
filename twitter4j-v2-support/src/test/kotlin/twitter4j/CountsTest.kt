@@ -9,13 +9,13 @@ import java.util.*
 class CountsTest {
 
     private val twitter by lazy { V2TestUtil.createOAuth2TwitterInstance() }
-    private val myId by lazy { twitter.verifyCredentials().id }
+//    private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
     @Ignore("need token of OAuth 2.0 Application-Only")
     fun countRecent() {
 
-        val res = twitter.countRecent("hello")
+        val res = twitter.v2.countRecent("hello")
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -32,7 +32,7 @@ class CountsTest {
     @Ignore("need token of OAuth 2.0 Application-Only, and need special credentials like `Academic Research access`")
     fun countAll() {
 
-        val res = twitter.countAll("hello")
+        val res = twitter.v2.countAll("hello")
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -52,7 +52,7 @@ class CountsTest {
         val startTime = Date(Date().time - 7 * 86400 * 1000)
         val endTime = Date(Date().time - 6 * 86400 * 1000)
         val query = "ファイザー OR モデルナ"
-        val res = twitter.countRecent(
+        val res = twitter.v2.countRecent(
             query,
             startTime = startTime,
             endTime = endTime,
@@ -79,7 +79,7 @@ class CountsTest {
         val startTime = Date(Date().time - 7 * 86400 * 1000)
         val endTime = Date(Date().time - (7 * 86400 - 3600) * 1000)
         val query = "ワクチン"
-        val res = twitter.countRecent(
+        val res = twitter.v2.countRecent(
             query,
             granularity = "minute",
             startTime = startTime,

@@ -450,6 +450,80 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    @Throws(TwitterException::class)
+    override fun countRecent(
+        query: String,
+        endTime: Date?,
+        granularity: String?,
+        sinceId: Long?,
+        startTime: Date?,
+        untilId: Long?
+    ): CountsResponse {
+
+        return countTweetsIn(
+            conf.v2Configuration.baseURL + "tweets/counts/recent",
+            query,
+            endTime,
+            granularity,
+            null,
+            sinceId,
+            startTime,
+            untilId,
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun countAll(
+        query: String,
+        endTime: Date?,
+        granularity: String?,
+        nextToken: PaginationToken?,
+        sinceId: Long?,
+        startTime: Date?,
+        untilId: Long?
+    ): CountsResponse {
+
+        return countTweetsIn(
+            conf.v2Configuration.baseURL + "tweets/counts/all",
+            query,
+            endTime,
+            granularity,
+            nextToken,
+            sinceId,
+            startTime,
+            untilId,
+        )
+    }
+
+    @Throws(TwitterException::class)
+    private fun countTweetsIn(
+        url: String,
+        query: String,
+        endTime: Date?,
+        granularity: String? = null,
+        nextToken: PaginationToken? = null,
+        sinceId: Long?,
+        startTime: Date?,
+        untilId: Long?
+    ): CountsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        params.add(HttpParameter("query", query))
+
+        V2Util.addHttpParamIfNotNull(params, "end_time", V2Util.dateToISO8601(endTime))
+        V2Util.addHttpParamIfNotNull(params, "granularity", granularity)
+        V2Util.addHttpParamIfNotNull(params, "next_token", nextToken)
+        V2Util.addHttpParamIfNotNull(params, "since_id", sinceId)
+        V2Util.addHttpParamIfNotNull(params, "start_time", V2Util.dateToISO8601(startTime))
+        V2Util.addHttpParamIfNotNull(params, "until_id", untilId)
+
+        return V2ResponseFactory().createCountsResponse(
+            get(url, params.toTypedArray()),
+            conf
+        )
+    }
+
     //--------------------------------------------------
     // get/post/delete
     //--------------------------------------------------

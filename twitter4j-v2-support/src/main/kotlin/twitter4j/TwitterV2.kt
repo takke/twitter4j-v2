@@ -174,4 +174,37 @@ interface TwitterV2 {
         userFields: String? = null,
     ): TweetsResponse
 
+    /**
+     * The recent Tweet counts endpoint returns count of Tweets from the last seven days that match a search query.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent"
+     */
+    @Throws(TwitterException::class)
+    fun countRecent(
+        query: String,
+        endTime: Date? = null,
+        granularity: String? = null,
+        sinceId: Long? = null,
+        startTime: Date? = null,
+        untilId: Long? = null
+    ): CountsResponse
+
+    /**
+     * The full-archive search endpoint returns the complete history of public Tweets matching a search query; since the first Tweet was created March 26, 2006.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all"
+     */
+    @Throws(TwitterException::class)
+    fun countAll(
+        query: String,
+        endTime: Date? = null,
+        granularity: String? = null,
+        nextToken: PaginationToken? = null,
+        sinceId: Long? = null,
+        startTime: Date? = null,
+        untilId: Long? = null
+    ): CountsResponse
+
 }
