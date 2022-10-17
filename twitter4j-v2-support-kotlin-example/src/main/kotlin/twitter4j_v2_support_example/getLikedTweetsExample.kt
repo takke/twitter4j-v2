@@ -22,7 +22,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     val userId = 8379212L       // @takke
 //    val userId = 2244994945L    // @TwitterDev
 //    val userId = 87532773L      // @TwitterDesign
-    twitter.getLikedTweets(
+    twitter.v2.getLikedTweets(
         userId,
         tweetFields = "id,text,created_at"
     ).let {
@@ -34,7 +34,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pagination")
     println("=============")
-    val page1 = twitter.getLikedTweets(
+    val page1 = twitter.v2.getLikedTweets(
         userId,
         maxResults = 10
     )
@@ -44,7 +44,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     println(json1.toString(3))
     println(page1.tweets.map { "{${it.id}, ${it.text}}" })
 
-    val page2 = twitter.getLikedTweets(
+    val page2 = twitter.v2.getLikedTweets(
         userId,
         maxResults = 10,
         paginationToken = page1.meta?.nextToken
