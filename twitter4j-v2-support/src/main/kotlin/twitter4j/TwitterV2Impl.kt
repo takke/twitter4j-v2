@@ -1013,6 +1013,50 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    @Throws(TwitterException::class)
+    override fun getSpaces(
+        vararg spaceIds: String,
+        expansions: String?,
+        spaceFields: String?,
+        userFields: String?,
+    ): SpacesResponse {
+
+        val params = arrayListOf(
+            HttpParameter("ids", spaceIds.joinToString(",")),
+        )
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "space.fields", spaceFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createSpacesResponse(
+            get(conf.v2Configuration.baseURL + "spaces", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getSpacesByCreatorIds(
+        vararg userIds: Long,
+        expansions: String?,
+        spaceFields: String?,
+        userFields: String?,
+    ): SpacesResponse {
+
+        val params = arrayListOf(
+            HttpParameter("user_ids", userIds.joinToString(",")),
+        )
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "space.fields", spaceFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createSpacesResponse(
+            get(conf.v2Configuration.baseURL + "spaces/by/creator_ids", params.toTypedArray()),
+            conf
+        )
+    }
+
     //--------------------------------------------------
     // get/post/delete
     //--------------------------------------------------

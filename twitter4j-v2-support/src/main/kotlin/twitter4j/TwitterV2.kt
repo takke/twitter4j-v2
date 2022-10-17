@@ -562,5 +562,33 @@ interface TwitterV2 {
         targetUserId: Long
     ): BooleanResponse
 
+    /**
+     * Returns details about multiple Spaces. Up to 100 comma-separated Spaces IDs can be looked up using this endpoint.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces"
+     */
+    @Throws(TwitterException::class)
+    fun getSpaces(
+        vararg spaceIds: String,
+        expansions: String? = null,
+        spaceFields: String? = null,
+        userFields: String? = null,
+    ): SpacesResponse
+
+    /**
+     * Returns live or scheduled Spaces created by the specified user IDs. Up to 100 comma-separated IDs can be looked up using this endpoint.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids"
+     */
+    @Throws(TwitterException::class)
+    fun getSpacesByCreatorIds(
+        vararg userIds: Long,
+        expansions: String? = null,
+        spaceFields: String? = null,
+        userFields: String? = null,
+    ): SpacesResponse
+
 
 }

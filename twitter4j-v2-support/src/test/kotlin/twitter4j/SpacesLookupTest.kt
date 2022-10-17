@@ -7,7 +7,7 @@ import org.junit.Test
 class SpacesLookupTest {
 
     private val twitter by lazy { V2TestUtil.createOAuth2TwitterInstance() }
-    private val myId by lazy { twitter.verifyCredentials().id }
+//    private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
     @Ignore("expiration time of oauth2.accessToken is too short")
@@ -33,7 +33,7 @@ class SpacesLookupTest {
         //--------------------------------------------------
         println("getSpaces")
         println("=====================")
-        val res = twitter.getSpaces(*spaceIds)
+        val res = twitter.v2.getSpaces(*spaceIds)
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -75,7 +75,7 @@ class SpacesLookupTest {
         //--------------------------------------------------
         println("getSpacesByCreatorIds")
         println("=====================")
-        val res = twitter.getSpacesByCreatorIds(*creatorIds)
+        val res = twitter.v2.getSpacesByCreatorIds(*creatorIds)
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
