@@ -1,10 +1,7 @@
 package twitter4j_v2_support_example
 
-import twitter4j.JSONObject
-import twitter4j.TwitterFactory
-import twitter4j.TwitterObjectFactory
+import twitter4j.*
 import twitter4j.conf.ConfigurationBuilder
-import twitter4j.getUserTweets
 
 
 fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
@@ -27,7 +24,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 //    val userId = 87532773L      // @TwitterDesign
     println("simple")
     println("======")
-    twitter.getUserTweets(userId, maxResults = 5).let {
+    twitter.v2.getUserTweets(userId, maxResults = 5).let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))

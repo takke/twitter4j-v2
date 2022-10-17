@@ -128,5 +128,50 @@ interface TwitterV2 {
         userFields: String? = null,
     ): TweetsResponse
 
+    /**
+     * The recent search endpoint returns Tweets from the last seven days that match a search query.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent"
+     */
+    @Throws(TwitterException::class)
+    fun searchRecent(
+        query: String,
+        endTime: Date? = null,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        mediaFields: String? = null,
+        nextToken: PaginationToken? = null,
+        placeFields: String? = null,
+        pollFields: String? = null,
+        sinceId: Long? = null,
+        startTime: Date? = null,
+        tweetFields: String? = null,
+        untilId: Long? = null,
+        userFields: String? = null,
+    ): TweetsResponse
+
+    /**
+     * The full-archive search endpoint returns the complete history of public Tweets matching a search query; since the first Tweet was created March 26, 2006.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all"
+     */
+    @Throws(TwitterException::class)
+    fun searchAll(
+        query: String,
+        endTime: Date? = null,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        mediaFields: String? = null,
+        nextToken: PaginationToken? = null,
+        placeFields: String? = null,
+        pollFields: String? = null,
+        sinceId: Long? = null,
+        startTime: Date? = null,
+        tweetFields: String? = null,
+        untilId: Long? = null,
+        userFields: String? = null,
+    ): TweetsResponse
 
 }

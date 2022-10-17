@@ -339,6 +339,121 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    @Throws(TwitterException::class)
+    override fun searchRecent(
+        query: String,
+        endTime: Date?,
+        expansions: String?,
+        maxResults: Int?,
+        mediaFields: String?,
+        nextToken: PaginationToken?,
+        placeFields: String?,
+        pollFields: String?,
+        sinceId: Long?,
+        startTime: Date?,
+        tweetFields: String?,
+        untilId: Long?,
+        userFields: String?,
+    ): TweetsResponse {
+
+        return searchTweetsIn(
+            conf.v2Configuration.baseURL + "tweets/search/recent",
+            query,
+            endTime,
+            expansions,
+            maxResults,
+            mediaFields,
+            nextToken,
+            placeFields,
+            pollFields,
+            sinceId,
+            startTime,
+            tweetFields,
+            untilId,
+            userFields
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun searchAll(
+        query: String,
+        endTime: Date?,
+        expansions: String?,
+        maxResults: Int?,
+        mediaFields: String?,
+        nextToken: PaginationToken?,
+        placeFields: String?,
+        pollFields: String?,
+        sinceId: Long?,
+        startTime: Date?,
+        tweetFields: String?,
+        untilId: Long?,
+        userFields: String?,
+    ): TweetsResponse {
+
+        return searchTweetsIn(
+            conf.v2Configuration.baseURL + "tweets/search/all",
+            query,
+            endTime,
+            expansions,
+            maxResults,
+            mediaFields,
+            nextToken,
+            placeFields,
+            pollFields,
+            sinceId,
+            startTime,
+            tweetFields,
+            untilId,
+            userFields
+        )
+    }
+
+    @Throws(TwitterException::class)
+    private fun searchTweetsIn(
+        url: String,
+        query: String,
+        endTime: Date?,
+        expansions: String?,
+        maxResults: Int?,
+        mediaFields: String?,
+        nextToken: PaginationToken?,
+        placeFields: String?,
+        pollFields: String?,
+        sinceId: Long?,
+        startTime: Date?,
+        tweetFields: String?,
+        untilId: Long?,
+        userFields: String?
+    ): TweetsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        params.add(HttpParameter("query", query))
+
+        V2Util.addHttpParamIfNotNull(params, "end_time", V2Util.dateToISO8601(endTime))
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "media.fields", mediaFields)
+        V2Util.addHttpParamIfNotNull(params, "next_token", nextToken)
+        V2Util.addHttpParamIfNotNull(params, "place.fields", placeFields)
+        V2Util.addHttpParamIfNotNull(params, "poll.fields", pollFields)
+        V2Util.addHttpParamIfNotNull(params, "since_id", sinceId)
+        V2Util.addHttpParamIfNotNull(params, "start_time", V2Util.dateToISO8601(startTime))
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "until_id", untilId)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createTweetsResponse(
+            get(url, params.toTypedArray()),
+            conf
+        )
+    }
+
+    //--------------------------------------------------
+    // get/post/delete
+    //--------------------------------------------------
+
     private fun get(url: String, params: Array<HttpParameter>): HttpResponse {
 
         if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")

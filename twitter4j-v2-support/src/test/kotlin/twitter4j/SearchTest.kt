@@ -7,12 +7,12 @@ import java.util.*
 class SearchTest {
 
     private val twitter by lazy { V2TestUtil.createTwitterInstance() }
-    private val myId by lazy { twitter.verifyCredentials().id }
+//    private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
     fun searchRecent() {
 
-        val res = twitter.searchRecent("hello", maxResults = 10)
+        val res = twitter.v2.searchRecent("hello", maxResults = 10)
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -34,7 +34,7 @@ class SearchTest {
 //    @Test
 //    fun searchAll() {
 //
-//        val res = twitter.searchAll("hello", maxResults = 10)
+//        val res = twitter.v2.searchAll("hello", maxResults = 10)
 //        println(res)
 //
 //        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -56,7 +56,7 @@ class SearchTest {
     @Test
     fun startEndTimeById() {
 
-        val res = twitter.searchRecent(
+        val res = twitter.v2.searchRecent(
             "hello", maxResults = 50,
             startTime = Date(Date().time - 7 * 86400 * 1000),
             endTime = Date(Date().time - 6 * 86400 * 1000),
