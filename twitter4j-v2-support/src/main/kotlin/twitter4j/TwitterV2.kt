@@ -222,6 +222,29 @@ interface TwitterV2 {
     ): UsersResponse
 
     /**
+     * Returns Quote Tweets for a Tweet specified by the requested Tweet ID.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/quote-tweets/api-reference/get-tweets-id-quote_tweets"
+     */
+    @Throws(TwitterException::class)
+    fun getQuoteTweets(
+        /**
+         * Unique identifier of the Tweet to request.
+         */
+        id: Long,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        exclude: String? = null,
+        mediaFields: String? = null,
+        paginationToken: PaginationToken? = null,
+        placeFields: String? = null,
+        pollFields: String? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): TweetsResponse
+
+    /**
      * Causes the user ID identified in the path parameter to Retweet the target Tweet.
      *
      * @throws TwitterException when Twitter service or network is unavailable

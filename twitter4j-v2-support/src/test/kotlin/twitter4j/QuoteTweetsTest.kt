@@ -11,7 +11,7 @@ class QuoteTweetsTest {
     fun getQuoteTweets_full() {
 
         // https://twitter.com/TwitterJP/status/1522058667377696769
-        val res = twitter.getQuoteTweets(
+        val res = twitter.v2.getQuoteTweets(
             1522058667377696769L,
             V2DefaultFields.expansions,
             10,

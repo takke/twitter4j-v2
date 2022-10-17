@@ -545,6 +545,41 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     }
 
     @Throws(TwitterException::class)
+    override fun getQuoteTweets(
+        /**
+         * Unique identifier of the Tweet to request.
+         */
+        id: Long,
+        expansions: String?,
+        maxResults: Int?,
+        exclude: String?,
+        mediaFields: String?,
+        paginationToken: PaginationToken?,
+        placeFields: String?,
+        pollFields: String?,
+        tweetFields: String?,
+        userFields: String?,
+    ): TweetsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "exclude", exclude)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "media.fields", mediaFields)
+        V2Util.addHttpParamIfNotNull(params, "place.fields", placeFields)
+        V2Util.addHttpParamIfNotNull(params, "poll.fields", pollFields)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createTweetsResponse(
+            get(conf.v2Configuration.baseURL + "tweets/" + id + "/quote_tweets", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
     override fun retweet(
         userId: Long,
         tweetId: Long
