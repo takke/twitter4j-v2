@@ -690,6 +690,90 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    /**
+     * Allows you to get an authenticated user's 800 most recent bookmarked Tweets.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks"
+     */
+    @Throws(TwitterException::class)
+    override fun getBookmarks(
+        /**
+         * User ID of an authenticated user to request bookmarked Tweets for.
+         */
+        id: Long,
+        expansions: String?,
+        maxResults: Int?,
+        mediaFields: String?,
+        paginationToken: PaginationToken?,
+        placeFields: String?,
+        pollFields: String?,
+        tweetFields: String?,
+        userFields: String?,
+    ): TweetsResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "media.fields", mediaFields)
+        V2Util.addHttpParamIfNotNull(params, "place.fields", placeFields)
+        V2Util.addHttpParamIfNotNull(params, "poll.fields", pollFields)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createTweetsResponse(
+            get(conf.v2Configuration.baseURL + "users/" + id + "/bookmarks", params.toTypedArray()),
+            conf
+        )
+    }
+
+    /**
+     * Causes the user ID identified in the path parameter to Bookmark the target Tweet provided in the request body.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/post-users-id-bookmarks"
+     */
+    @Throws(TwitterException::class)
+    override fun addBookmark(
+        /**
+         * The user ID who you are bookmarking a Tweet on behalf of.
+         */
+        id: Long,
+        tweetId: Long,
+    ): BooleanResponse {
+
+        val json = JSONObject()
+        json.put("tweet_id", tweetId.toString())
+
+        return V2ResponseFactory().createBooleanResponse(
+            post(conf.v2Configuration.baseURL + "users/" + id + "/bookmarks", arrayOf(HttpParameter(json))),
+            conf, "bookmarked"
+        )
+    }
+
+    /**
+     * Allows a user or authenticated user ID to remove a Bookmark of a Tweet.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id"
+     */
+    @Throws(TwitterException::class)
+    override fun deleteBookmark(
+        /**
+         * The user ID who you are bookmarking a Tweet on behalf of.
+         */
+        id: Long,
+        tweetId: Long,
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "users/" + id + "/bookmarks/" + tweetId),
+            conf, "bookmarked"
+        )
+    }
+
     //--------------------------------------------------
     // get/post/delete
     //--------------------------------------------------

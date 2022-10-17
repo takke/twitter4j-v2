@@ -17,7 +17,7 @@ class BookmarksTest {
     @Ignore("expiration time of oauth2.accessToken is too short")
     fun getBookmarks_full() {
 
-        val res = twitter2.getBookmarks(
+        val res = twitter2.v2.getBookmarks(
             myId,
             V2DefaultFields.expansions,
             10,
@@ -46,7 +46,7 @@ class BookmarksTest {
 
         println("addBookmark")
         println("===========")
-        val bookmarked = twitter2.addBookmark(myId, tweetId)
+        val bookmarked = twitter2.v2.addBookmark(myId, tweetId)
         assertThat(bookmarked.result).isTrue
 
         // delay
@@ -55,7 +55,7 @@ class BookmarksTest {
 
         println("getBookmarks")
         println("============")
-        val res = twitter2.getBookmarks(
+        val res = twitter2.v2.getBookmarks(
             myId,
             maxResults = 3,
         )
@@ -64,7 +64,7 @@ class BookmarksTest {
 
         println("deleteBookmark")
         println("==============")
-        val deleteResult = twitter2.deleteBookmark(myId, tweetId)
+        val deleteResult = twitter2.v2.deleteBookmark(myId, tweetId)
         println(deleteResult)
         assertThat(deleteResult.result).isFalse
     }

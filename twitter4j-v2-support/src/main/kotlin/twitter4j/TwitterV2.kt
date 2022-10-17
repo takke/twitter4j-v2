@@ -324,4 +324,57 @@ interface TwitterV2 {
         userId: Long,
         tweetId: Long
     ): BooleanResponse
+
+    /**
+     * Allows you to get an authenticated user's 800 most recent bookmarked Tweets.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks"
+     */
+    @Throws(TwitterException::class)
+    fun getBookmarks(
+        /**
+         * User ID of an authenticated user to request bookmarked Tweets for.
+         */
+        id: Long,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        mediaFields: String? = null,
+        paginationToken: PaginationToken? = null,
+        placeFields: String? = null,
+        pollFields: String? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): TweetsResponse 
+
+    /**
+     * Causes the user ID identified in the path parameter to Bookmark the target Tweet provided in the request body.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/post-users-id-bookmarks"
+     */
+    @Throws(TwitterException::class)
+    fun addBookmark(
+        /**
+         * The user ID who you are bookmarking a Tweet on behalf of.
+         */
+        id: Long,
+        tweetId: Long,
+    ): BooleanResponse
+
+    /**
+     * Allows a user or authenticated user ID to remove a Bookmark of a Tweet.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id"
+     */
+    @Throws(TwitterException::class)
+    fun deleteBookmark(
+        /**
+         * The user ID who you are bookmarking a Tweet on behalf of.
+         */
+        id: Long,
+        tweetId: Long,
+    ): BooleanResponse
+
 }
