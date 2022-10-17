@@ -14,7 +14,7 @@ class TimelinesTest {
     fun getUserMentions_simpleById() {
 
         println("account id[$myId]")
-        val res = twitter.getUserMentions(myId, maxResults = 5)
+        val res = twitter.v2.getUserMentions(myId, maxResults = 5)
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -38,7 +38,7 @@ class TimelinesTest {
 
         val userId = 8379212L       // @takke
         println("account id[$userId]")
-        val res = twitter.getUserTweets(userId, maxResults = 5)
+        val res = twitter.v2.getUserTweets(userId, maxResults = 5)
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -64,7 +64,7 @@ class TimelinesTest {
         println("account id[$userId]")
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         sdf.timeZone = TimeZone.getTimeZone("GMT")
-        val res = twitter.getUserTweets(
+        val res = twitter.v2.getUserTweets(
             userId, maxResults = 50,
             exclude = "retweets",
             startTime = sdf.parse("2019-11-01T00:00:00Z"),
@@ -86,7 +86,7 @@ class TimelinesTest {
     @Test
     fun getReverseChronologicalTimeline_simple() {
 
-        val res = twitter.getReverseChronologicalTimeline(myId, maxResults = 100)
+        val res = twitter.v2.getReverseChronologicalTimeline(myId, maxResults = 100)
         // CI のログに残らないように出力を抑制する
 //        println(res)
         println(res.meta)
@@ -110,7 +110,7 @@ class TimelinesTest {
     @Test
     fun getReverseChronologicalTimeline_full() {
 
-        val res = twitter.getReverseChronologicalTimeline(
+        val res = twitter.v2.getReverseChronologicalTimeline(
             myId,
             maxResults = 100,
             mediaFields = V2DefaultFields.mediaFields,
@@ -143,7 +143,7 @@ class TimelinesTest {
 //    @Test
 //    fun getUserTweets_startEndTimeByUsername() {
 //
-//        val res = twitter.getUserTweets(
+//        val res = twitter.v2.getUserTweets(
 //            "twitterdev", maxResults = 50,
 //            exclude = "retweets",
 //            startTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2019-11-01T00:00:00Z"),
