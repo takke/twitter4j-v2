@@ -20,7 +20,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     // getFollowingUsers example
     //--------------------------------------------------
     val twitterDesignId = 87532773L
-    twitter.getFollowingUsers(
+    twitter.v2.getFollowingUsers(
         twitterDesignId,
         tweetFields = V2DefaultFields.tweetFields,
         userFields = V2DefaultFields.userFields
@@ -33,7 +33,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("minimum query")
     println("=============")
-    twitter.getFollowingUsers(
+    twitter.v2.getFollowingUsers(
         twitterDesignId
     ).let {
         println(it)
@@ -44,7 +44,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
 
     println("pagination")
     println("=============")
-    val page1 = twitter.getFollowingUsers(
+    val page1 = twitter.v2.getFollowingUsers(
         twitterDesignId,
         maxResults = 10
     )
@@ -54,7 +54,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     println(json1.toString(3))
     println(page1.users.map { "(${it.id}, ${it.name}, ${it.screenName})" })
 
-    val page2 = twitter.getFollowingUsers(
+    val page2 = twitter.v2.getFollowingUsers(
         twitterDesignId,
         maxResults = 10,
         paginationToken = page1.meta?.nextToken

@@ -820,6 +820,82 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    @Throws(TwitterException::class)
+    override fun getFollowingUsers(
+        userId: Long,
+        expansions: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        tweetFields: String?,
+        userFields: String?,
+    ): UsersResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "users/" + userId + "/following", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun getFollowerUsers(
+        userId: Long,
+        expansions: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        tweetFields: String?,
+        userFields: String?
+    ): UsersResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "users/" + userId + "/followers", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun followUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): FollowResponse {
+
+        val json = JSONObject()
+        json.put("target_user_id", targetUserId.toString())
+
+        return V2ResponseFactory().createFollowResponse(
+            post(conf.v2Configuration.baseURL + "users/" + sourceUserId + "/following", json),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun unfollowUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "users/" + sourceUserId + "/following/" + targetUserId),
+            conf,
+            "following"
+        )
+    }
+
     //--------------------------------------------------
     // get/post/delete
     //--------------------------------------------------

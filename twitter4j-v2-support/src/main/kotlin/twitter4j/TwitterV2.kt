@@ -418,5 +418,60 @@ interface TwitterV2 {
         userFields: String? = V2DefaultFields.userFields,
     ): UsersResponse
 
+    /**
+     * Returns a list of users the specified user ID is following.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following"
+     */
+    @Throws(TwitterException::class)
+    fun getFollowingUsers(
+        userId: Long,
+        expansions: String? = "pinned_tweet_id",
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): UsersResponse
+
+    /**
+     * Returns a list of users who are followers of the specified user ID.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers"
+     */
+    @Throws(TwitterException::class)
+    fun getFollowerUsers(
+        userId: Long,
+        expansions: String? = "pinned_tweet_id",
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        tweetFields: String? = null,
+        userFields: String? = null
+    ): UsersResponse
+
+    /**
+     * Allows a user ID to follow another user.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following"
+     */
+    @Throws(TwitterException::class)
+    fun followUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): FollowResponse
+
+    /**
+     * Allows a user ID to unfollow another user.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following"
+     */
+    @Throws(TwitterException::class)
+    fun unfollowUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): BooleanResponse
 
 }

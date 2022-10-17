@@ -11,7 +11,7 @@ class FollowsTest {
     @Test
     fun getFollowingUsers_simple() {
 
-        val res = twitter.getFollowingUsers(myId, expansions = null)
+        val res = twitter.v2.getFollowingUsers(myId, expansions = null)
         println(res.users.size)
 
         assertThat(res.meta?.resultCount).isGreaterThan(0)
@@ -23,7 +23,7 @@ class FollowsTest {
     @Test
     fun getFollowerUsers_simple() {
 
-        val res = twitter.getFollowerUsers(myId, expansions = null)
+        val res = twitter.v2.getFollowerUsers(myId, expansions = null)
         println(res.users.size)
 
         assertThat(res.meta?.resultCount).isGreaterThan(0)
@@ -39,7 +39,7 @@ class FollowsTest {
 
         println("followUser")
         println("==========")
-        twitter.followUser(myId, targetUserId).let { res ->
+        twitter.v2.followUser(myId, targetUserId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -53,7 +53,7 @@ class FollowsTest {
 
         println("unfollowUser")
         println("============")
-        twitter.unfollowUser(myId, targetUserId).let { res ->
+        twitter.v2.unfollowUser(myId, targetUserId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
