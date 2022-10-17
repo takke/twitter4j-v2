@@ -16,7 +16,7 @@ class SpacesLookupTest {
         //--------------------------------------------------
         // just a search spaces to get space ids
         //--------------------------------------------------
-        val spaces = twitter.searchSpaces("a", Space.State.Scheduled, spaceFields = "creator_id")
+        val spaces = twitter.v2.searchSpaces("a", Space.State.Scheduled, spaceFields = "creator_id")
 //        val json0 = JSONObject(TwitterObjectFactory.getRawJSON(spaces))
 //        println(json0.toString(3))
 
@@ -58,7 +58,7 @@ class SpacesLookupTest {
         //--------------------------------------------------
         // just a search spaces to get creator_ids
         //--------------------------------------------------
-        val spaces = twitter.searchSpaces("a", Space.State.Scheduled, spaceFields = "creator_id")
+        val spaces = twitter.v2.searchSpaces("a", Space.State.Scheduled, spaceFields = "creator_id")
 //        val json0 = JSONObject(TwitterObjectFactory.getRawJSON(spaces))
 //        println(json0.toString(3))
 
