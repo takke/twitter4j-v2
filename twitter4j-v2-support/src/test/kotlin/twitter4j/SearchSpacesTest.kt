@@ -7,14 +7,14 @@ import org.junit.Test
 class SearchSpacesTest {
 
     private val twitter by lazy { V2TestUtil.createOAuth2TwitterInstance() }
-    private val myId by lazy { twitter.verifyCredentials().id }
+//    private val myId by lazy { twitter.verifyCredentials().id }
 
     @Test
     @Ignore("expiration time of oauth2.accessToken is too short")
     fun searchSpaces_minimum() {
 
         // Scheduled
-        twitter.searchSpaces("a", Space.State.Scheduled).let { res ->
+        twitter.v2.searchSpaces("a", Space.State.Scheduled).let { res ->
             println(res)
 
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -33,7 +33,7 @@ class SearchSpacesTest {
         }
 
         // Live
-        twitter.searchSpaces("a", Space.State.Live).let { res ->
+        twitter.v2.searchSpaces("a", Space.State.Live).let { res ->
             println(res)
 
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -56,7 +56,7 @@ class SearchSpacesTest {
     @Ignore("expiration time of oauth2.accessToken is too short")
     fun searchSpaces_full_result() {
 
-        val res = twitter.searchSpaces(
+        val res = twitter.v2.searchSpaces(
             "a",
             Space.State.Live,
             maxResults = 10,

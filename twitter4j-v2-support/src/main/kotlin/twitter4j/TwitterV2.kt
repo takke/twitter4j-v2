@@ -590,5 +590,20 @@ interface TwitterV2 {
         userFields: String? = null,
     ): SpacesResponse
 
+    /**
+     * The recent search endpoint returns Tweets from the last seven days that match a search query.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent"
+     */
+    @Throws(TwitterException::class)
+    fun searchSpaces(
+        query: String,
+        state: Space.State,
+        expansions: String? = null,
+        maxResults: Int? = null,
+        spaceFields: String? = null,
+        userFields: String? = null,
+    ): SpacesResponse
 
 }

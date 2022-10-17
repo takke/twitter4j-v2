@@ -1057,6 +1057,32 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    @Throws(TwitterException::class)
+    override fun searchSpaces(
+        query: String,
+        state: Space.State,
+        expansions: String?,
+        maxResults: Int?,
+        spaceFields: String?,
+        userFields: String?,
+    ): SpacesResponse {
+
+        val params = arrayListOf(
+            HttpParameter("query", query),
+            HttpParameter("state", state.rawValue),
+        )
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "space.fields", spaceFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createSpacesResponse(
+            get(conf.v2Configuration.baseURL + "spaces/search", params.toTypedArray()),
+            conf
+        )
+    }
+
     //--------------------------------------------------
     // get/post/delete
     //--------------------------------------------------
