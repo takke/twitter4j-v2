@@ -13,7 +13,7 @@ class RetweetsTest {
 
         // https://twitter.com/TwitterDev/status/1430984356139470849
         val tweetId = 1430984356139470849L
-        val res = twitter.getRetweetUsers(tweetId)
+        val res = twitter.v2.getRetweetUsers(tweetId)
         println(res)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
@@ -32,7 +32,7 @@ class RetweetsTest {
         val tweetId = 1430984356139470849L
 
         // retweet
-        twitter.retweet(myId, tweetId).let { res ->
+        twitter.v2.retweet(myId, tweetId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -44,7 +44,7 @@ class RetweetsTest {
         Thread.sleep(2000)
 
         // unretweet
-        twitter.unretweet(myId, tweetId).let { res ->
+        twitter.v2.unretweet(myId, tweetId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))

@@ -207,4 +207,41 @@ interface TwitterV2 {
         untilId: Long? = null
     ): CountsResponse
 
+    /**
+     * Allows you to get information about who has Retweeted a Tweet.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by"
+     */
+    @Throws(TwitterException::class)
+    fun getRetweetUsers(
+        tweetId: Long,
+        expansions: String? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): UsersResponse
+
+    /**
+     * Causes the user ID identified in the path parameter to Retweet the target Tweet.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets"
+     */
+    @Throws(TwitterException::class)
+    fun retweet(
+        userId: Long,
+        tweetId: Long
+    ): BooleanResponse
+
+    /**
+     * Allows a user or authenticated user ID to remove the Retweet of a Tweet.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id"
+     */
+    @Throws(TwitterException::class)
+    fun unretweet(
+        userId: Long,
+        tweetId: Long
+    ): BooleanResponse
 }

@@ -128,7 +128,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         }
 
         return V2ResponseFactory().createCreateTweetResponse(
-            post(json),
+            post(conf.v2Configuration.baseURL + "tweets", json),
             conf
         )
     }
@@ -142,7 +142,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     ): BooleanResponse {
 
         return V2ResponseFactory().createBooleanResponse(
-            delete(id),
+            delete(conf.v2Configuration.baseURL + "tweets/" + id),
             conf,
             "deleted"
         )
@@ -524,6 +524,58 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    @Throws(TwitterException::class)
+    override fun getRetweetUsers(
+        tweetId: Long,
+        expansions: String?,
+        tweetFields: String?,
+        userFields: String?,
+    ): UsersResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "tweets/" + tweetId + "/retweeted_by", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun retweet(
+        userId: Long,
+        tweetId: Long
+    ): BooleanResponse {
+
+        val json = JSONObject()
+        json.put("tweet_id", tweetId.toString())
+
+        return V2ResponseFactory().createBooleanResponse(
+            post(
+                conf.v2Configuration.baseURL + "users/" + userId + "/retweets",
+                arrayOf(HttpParameter(json))
+            ),
+            conf,
+            "retweeted"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun unretweet(
+        userId: Long,
+        tweetId: Long
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "users/" + userId + "/retweets/" + tweetId),
+            conf,
+            "retweeted"
+        )
+    }
+
     //--------------------------------------------------
     // get/post/delete
     //--------------------------------------------------
@@ -533,33 +585,27 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
         twitter.ensureAuthorizationEnabled()
 
-        return twitter.http.get(
-            url,
-            params,
-            twitter.auth,
-            twitter
-        )
+        return twitter.http.get(url, params, twitter.auth, twitter)
     }
 
-    private fun post(json: JSONObject): HttpResponse {
+    private fun post(url: String, json: JSONObject): HttpResponse {
+        return post(url, arrayOf(HttpParameter(json)))
+    }
+
+    private fun post(url: String, params: Array<HttpParameter>): HttpResponse {
 
         if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
         twitter.ensureAuthorizationEnabled()
 
-        return twitter.http.post(
-            conf.v2Configuration.baseURL + "tweets",
-            arrayOf(HttpParameter(json)),
-            twitter.auth,
-            twitter
-        )
+        return twitter.http.post(url, params, twitter.auth, twitter)
     }
 
-    private fun delete(id: Long): HttpResponse {
+    private fun delete(url: String): HttpResponse {
 
         if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
         twitter.ensureAuthorizationEnabled()
 
-        return twitter.http.delete(conf.v2Configuration.baseURL + "tweets/" + id, emptyArray(), twitter.auth, twitter)
+        return twitter.http.delete(url, emptyArray(), twitter.auth, twitter)
     }
 
 }
