@@ -6,7 +6,6 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.TwitterV2;
 import twitter4j.TwitterV2ExKt;
-import twitter4j.UsersExKt;
 import twitter4j.UsersResponse;
 import twitter4j.V2DefaultFields;
 
@@ -29,7 +28,7 @@ public final class App {
         // getUsers example
         //--------------------------------------------------
         final long twitterDesignId = 87532773L;
-        final UsersResponse users = UsersExKt.getUsers(twitter, new long[]{twitterDesignId}, null, null, "");
+        final UsersResponse users = v2.getUsers(new long[]{twitterDesignId}, null, null, "");
         System.out.println("users = " + users);
     }
 }
