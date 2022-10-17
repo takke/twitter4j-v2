@@ -1,11 +1,7 @@
 package twitter4j_v2_support_example
 
-import twitter4j.JSONObject
-import twitter4j.TweetsResponse
-import twitter4j.TwitterFactory
-import twitter4j.TwitterObjectFactory
+import twitter4j.*
 import twitter4j.conf.ConfigurationBuilder
-import twitter4j.getTweets
 
 
 fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
@@ -63,7 +59,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     //--------------------------------------------------
     println("single id")
     println("=========")
-    twitter.getTweets(656974073491156992L).let {
+    twitter.v2.getTweets(656974073491156992L).let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
@@ -73,7 +69,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
     println("multiple ids")
     println("============")
     val tweetIds: Array<Long> = arrayOf(656974073491156992L, 1284872930841640960L)
-    twitter.getTweets(*tweetIds.toLongArray()).let {
+    twitter.v2.getTweets(*tweetIds.toLongArray()).let {
         println(it)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(it))
@@ -89,7 +85,7 @@ fun main(@Suppress("UNUSED_PARAMETER") args: Array<String>) {
         val statusId = account.status?.id
         println("account id[${account.id}], status id[$statusId]")
         if (statusId != null) {
-            twitter.getTweets(
+            twitter.v2.getTweets(
                 statusId,
                 tweetFields = "non_public_metrics,organic_metrics,public_metrics",
                 expansions = ""

@@ -31,7 +31,7 @@ class GetTweetsTest {
     @Test
     fun simplePoll() {
 
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             656974073491156992L,
             mediaFields = V2DefaultFields.mediaFields,
             placeFields = V2DefaultFields.placeFields,
@@ -81,7 +81,7 @@ class GetTweetsTest {
     fun place() {
 
         // {"data":[{"geo":{"place_id":"2e624efa0028615e"},"possibly_sensitive":false,"lang":"ja","source":"Twitter for Android","created_at":"2022-03-20T10:18:21.000Z","text":"位置情報のてすと","public_metrics":{"retweet_count":0,"reply_count":0,"like_count":1,"quote_count":0},"reply_settings":"everyone","author_id":"8379212","conversation_id":"1505488910205345795","id":"1505488910205345795"}],"includes":{"users":[{"created_at":"2007-08-23T10:06:53.000Z","public_metrics":{"followers_count":1681,"following_count":1065,"tweet_count":61212,"listed_count":126},"profile_image_url":"https:\/\/pbs.twimg.com\/profile_images\/423153841505193984\/yGKSJu78_normal.jpeg","name":"竹内裕昭🐧","protected":false,"entities":{"url":{"urls":[{"start":0,"end":23,"url":"https:\/\/t.co\/B8CEzNa8O2","expanded_url":"http:\/\/www.panecraft.net\/","display_url":"panecraft.net"}]},"description":{"mentions":[{"start":13,"end":22,"username":"TwitPane"}]}},"location":"北海道","id":"8379212","url":"https:\/\/t.co\/B8CEzNa8O2","verified":false,"description":"Twitterクライアント@TwitPane、mixiブラウザTkMixiViewer、英単語学習ソフト P-Study System 、MZ3\/4 などを開発。「ちょっぴり使いやすい」アプリを日々開発しています。ペーンクラフト代表","username":"takke"}],"places":[{"geo":{"type":"Feature","bbox":[139.540126666667,35.8720877777778,141.390018611111,43.0857888888889],"properties":{}},"country":"日本","country_code":"JP","full_name":"北海道 札幌市中央区","place_type":"city","name":"札幌市中央区","id":"2e624efa0028615e"}]}}
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             1505488910205345795,
             mediaFields = V2DefaultFields.mediaFields,
             placeFields = V2DefaultFields.placeFields,
@@ -118,7 +118,7 @@ class GetTweetsTest {
         // twurl -X GET "/labs/2/tweets?ids=656974073491156992"
         //       val res = TweetsResponse(JSONObject("{\"data\":[{\"id\":\"656974073491156992\",\"text\":\"We've got polls now! Which typeface do you prefer?\"}]}"))
 
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             656974073491156992L,
             mediaFields = null,
             placeFields = null,
@@ -148,7 +148,7 @@ class GetTweetsTest {
     @Test
     fun repliedTo() {
 
-        val res = twitter.getTweets(1288737678926573568L)
+        val res = twitter.v2.getTweets(1288737678926573568L)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -166,7 +166,7 @@ class GetTweetsTest {
     @Test
     fun quoted() {
 
-        val res = twitter.getTweets(1288745927654510592L)
+        val res = twitter.v2.getTweets(1288745927654510592L)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -183,7 +183,7 @@ class GetTweetsTest {
     @Test
     fun retweet() {
 
-        val res = twitter.getTweets(1288748212795236352L)
+        val res = twitter.v2.getTweets(1288748212795236352L)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -201,7 +201,7 @@ class GetTweetsTest {
     fun hashtags_mentions() {
 
         // https://twitter.com/takke/status/1563008140131459073
-        val res = twitter.getTweets(1563008140131459073L)
+        val res = twitter.v2.getTweets(1563008140131459073L)
 
         val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
         println(json.toString(3))
@@ -230,7 +230,7 @@ class GetTweetsTest {
 
             val statusId = timeline!![0].id
             println("account id[${account.id}], status id[$statusId]")
-            val res = twitter.getTweets(
+            val res = twitter.v2.getTweets(
                 statusId,
                 tweetFields = "non_public_metrics,organic_metrics,public_metrics",
                 expansions = ""
@@ -257,7 +257,7 @@ class GetTweetsTest {
     @Test
     fun getConversationId() {
 
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             1514061441749245952L,
             mediaFields = null,
             placeFields = null,
@@ -277,7 +277,7 @@ class GetTweetsTest {
     @Test
     fun media_image() {
 
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             1541785063028842498L,
             tweetFields = "attachments",
             expansions = "attachments.media_keys",
@@ -332,7 +332,7 @@ class GetTweetsTest {
     @Test
     fun media_images() {
 
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             1519966129946791936L,
             tweetFields = "attachments",
             expansions = "attachments.media_keys",
@@ -429,7 +429,7 @@ class GetTweetsTest {
     @Test
     fun media_gif() {
 
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             1323351722119495681L,
             tweetFields = "attachments",
             expansions = "attachments.media_keys",
@@ -484,7 +484,7 @@ class GetTweetsTest {
     @Test
     fun media_video() {
 
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             1543286684846104576L,
             tweetFields = "attachments",
             expansions = "attachments.media_keys",
@@ -590,7 +590,7 @@ class GetTweetsTest {
     @Test
     fun media_animated_gif() {
 
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             1563397072644374529L,
             tweetFields = "attachments",
             expansions = "attachments.media_keys",
@@ -663,7 +663,7 @@ class GetTweetsTest {
     fun media_alt_text() {
 
         // https://twitter.com/takke/status/1562974113903153153
-        val res = twitter.getTweets(
+        val res = twitter.v2.getTweets(
             1562974113903153153L,
             tweetFields = "attachments",
             expansions = "attachments.media_keys",
