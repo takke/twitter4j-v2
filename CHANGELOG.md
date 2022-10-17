@@ -1,9 +1,11 @@
 Change Log
 ==========
 
-v1.3.2 (2022.08.xx)
+v1.4.0 (2022.10.17)
 -------------------
+- Introduce v2 interface
 - Add variants to media (animated_gif)
+- Add `editHistoryTweetIds`, `editControls` fields to `Tweet`
 
 v1.3.1 (2022.08.26)
 -------------------
