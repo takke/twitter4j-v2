@@ -17,10 +17,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         expansions: String
     ): TweetsResponse {
 
-        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
-
-        twitter.ensureAuthorizationEnabled()
-
         val params = arrayListOf(
             HttpParameter("ids", tweetId.joinToString(",")),
             HttpParameter("expansions", expansions)
@@ -33,7 +29,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
         return V2ResponseFactory().createTweetsResponse(
-            twitter.http.get(conf.v2Configuration.baseURL + "tweets", params.toTypedArray(), twitter.auth, twitter),
+            get(conf.v2Configuration.baseURL + "tweets", params.toTypedArray()),
             conf
         )
     }
@@ -53,10 +49,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         replySettings: ReplySettings?,
         text: String?,
     ): CreateTweetResponse {
-
-        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
-
-        twitter.ensureAuthorizationEnabled()
 
         val json = JSONObject()
 
@@ -136,12 +128,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         }
 
         return V2ResponseFactory().createCreateTweetResponse(
-            twitter.http.post(
-                conf.v2Configuration.baseURL + "tweets",
-                arrayOf(HttpParameter(json)),
-                twitter.auth,
-                twitter
-            ),
+            post(json),
             conf
         )
     }
@@ -154,12 +141,8 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         id: Long
     ): BooleanResponse {
 
-        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
-
-        twitter.ensureAuthorizationEnabled()
-
         return V2ResponseFactory().createBooleanResponse(
-            twitter.http.delete(conf.v2Configuration.baseURL + "tweets/" + id, emptyArray(), twitter.auth, twitter),
+            delete(id),
             conf,
             "deleted"
         )
@@ -218,8 +201,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         userFields: String?,
     ): TweetsResponse {
 
-        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
-
         return getUserTweetsIn(
             conf.v2Configuration.baseURL + "users/" + userId + "/mentions",
             endTime,
@@ -255,8 +236,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         untilId: Long?,
         userFields: String?,
     ): TweetsResponse {
-
-        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
 
         return getUserTweetsIn(
             conf.v2Configuration.baseURL + "users/" + userId + "/timelines/reverse_chronological",
@@ -302,8 +281,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     //    userFields: String? = null,
     //): TweetsResponse {
     //
-    //    if (this !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
-    //
     //    return getUserTweetsIn(
     //        conf.v2Configuration.baseURL + "users/by/username/" + username + "/tweets",
     //        endTime,
@@ -340,10 +317,6 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         userFields: String?
     ): TweetsResponse {
 
-        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
-
-        twitter.ensureAuthorizationEnabled()
-
         val params = ArrayList<HttpParameter>()
 
         V2Util.addHttpParamIfNotNull(params, "end_time", V2Util.dateToISO8601(endTime))
@@ -361,14 +334,43 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
 
         return V2ResponseFactory().createTweetsResponse(
-            twitter.http.get(
-                url,
-                params.toTypedArray(),
-                twitter.auth,
-                twitter
-            ),
+            get(url, params.toTypedArray()),
             conf
         )
+    }
+
+    private fun get(url: String, params: Array<HttpParameter>): HttpResponse {
+
+        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+        twitter.ensureAuthorizationEnabled()
+
+        return twitter.http.get(
+            url,
+            params,
+            twitter.auth,
+            twitter
+        )
+    }
+
+    private fun post(json: JSONObject): HttpResponse {
+
+        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+        twitter.ensureAuthorizationEnabled()
+
+        return twitter.http.post(
+            conf.v2Configuration.baseURL + "tweets",
+            arrayOf(HttpParameter(json)),
+            twitter.auth,
+            twitter
+        )
+    }
+
+    private fun delete(id: Long): HttpResponse {
+
+        if (twitter !is TwitterImpl) throw IllegalStateException("invalid twitter4j impl")
+        twitter.ensureAuthorizationEnabled()
+
+        return twitter.http.delete(conf.v2Configuration.baseURL + "tweets/" + id, emptyArray(), twitter.auth, twitter)
     }
 
 }
