@@ -13,7 +13,7 @@ class ManageTweetsTest {
 
         println("createTweet")
         println("===========")
-        val tweetId = twitter.createTweet(text = "test: " + System.currentTimeMillis()).let { res ->
+        val tweetId = twitter.v2.createTweet(text = "test: " + System.currentTimeMillis()).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -31,7 +31,7 @@ class ManageTweetsTest {
         // reply
         println("createTweet(reply)")
         println("==================")
-        val tweetId2 = twitter.createTweet(text = "reply: " + System.currentTimeMillis(), inReplyToTweetId = tweetId).let { res ->
+        val tweetId2 = twitter.v2.createTweet(text = "reply: " + System.currentTimeMillis(), inReplyToTweetId = tweetId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -49,7 +49,7 @@ class ManageTweetsTest {
         println("deleteTweet")
         println("===========")
 
-        twitter.deleteTweet(tweetId).let { res ->
+        twitter.v2.deleteTweet(tweetId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -61,7 +61,7 @@ class ManageTweetsTest {
         println("delaying...")
         Thread.sleep(500)
 
-        twitter.deleteTweet(tweetId2).let { res ->
+        twitter.v2.deleteTweet(tweetId2).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -88,7 +88,7 @@ class ManageTweetsTest {
 
         println("createTweet")
         println("===========")
-        val tweetId = twitter.createTweet(text = "tweet with media: " + System.currentTimeMillis(), mediaIds = arrayOf(media.mediaId)).let { res ->
+        val tweetId = twitter.v2.createTweet(text = "tweet with media: " + System.currentTimeMillis(), mediaIds = arrayOf(media.mediaId)).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -106,7 +106,7 @@ class ManageTweetsTest {
         println("deleteTweet")
         println("===========")
 
-        twitter.deleteTweet(tweetId).let { res ->
+        twitter.v2.deleteTweet(tweetId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
