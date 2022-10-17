@@ -474,4 +474,44 @@ interface TwitterV2 {
         targetUserId: Long
     ): BooleanResponse
 
+    /**
+     * Returns a list of users who are blocked by the specified user ID.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking"
+     */
+    @Throws(TwitterException::class)
+    fun getBlockingUsers(
+        userId: Long,
+        expansions: String? = "pinned_tweet_id",
+        maxResults: Int? = null,
+        paginationToken: PaginationToken? = null,
+        tweetFields: String? = null,
+        userFields: String? = null,
+    ): UsersResponse
+
+    /**
+     * Causes the user (in the path) to block the target user. The user (in the path) must match the user context authorizing the request.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/post-users-user_id-blocking"
+     */
+    @Throws(TwitterException::class)
+    fun blockUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): BooleanResponse
+
+    /**
+     * Allows a user or authenticated user ID to unblock another user.
+     *
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see "https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking"
+     */
+    @Throws(TwitterException::class)
+    fun unblockUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): BooleanResponse
+
 }

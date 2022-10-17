@@ -11,7 +11,7 @@ class BlocksTest {
     @Test
     fun getBlockingUsers_simple() {
 
-        val res = twitter.getBlockingUsers(myId, expansions = null)
+        val res = twitter.v2.getBlockingUsers(myId, expansions = null)
         println(res.users.size)
 
         assertThat(res.meta?.resultCount).isGreaterThan(0)
@@ -27,7 +27,7 @@ class BlocksTest {
 
         println("blockUser")
         println("=========")
-        twitter.blockUser(myId, targetUserId).let { res ->
+        twitter.v2.blockUser(myId, targetUserId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))
@@ -40,7 +40,7 @@ class BlocksTest {
 
         println("unblockUser")
         println("===========")
-        twitter.unblockUser(myId, targetUserId).let { res ->
+        twitter.v2.unblockUser(myId, targetUserId).let { res ->
             println(res)
             val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
             println(json.toString(3))

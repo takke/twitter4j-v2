@@ -896,6 +896,59 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         )
     }
 
+    @Throws(TwitterException::class)
+    override fun getBlockingUsers(
+        userId: Long,
+        expansions: String?,
+        maxResults: Int?,
+        paginationToken: PaginationToken?,
+        tweetFields: String?,
+        userFields: String?,
+    ): UsersResponse {
+
+        val params = ArrayList<HttpParameter>()
+
+        V2Util.addHttpParamIfNotNull(params, "expansions", expansions)
+        V2Util.addHttpParamIfNotNull(params, "max_results", maxResults)
+        V2Util.addHttpParamIfNotNull(params, "pagination_token", paginationToken)
+        V2Util.addHttpParamIfNotNull(params, "tweet.fields", tweetFields)
+        V2Util.addHttpParamIfNotNull(params, "user.fields", userFields)
+
+        return V2ResponseFactory().createUsersResponse(
+            get(conf.v2Configuration.baseURL + "users/" + userId + "/blocking", params.toTypedArray()),
+            conf
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun blockUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): BooleanResponse {
+
+        val json = JSONObject()
+        json.put("target_user_id", targetUserId.toString())
+
+        return V2ResponseFactory().createBooleanResponse(
+            post(conf.v2Configuration.baseURL + "users/" + sourceUserId + "/blocking", json),
+            conf,
+            "blocking"
+        )
+    }
+
+    @Throws(TwitterException::class)
+    override fun unblockUser(
+        sourceUserId: Long,
+        targetUserId: Long
+    ): BooleanResponse {
+
+        return V2ResponseFactory().createBooleanResponse(
+            delete(conf.v2Configuration.baseURL + "users/" + sourceUserId + "/blocking/" + targetUserId),
+            conf,
+            "blocking"
+        )
+    }
+
     //--------------------------------------------------
     // get/post/delete
     //--------------------------------------------------
