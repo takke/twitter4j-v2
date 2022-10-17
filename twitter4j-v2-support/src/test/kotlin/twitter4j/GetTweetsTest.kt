@@ -142,6 +142,8 @@ class GetTweetsTest {
             assertThat(it.repliedToTweetId).isNull()
             assertThat(it.quotedTweetId).isNull()
             assertThat(it.mediaKeys).isNull()
+            assertThat(it.editHistoryTweetIds).containsExactly(656974073491156992L)
+            assertThat(it.editControls).isNull()
         }
     }
 
@@ -726,6 +728,47 @@ class GetTweetsTest {
         res.mediaMap[MediaKey("3_1562974097176309761")]!!.asPhoto.let {
             assertThat(it.type).isEqualTo(Media.Type.Photo)
             assertThat(it.altText).isEqualTo("TwitPaneのアイコン画像")
+        }
+    }
+
+    @Test
+    fun edit_controls() {
+
+        // https://twitter.com/zchmz/status/1577040381287374848 (edited 3 times)
+        val res = twitter.v2.getTweets(
+            1577040381287374848L,
+            mediaFields = null,
+            placeFields = null,
+            pollFields = null,
+            tweetFields = "edit_controls",
+            userFields = null,
+            expansions = ""
+        )
+
+        val json = JSONObject(TwitterObjectFactory.getRawJSON(res))
+        println(json.toString(3))
+
+        println(res)
+
+        assertThat(res.tweets.size).isEqualTo(1)
+        res.tweets[0].let {
+            assertThat(it.id).isEqualTo(1577040381287374848L)
+            assertThat(it.text).isEqualTo(
+                "testing...testing...\n\nedit Tweet functionality is rolling out for Twitter employees and select Twitter Blue members in CA, AUS, &amp; NZ...US later this week.\n\nyou can edit a Tweet up to 5x within 30 mins, see revision history, and there's an icon that denotes if Tweet was edited. https://t.co/itmpo668VB"
+            )
+            assertThat(it.source).isNull()
+            assertThat(it.lang).isNull()
+            assertThat(it.publicMetrics).isNull()
+            assertThat(it.possiblySensitive).isFalse
+            assertThat(it.urls).isEmpty()
+            assertThat(it.authorId).isNull()
+            assertThat(it.pollId).isNull()
+            assertThat(it.repliedToTweetId).isNull()
+            assertThat(it.quotedTweetId).isNull()
+            assertThat(it.mediaKeys).isNull()
+            assertThat(it.editHistoryTweetIds).containsExactly(1577039072723288066, 1577039141404958720, 1577039438810517505, 1577040381287374848)
+            assertThat(it.editControls?.editsRemaining).isEqualTo(2)
+            assertThat(it.editControls?.isEditEligible).isEqualTo(true)
         }
     }
 

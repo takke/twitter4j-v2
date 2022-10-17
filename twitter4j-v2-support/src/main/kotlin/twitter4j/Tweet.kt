@@ -22,7 +22,9 @@ data class Tweet(
     var quotedTweetId: Long? = null,
     var retweetId: Long? = null,
     var conversationId: Long? = null,
-    var mediaKeys: Array<MediaKey>? = null
+    var mediaKeys: Array<MediaKey>? = null,
+    var editHistoryTweetIds: Array<Long>? = null,
+    var editControls: EditControls? = null,
 ) {
 
     data class PublicMetrics(
@@ -69,6 +71,18 @@ data class Tweet(
         )
     }
 
+    data class EditControls(
+        val editsRemaining: Int,
+        val isEditEligible: Boolean,
+        val editableUntil: Date
+    ) {
+        constructor(json: JSONObject) : this(
+            editsRemaining = ParseUtil.getInt("edits_remaining", json),
+            isEditEligible = ParseUtil.getBoolean("is_edit_eligible", json),
+            editableUntil = V2Util.parseISO8601Date("editable_until", json)!!
+        )
+    }
+
     fun place(placeMap: HashMap<String, Place2>): Place2? {
         return placeId?.let {
             placeMap[placeId!!] ?: return null
@@ -110,6 +124,11 @@ data class Tweet(
             if (other.mediaKeys == null) return false
             if (!mediaKeys.contentEquals(other.mediaKeys)) return false
         } else if (other.mediaKeys != null) return false
+        if (editHistoryTweetIds != null) {
+            if (other.editHistoryTweetIds == null) return false
+            if (!editHistoryTweetIds.contentEquals(other.editHistoryTweetIds)) return false
+        } else if (other.editHistoryTweetIds != null) return false
+        if (editControls != other.editControls) return false
 
         return true
     }
@@ -135,6 +154,8 @@ data class Tweet(
         result = 31 * result + (retweetId?.hashCode() ?: 0)
         result = 31 * result + (conversationId?.hashCode() ?: 0)
         result = 31 * result + (mediaKeys?.contentHashCode() ?: 0)
+        result = 31 * result + (editHistoryTweetIds?.contentHashCode() ?: 0)
+        result = 31 * result + (editControls?.hashCode() ?: 0)
         return result
     }
 
@@ -246,6 +267,18 @@ data class Tweet(
 
             // conversation_id
             t.conversationId = data.optLongOrNull("conversation_id")
+
+            // edit_history_tweet_ids
+            data.optJSONArray("edit_history_tweet_ids")?.let { editHistoryTweetIdsArray ->
+                t.editHistoryTweetIds = Array(editHistoryTweetIdsArray.length()) {
+                    editHistoryTweetIdsArray.getLong(it)
+                }
+            }
+
+            // edit_controls
+            data.optJSONObject("edit_controls")?.let {
+                t.editControls = EditControls(it)
+            }
 
             return t
         }
