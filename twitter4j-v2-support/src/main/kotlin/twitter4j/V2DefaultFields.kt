@@ -19,7 +19,7 @@ object V2DefaultFields {
 
     // user.fields
     const val userFields =
-        "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld"
+        "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,verified_type,withheld"
 
     // expansions for "GET /2/tweets"
     const val expansions =
