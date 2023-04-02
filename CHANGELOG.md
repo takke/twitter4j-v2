@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+v1.4.1 (2023.04.02)
+-------------------
+- Fix Java compatibility
+- Add `Tweet.isRetweet`
+
 v1.4.0 (2022.10.17)
 -------------------
 - Introduce v2 interface
