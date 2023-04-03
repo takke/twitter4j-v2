@@ -10,7 +10,8 @@ data class UrlEntity2(
     val status: Int?,
     val title: String?,
     val description: String?,
-    val unwoundUrl: String?
+    val unwoundUrl: String?,
+    val mediaKey: MediaKey?,
 ) {
     constructor(json: JSONObject) : this(
         url = json.getString("url"),
@@ -28,7 +29,8 @@ data class UrlEntity2(
         status = json.optIntOrNull("status"),
         title = json.optString("title", null),
         description = json.optString("description", null),
-        unwoundUrl = json.optString("unwound_url", null)
+        unwoundUrl = json.optString("unwound_url", null),
+        mediaKey = json.optString("media_key", null)?.let { MediaKey(it) },
     )
 
 }
