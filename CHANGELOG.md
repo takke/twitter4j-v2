@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+v1.4.2 (2023.06.20)
+-------------------
+- Fix Java compatibility
+- Add `UrlEntity2.mediaKey`
+- `UserMentionEntity2` implements `TweetEntity`
+
 v1.4.1 (2023.04.02)
 -------------------
 - Fix Java compatibility
