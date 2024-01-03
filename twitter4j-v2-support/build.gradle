@@ -5,10 +5,8 @@ repositories {
     mavenCentral()
 }
 
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+kotlin {
+    jvmToolchain(11)
 }
 
 java {
