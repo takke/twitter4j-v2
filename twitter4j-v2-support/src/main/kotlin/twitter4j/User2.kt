@@ -22,14 +22,16 @@ data class User2(
         val followersCount: Int,
         val followingCount: Int,
         val tweetCount: Int,
-        val listedCount: Int
+        val listedCount: Int,
+        val likeCount: Int
     ) {
 
         constructor(json: JSONObject) : this(
             followersCount = ParseUtil.getInt("followers_count", json),
             followingCount = ParseUtil.getInt("following_count", json),
             tweetCount = ParseUtil.getInt("tweet_count", json),
-            listedCount = ParseUtil.getInt("listed_count", json)
+            listedCount = ParseUtil.getInt("listed_count", json),
+            likeCount = ParseUtil.getInt("like_count", json)
         )
 
     }
