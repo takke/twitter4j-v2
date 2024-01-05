@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+v1.4.3 (2024.01.05)
+-------------------
+- Add `likeCount` field to `User2.PublicMetrics`
+
+
 v1.4.2 (2023.06.20)
 -------------------
 - Fix Java compatibility
