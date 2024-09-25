@@ -12,15 +12,6 @@ buildscript {
     }
 }
 
-// Upload to s01.oss.sonatype.org
-allprojects {
-    plugins.withId("com.vanniktech.maven.publish") {
-        mavenPublish {
-            sonatypeHost = "S01"
-        }
-    }
-}
-
 subprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'java-library'
@@ -29,5 +20,4 @@ subprojects {
     // for publish
     // Note: deploy to ~/.m2/repository/io/github/takke/jp.takke.twitter4j-v2/
     // $ ./gradlew :twitter4j-v2-support:publishToMavenLocal
-    apply plugin: "com.vanniktech.maven.publish"
 }

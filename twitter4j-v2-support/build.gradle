@@ -1,5 +1,10 @@
-apply plugin: 'org.jetbrains.kotlin.jvm'
-apply plugin: 'java-library'
+plugins {
+    id("org.jetbrains.kotlin.jvm")
+    id("java-library")
+    id("maven-publish")
+    id("signing")
+}
+
 
 repositories {
     mavenCentral()
@@ -12,6 +17,11 @@ kotlin {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 dependencies {
@@ -33,3 +43,57 @@ dependencies {
 //        events 'standard_out', 'standard_error'
 //    }
 //}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'io.github.takke'
+            artifactId = 'jp.takke.twitter4j-v2'
+            version = '1.4.4'
+            from components.java
+
+            pom {
+                name = "twitter4j-v2"
+                description = "A simple wrapper for Twitter API v2 that is designed to be used with Twitter4J."
+                url = "https://github.com/takke/twitter4j-v2/"
+                licenses {
+                    license {
+                        name = "The Apache Software License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                        distribution.set("repo")
+                    }
+                }
+                developers {
+                    developer {
+                        id = "takke"
+                        name = "Hiroaki TAKEUCHI"
+                        email = "takke30@gmail.com"
+                        url = "https://github.com/takke/"
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/takke/twitter4j-v2.git'
+                    developerConnection = 'scm:git:ssh://git@github.com/takke/twitter4j-v2.git'
+                    url = "https://github.com/takke/twitter4j-v2/"
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "sonatype"
+            // Upload to s01.oss.sonatype.org
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = project.findProperty("ossrhUsername")
+                password = project.findProperty("ossrhPassword")
+            }
+        }
+    }
+}
+
+signing {
+    useGpgCmd()
+    sign publishing.publications.mavenJava
+}
