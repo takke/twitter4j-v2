@@ -93,7 +93,10 @@ publishing {
     }
 }
 
-signing {
-    useGpgCmd()
-    sign publishing.publications.mavenJava
+def skipSigning = System.getenv("SKIP_SIGNING")?.toBoolean() ?: false
+if (!skipSigning) {
+    signing {
+        useGpgCmd()
+        sign publishing.publications.mavenJava
+    }
 }
