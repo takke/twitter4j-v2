@@ -1,10 +1,15 @@
 Change Log
 ==========
 
+v1.4.4 (2024.09.25)
+-------------------
+- Migrate to `maven-publish` plugin
+- Bump Gradle 8.10.2
+- Bump Kotlin 2.0.0
+
 v1.4.3 (2024.01.05)
 -------------------
 - Add `likeCount` field to `User2.PublicMetrics`
-
 
 v1.4.2 (2023.06.20)
 -------------------
