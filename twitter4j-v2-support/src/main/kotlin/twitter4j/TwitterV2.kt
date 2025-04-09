@@ -1,5 +1,8 @@
 package twitter4j
 
+import java.io.File
+import java.io.InputStream
+import java.nio.file.Files
 import java.util.*
 
 interface TwitterV2 {
@@ -911,4 +914,19 @@ interface TwitterV2 {
         listId: Long,
     ): BooleanResponse
 
+    @Throws(TwitterException::class)
+    fun uploadMediaChunkedInit(size: Long, mediaType: String): LongResponse
+
+    @Throws(TwitterException::class)
+    fun uploadMediaChunkedAppend(mediaId: Long, segmentIndex: Long, fileName: String, media: InputStream)
+
+    @Throws(TwitterException::class)
+    fun uploadMediaChunkedFinalize(mediaId: Long): LongResponse
+
+    @Throws(TwitterException::class)
+    fun uploadMedia(mediaType: String, fileName: String, media: InputStream): LongResponse
+
+    @Throws(TwitterException::class)
+    fun uploadMedia(file: File): LongResponse =
+        uploadMedia(Files.probeContentType(file.toPath()), file.name, file.inputStream())
 }
