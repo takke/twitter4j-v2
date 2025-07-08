@@ -1394,14 +1394,12 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
 
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedInit(size: Long, mediaType: String): LongResponse {
-        val params = arrayListOf(
-            HttpParameter("command", "INIT"),
-            HttpParameter("media_type", mediaType),
-            HttpParameter("total_bytes", size.toString()),
-        )
+        val json = JSONObject()
+        json.put("media_type", mediaType)
+        json.put("total_bytes", size)
 
         return V2ResponseFactory().createLongResponse(
-            post(conf.v2Configuration.baseURL + "media/upload", params.toTypedArray()),
+            post(conf.v2Configuration.baseURL + "media/upload/initialize", json),
             conf,
             "id"
         )
@@ -1410,24 +1408,17 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedAppend(mediaId: Long, segmentIndex: Long, fileName: String, media: InputStream) {
         val params = arrayListOf(
-            HttpParameter("command", "APPEND"),
-            HttpParameter("media_id", mediaId.toString()),
-            HttpParameter("segment_index", segmentIndex),
             HttpParameter("media", fileName, media),
+            HttpParameter("segment_index", segmentIndex),
         )
 
-        post(conf.v2Configuration.baseURL + "media/upload", params.toTypedArray())
+        post(conf.v2Configuration.baseURL + "media/upload/${mediaId}/append", params.toTypedArray())
     }
 
     @Throws(TwitterException::class)
     override fun uploadMediaChunkedFinalize(mediaId: Long): LongResponse {
-        val params = arrayListOf(
-            HttpParameter("command", "FINALIZE"),
-            HttpParameter("media_id", mediaId.toString())
-        )
-
         return V2ResponseFactory().createLongResponse(
-            post(conf.v2Configuration.baseURL + "media/upload", params.toTypedArray()),
+            post(conf.v2Configuration.baseURL + "media/upload/${mediaId}/finalize", emptyArray<HttpParameter>()),
             conf,
             "id"
         )
