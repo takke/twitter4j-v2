@@ -46,7 +46,9 @@ kotlin {
 // publishing 設定（本体 twitter4j-core と同方式）
 //   - KMP が自動生成する android publication の artifactId を従来の
 //     "jp.takke.twitter4j-v2" にオーバーライドして publish する（座標を維持）。
-//   - root(kotlinMultiplatform) publication は publish を無効化する。
+//   - root(kotlinMultiplatform) publication = umbrella（twitter4j-v2-support）も publish する。
+//     consumer（TwitPane）の commonMain から参照するために必要（iOS ターゲット解決用）。
+//     Android 変種は available-at で従来座標 jp.takke.twitter4j-v2 を指すため既存consumerへの影響なし。
 //   - group は allprojects で io.github.takke を設定済み。
 // -------------------------------------------------------------------------
 publishing {
@@ -57,11 +59,4 @@ publishing {
             }
         }
     }
-}
-
-// root(kotlinMultiplatform) publication は publish しない（android publication のみ publish）。
-tasks.matching {
-    it.name.startsWith("publishKotlinMultiplatformPublication")
-}.configureEach {
-    enabled = false
 }
