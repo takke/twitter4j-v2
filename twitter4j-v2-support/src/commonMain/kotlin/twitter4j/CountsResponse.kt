@@ -1,0 +1,73 @@
+package twitter4j
+
+import kotlin.jvm.Transient
+
+class CountsResponse : TwitterResponse {
+
+    @Transient
+    override var rateLimitStatus: RateLimitStatus? = null
+
+    @Transient
+    override var accessLevel = 0
+
+    data class Count(
+        val end: Date,
+        val start: Date,
+        val tweetCount: Int,
+    )
+
+
+    val counts: List<Count> = mutableListOf()
+
+    var totalTweetCount: Int = 0
+
+
+    constructor(res: HttpResponse, isJSONStoreEnabled: Boolean) {
+        rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
+        accessLevel = ParseUtil.toAccessLevel(res)
+
+        parse(res.asJSONObject(), isJSONStoreEnabled)
+    }
+
+    constructor(json: JSONObject, isJSONStoreEnabled: Boolean = false) {
+
+        parse(json, isJSONStoreEnabled)
+    }
+
+    private fun parse(jsonObject: JSONObject, isJSONStoreEnabled: Boolean) {
+        val counts = counts as MutableList
+        counts.clear()
+
+        //--------------------------------------------------
+        // create counts from data
+        //--------------------------------------------------
+        val dataArray = jsonObject.optJSONArray("data")
+        if (dataArray != null) {
+            for (i in 0 until dataArray.length()) {
+                val data = dataArray.getJSONObject(i)
+
+                counts.add(
+                    Count(
+                        V2Util.parseISO8601Date("end", data)!!,
+                        V2Util.parseISO8601Date("start", data)!!,
+                        data.getInt("tweet_count")
+                    )
+                )
+            }
+        }
+
+        //--------------------------------------------------
+        // meta
+        //--------------------------------------------------
+        totalTweetCount = jsonObject.getJSONObject("meta").getInt("total_tweet_count")
+
+        if (isJSONStoreEnabled) {
+            TwitterObjectFactory.registerJSONObject(this, jsonObject)
+        }
+    }
+
+    override fun toString(): String {
+        return "CountsResponse(rateLimitStatus=$rateLimitStatus, accessLevel=$accessLevel, counts=$counts, totalTweetCount=$totalTweetCount)"
+    }
+
+}
