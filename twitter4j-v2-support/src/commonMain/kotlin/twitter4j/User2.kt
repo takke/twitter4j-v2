@@ -1,9 +1,11 @@
 package twitter4j
 
+import kotlin.time.Instant
+
 data class User2(
     val id: Long,
     val location: String?,
-    val createdAt: Date?,
+    val createdAt: Instant?,
     val screenName: String,
     val protected: Boolean,
     val publicMetrics: PublicMetrics?,

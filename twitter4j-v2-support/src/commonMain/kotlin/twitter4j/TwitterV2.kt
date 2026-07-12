@@ -1,8 +1,10 @@
 package twitter4j
 
+import kotlin.time.Instant
+
 // KMP移行 Phase 6: File / InputStream は本体 twitter4j-core が commonMain で提供する
 // expect 型（twitter4j.File / twitter4j.InputStream。同一パッケージのため import 不要）。
-// Date も本体 commonMain の twitter4j.Date を使用する。
+// 日時パラメータは kotlin.time.Instant を使用する。
 
 interface TwitterV2 {
 
@@ -68,7 +70,7 @@ interface TwitterV2 {
     @Throws(TwitterException::class)
     fun getUserTweets(
         userId: Long,
-        endTime: Date? = null,
+        endTime: Instant? = null,
         exclude: String? = null,
         expansions: String? = null,
         maxResults: Int? = null,
@@ -77,7 +79,7 @@ interface TwitterV2 {
         placeFields: String? = null,
         pollFields: String? = null,
         sinceId: Long? = null,
-        startTime: Date? = null,
+        startTime: Instant? = null,
         tweetFields: String? = null,
         untilId: Long? = null,
         userFields: String? = null,
@@ -92,7 +94,7 @@ interface TwitterV2 {
     @Throws(TwitterException::class)
     fun getUserMentions(
         userId: Long,
-        endTime: Date? = null,
+        endTime: Instant? = null,
         expansions: String? = null,
         maxResults: Int? = null,
         mediaFields: String? = null,
@@ -100,7 +102,7 @@ interface TwitterV2 {
         placeFields: String? = null,
         pollFields: String? = null,
         sinceId: Long? = null,
-        startTime: Date? = null,
+        startTime: Instant? = null,
         tweetFields: String? = null,
         untilId: Long? = null,
         userFields: String? = null,
@@ -115,7 +117,7 @@ interface TwitterV2 {
     @Throws(TwitterException::class)
     fun getReverseChronologicalTimeline(
         userId: Long,
-        endTime: Date? = null,
+        endTime: Instant? = null,
         exclude: String? = null,
         expansions: String? = null,
         maxResults: Int? = null,
@@ -124,7 +126,7 @@ interface TwitterV2 {
         placeFields: String? = null,
         pollFields: String? = null,
         sinceId: Long? = null,
-        startTime: Date? = null,
+        startTime: Instant? = null,
         tweetFields: String? = null,
         untilId: Long? = null,
         userFields: String? = null,
@@ -139,7 +141,7 @@ interface TwitterV2 {
     @Throws(TwitterException::class)
     fun searchRecent(
         query: String,
-        endTime: Date? = null,
+        endTime: Instant? = null,
         expansions: String? = null,
         maxResults: Int? = null,
         mediaFields: String? = null,
@@ -147,7 +149,7 @@ interface TwitterV2 {
         placeFields: String? = null,
         pollFields: String? = null,
         sinceId: Long? = null,
-        startTime: Date? = null,
+        startTime: Instant? = null,
         tweetFields: String? = null,
         untilId: Long? = null,
         userFields: String? = null,
@@ -162,7 +164,7 @@ interface TwitterV2 {
     @Throws(TwitterException::class)
     fun searchAll(
         query: String,
-        endTime: Date? = null,
+        endTime: Instant? = null,
         expansions: String? = null,
         maxResults: Int? = null,
         mediaFields: String? = null,
@@ -170,7 +172,7 @@ interface TwitterV2 {
         placeFields: String? = null,
         pollFields: String? = null,
         sinceId: Long? = null,
-        startTime: Date? = null,
+        startTime: Instant? = null,
         tweetFields: String? = null,
         untilId: Long? = null,
         userFields: String? = null,
@@ -185,10 +187,10 @@ interface TwitterV2 {
     @Throws(TwitterException::class)
     fun countRecent(
         query: String,
-        endTime: Date? = null,
+        endTime: Instant? = null,
         granularity: String? = null,
         sinceId: Long? = null,
-        startTime: Date? = null,
+        startTime: Instant? = null,
         untilId: Long? = null
     ): CountsResponse
 
@@ -201,11 +203,11 @@ interface TwitterV2 {
     @Throws(TwitterException::class)
     fun countAll(
         query: String,
-        endTime: Date? = null,
+        endTime: Instant? = null,
         granularity: String? = null,
         nextToken: PaginationToken? = null,
         sinceId: Long? = null,
-        startTime: Date? = null,
+        startTime: Instant? = null,
         untilId: Long? = null
     ): CountsResponse
 

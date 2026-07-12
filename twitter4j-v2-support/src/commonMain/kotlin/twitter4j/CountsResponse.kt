@@ -1,6 +1,7 @@
 package twitter4j
 
 import kotlin.jvm.Transient
+import kotlin.time.Instant
 
 class CountsResponse : TwitterResponse {
 
@@ -11,8 +12,8 @@ class CountsResponse : TwitterResponse {
     override var accessLevel = 0
 
     data class Count(
-        val end: Date,
-        val start: Date,
+        val end: Instant,
+        val start: Instant,
         val tweetCount: Int,
     )
 

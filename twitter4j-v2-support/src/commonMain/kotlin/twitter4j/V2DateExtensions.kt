@@ -15,7 +15,5 @@ import kotlin.time.Instant
 
 /** [Poll.endDatetime] を [Instant] として取得する（endDatetime が null の場合は null）。 */
 val Poll.endDatetimeAsInstant: Instant?
-    // 注: 本体の `Date.toInstant()` 拡張は使わない。ライブラリ境界を跨ぐ JVM コンパイルでは
-    // java.util.Date のメンバ toInstant()（java.time.Instant を返す）が優先されて型が合わないため、
-    // 全ターゲットで解決可能な getTime()（epoch millis）経由で生成する。
-    get() = endDatetime?.let { Instant.fromEpochMilliseconds(it.getTime()) }
+    // endDatetime は既に [Instant] 型になったため、互換用のエイリアスとしてそのまま返す。
+    get() = endDatetime

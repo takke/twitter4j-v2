@@ -1,11 +1,13 @@
 package twitter4j
 
+import kotlin.time.Instant
+
 data class Tweet(
     val id: Long,
     val text: String,
     var source: String? = null,
     var lang: String? = null,
-    var createdAt: Date? = null,
+    var createdAt: Instant? = null,
     var publicMetrics: PublicMetrics? = null,
     var nonPublicMetrics: NonPublicMetrics? = null,
     var organicMetrics: OrganicMetrics? = null,
@@ -72,7 +74,7 @@ data class Tweet(
     data class EditControls(
         val editsRemaining: Int,
         val isEditEligible: Boolean,
-        val editableUntil: Date
+        val editableUntil: Instant
     ) {
         constructor(json: JSONObject) : this(
             editsRemaining = ParseUtil.getInt("edits_remaining", json),

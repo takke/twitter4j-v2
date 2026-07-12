@@ -8,6 +8,11 @@ plugins {
 kotlin {
     jvmToolchain(11)
 
+    compilerOptions {
+        // kotlin.time.Instant を公開APIで使用するため一括オプトイン
+        optIn.add("kotlin.time.ExperimentalTime")
+    }
+
     // 本体（twitter4j-core）と同方式: AGP は使わず jvm ターゲットを "android" という名前で構成する。
     jvm("android") {
         // 既存テストは JUnit4（org.junit.Test）ベースのため JUnit Platform は有効化しない。

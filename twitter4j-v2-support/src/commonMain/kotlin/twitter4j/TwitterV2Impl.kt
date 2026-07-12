@@ -1,9 +1,11 @@
 package twitter4j
 
+import kotlin.time.Instant
+
 // KMP移行 Phase 6: java.io（ByteArrayInputStream / IOException / InputStream）依存のメディア
 // アップロード処理は [V2MediaUploadSupport] の expect/actual に隔離した。
 // InputStream は本体 twitter4j-core が commonMain で提供する expect 型（同一パッケージのため import 不要）。
-// Date / ArrayList / HashMap も本体 commonMain / Kotlin 標準の型を使用する。
+// 日時パラメータは kotlin.time.Instant を、ArrayList / HashMap は Kotlin 標準の型を使用する。
 
 private const val MB = 1024 * 1024 // 1 MByte
 
@@ -159,7 +161,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun getUserTweets(
         userId: Long,
-        endTime: Date?,
+        endTime: Instant?,
         exclude: String?,
         expansions: String?,
         maxResults: Int?,
@@ -168,7 +170,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         placeFields: String?,
         pollFields: String?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         tweetFields: String?,
         untilId: Long?,
         userFields: String?,
@@ -195,7 +197,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun getUserMentions(
         userId: Long,
-        endTime: Date?,
+        endTime: Instant?,
         expansions: String?,
         maxResults: Int?,
         mediaFields: String?,
@@ -203,7 +205,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         placeFields: String?,
         pollFields: String?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         tweetFields: String?,
         untilId: Long?,
         userFields: String?,
@@ -230,7 +232,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun getReverseChronologicalTimeline(
         userId: Long,
-        endTime: Date?,
+        endTime: Instant?,
         exclude: String?,
         expansions: String?,
         maxResults: Int?,
@@ -239,7 +241,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         placeFields: String?,
         pollFields: String?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         tweetFields: String?,
         untilId: Long?,
         userFields: String?,
@@ -274,7 +276,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     //@Throws(TwitterException::class)
     //fun getUserTweetsBy(
     //    username: String,
-    //    endTime: Date? = null,
+    //    endTime: Instant? = null,
     //    exclude: String? = null,
     //    expansions: String? = null,
     //    maxResults: Int? = null,
@@ -283,7 +285,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     //    placeFields: String? = null,
     //    pollFields: String? = null,
     //    sinceId: Long? = null,
-    //    startTime: Date? = null,
+    //    startTime: Instant? = null,
     //    tweetFields: String? = null,
     //    untilId: Long? = null,
     //    userFields: String? = null,
@@ -310,7 +312,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     private fun getUserTweetsIn(
         url: String,
-        endTime: Date?,
+        endTime: Instant?,
         exclude: String?,
         expansions: String?,
         maxResults: Int?,
@@ -319,7 +321,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         placeFields: String?,
         pollFields: String?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         tweetFields: String?,
         untilId: Long?,
         userFields: String?
@@ -350,7 +352,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun searchRecent(
         query: String,
-        endTime: Date?,
+        endTime: Instant?,
         expansions: String?,
         maxResults: Int?,
         mediaFields: String?,
@@ -358,7 +360,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         placeFields: String?,
         pollFields: String?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         tweetFields: String?,
         untilId: Long?,
         userFields: String?,
@@ -385,7 +387,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun searchAll(
         query: String,
-        endTime: Date?,
+        endTime: Instant?,
         expansions: String?,
         maxResults: Int?,
         mediaFields: String?,
@@ -393,7 +395,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         placeFields: String?,
         pollFields: String?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         tweetFields: String?,
         untilId: Long?,
         userFields: String?,
@@ -421,7 +423,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     private fun searchTweetsIn(
         url: String,
         query: String,
-        endTime: Date?,
+        endTime: Instant?,
         expansions: String?,
         maxResults: Int?,
         mediaFields: String?,
@@ -429,7 +431,7 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
         placeFields: String?,
         pollFields: String?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         tweetFields: String?,
         untilId: Long?,
         userFields: String?
@@ -461,10 +463,10 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun countRecent(
         query: String,
-        endTime: Date?,
+        endTime: Instant?,
         granularity: String?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         untilId: Long?
     ): CountsResponse {
 
@@ -483,11 +485,11 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     @Throws(TwitterException::class)
     override fun countAll(
         query: String,
-        endTime: Date?,
+        endTime: Instant?,
         granularity: String?,
         nextToken: PaginationToken?,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         untilId: Long?
     ): CountsResponse {
 
@@ -507,11 +509,11 @@ class TwitterV2Impl(private val twitter: Twitter) : TwitterV2 {
     private fun countTweetsIn(
         url: String,
         query: String,
-        endTime: Date?,
+        endTime: Instant?,
         granularity: String? = null,
         nextToken: PaginationToken? = null,
         sinceId: Long?,
-        startTime: Date?,
+        startTime: Instant?,
         untilId: Long?
     ): CountsResponse {
 

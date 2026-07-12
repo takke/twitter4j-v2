@@ -1,10 +1,12 @@
 package twitter4j
 
+import kotlin.time.Instant
+
 data class Poll(
     val id: Long,
     val options: Array<PollOption>,
     val votingStatus: VotingStatus?,
-    val endDatetime: Date?,
+    val endDatetime: Instant?,
     val durationMinutes: Int
 ) {
     // for convenient of serialization

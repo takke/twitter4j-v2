@@ -9,11 +9,6 @@ import kotlin.time.Instant
 
 class PollResponseTest {
 
-    // KMP版の日付パースは kotlinx-datetime（先発グレゴリオ暦）で解釈するため、
-    // AssertJ の文字列比較（java.util.Date 経由 = 1582年以前はユリウス暦）とは
-    // テストデータの1410年で9日ずれる。期待値も Instant.parse 経由の Date で比較する。
-    private fun dateOf(iso8601: String): Date = Date(Instant.parse(iso8601).toEpochMilliseconds())
-
     @Test
     fun whenPollIsOpen() {
         val res = TweetsResponse(
@@ -25,7 +20,7 @@ class PollResponseTest {
         assertThat(res.pollsMap[1410]?.id).isEqualTo(1410)
         assertThat(res.pollsMap[1410]?.options?.size).isEqualTo(2)
         assertThat(res.pollsMap[1410]?.votingStatus).isEqualTo(Poll.VotingStatus.OPEN)
-        assertThat(res.pollsMap[1410]?.endDatetime).isEqualTo(dateOf("1410-07-15T18:00:00.000Z"))
+        assertThat(res.pollsMap[1410]?.endDatetime).isEqualTo(Instant.parse("1410-07-15T18:00:00.000Z"))
         assertThat(res.pollsMap[1410]?.durationMinutes).isEqualTo(1410)
 
         assertThat(res.pollsMap[0]?.votingStatus).isNull()
@@ -64,7 +59,7 @@ class PollResponseTest {
         assertThat(res.pollsMap[1410]?.id).isEqualTo(1410)
         assertThat(res.pollsMap[1410]?.options?.size).isEqualTo(2)
         assertThat(res.pollsMap[1410]?.votingStatus).isNull()
-        assertThat(res.pollsMap[1410]?.endDatetime).isEqualTo(dateOf("1410-07-15T18:00:00.000Z"))
+        assertThat(res.pollsMap[1410]?.endDatetime).isEqualTo(Instant.parse("1410-07-15T18:00:00.000Z"))
         assertThat(res.pollsMap[1410]?.durationMinutes).isEqualTo(1410)
 
         assertThat(res.pollsMap[0]?.votingStatus).isNull()
@@ -83,7 +78,7 @@ class PollResponseTest {
         assertThat(res.pollsMap[1410]?.id).isEqualTo(1410)
         assertThat(res.pollsMap[1410]?.options?.size).isEqualTo(2)
         assertThat(res.pollsMap[1410]?.votingStatus).isEqualTo(Poll.VotingStatus.CLOSED)
-        assertThat(res.pollsMap[1410]?.endDatetime).isEqualTo(dateOf("1410-07-15T18:00:00.000Z"))
+        assertThat(res.pollsMap[1410]?.endDatetime).isEqualTo(Instant.parse("1410-07-15T18:00:00.000Z"))
         assertThat(res.pollsMap[1410]?.durationMinutes).isEqualTo(5)
 
         assertThat(res.pollsMap[0]?.votingStatus).isNull()

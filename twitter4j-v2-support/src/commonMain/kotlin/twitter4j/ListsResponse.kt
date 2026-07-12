@@ -3,13 +3,14 @@ package twitter4j
 import kotlin.jvm.Transient
 
 import kotlin.collections.HashMap
+import kotlin.time.Instant
 
 data class TwitterList(
     val id: Long,
     val name: String,
     // optional fields
     val ownerId: Long? = null,
-    val createdAt: Date? = null,
+    val createdAt: Instant? = null,
     val followerCount: Int? = null,
     val memberCount: Int? = null,
     val isPrivate: Boolean? = null,

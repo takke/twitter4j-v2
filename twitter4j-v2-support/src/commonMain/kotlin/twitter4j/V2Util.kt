@@ -104,18 +104,27 @@ object V2Util {
         return null
     }
 
-    fun dateToISO8601(date: Date?): String? {
+    fun dateToISO8601(date: Instant?): String? {
         date ?: return null
         // 旧実装: SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'") + GMT。
         // KMP(commonMain/iOS)では SimpleDateFormat が使えないため kotlinx-datetime で同一フォーマットを組み立てる。
-        val dt = Instant.fromEpochMilliseconds(date.getTime()).toLocalDateTime(TimeZone.UTC)
+        // 注: Instant.toString() は入力にミリ秒があると "...SSS Z" を出力してしまうため、
+        // 旧出力（秒精度・ミリ秒なし）と互換になるよう手組みで秒までを整形する。
+        val dt = date.toLocalDateTime(TimeZone.UTC)
         fun Int.pad(len: Int) = toString().padStart(len, '0')
         return "${dt.year.pad(4)}-${dt.monthNumber.pad(2)}-${dt.dayOfMonth.pad(2)}" +
                 "T${dt.hour.pad(2)}:${dt.minute.pad(2)}:${dt.second.pad(2)}Z"
     }
 
-    fun parseISO8601Date(key: String, data: JSONObject?): Date? {
-        return ParseUtil.getDate(key, data, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    fun parseISO8601Date(key: String, data: JSONObject?): Instant? {
+        // 旧実装は ParseUtil.getDate(..., "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") でパースしていた。
+        // kotlin.time.Instant.parse は ISO-8601 のミリ秒あり/なし双方を解釈できるため、これで置き換える。
+        val dateStr = data?.optString(key, null)
+        return if (dateStr == null || dateStr == "null") {
+            null
+        } else {
+            Instant.parse(dateStr)
+        }
     }
 
     fun addHttpParamIfNotNull(params: ArrayList<HttpParameter>, name: String, value: String?) {

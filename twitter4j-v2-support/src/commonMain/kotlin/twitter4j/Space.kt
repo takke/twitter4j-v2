@@ -1,20 +1,22 @@
 package twitter4j
 
+import kotlin.time.Instant
+
 data class Space(
     val id: String,
     val hostIds: List<Long>? = null,
-    var createdAt: Date? = null,
+    var createdAt: Instant? = null,
     var creatorId: Long? = null,
     var lang: String? = null,
     var isTicketed: Boolean? = null,
     val invitedUserIds: List<Long>? = null,
     var participantCount: Int? = null,
-    var scheduledStart: Date? = null,
+    var scheduledStart: Instant? = null,
     val speakerIds: List<Long>? = null,
-    var startedAt: Date? = null,
+    var startedAt: Instant? = null,
     val state: State,
     var title: String? = null,
-    var updatedAt: Date? = null,
+    var updatedAt: Instant? = null,
 ) {
     enum class State(val rawValue: String) {
         Live("live"),
