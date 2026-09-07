@@ -26,7 +26,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // 本体 twitter4j-core の共通API（JSONObject / HttpParameter / ParseUtil / Date 等）に依存する。
-                api("org.twitter4j:twitter4j-core:4.1.0-SNAPSHOT")
+                // ※本体を github.io へ公開した日付に合わせて更新すること（セット公開）
+                api("org.twitter4j:twitter4j-core:4.1.0-20260908")
                 // dateToISO8601 の共通実装で使用（本体と同一の 0.8.0）。
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.8.0")
             }
@@ -62,6 +63,17 @@ publishing {
             if (name == "android") {
                 artifactId = "jp.takke.twitter4j-v2"
             }
+        }
+    }
+    // takke.github.io/maven (GitHub Pages の静的 Maven リポジトリ) への公開先
+    // 既定は ../takke.github.io/maven (git clone git@github.com:takke/takke.github.io.git)
+    // -PgithubIoMavenDir=/path/to/takke.github.io/maven で上書き可能
+    // publish: ./gradlew :twitter4j-v2-support:publishAllPublicationsToGithubIoRepository
+    repositories {
+        maven {
+            name = "githubIo"
+            val dir = project.findProperty("githubIoMavenDir")?.toString() ?: "${rootDir}/../takke.github.io/maven"
+            url = file(dir).toURI()
         }
     }
 }
